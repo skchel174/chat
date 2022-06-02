@@ -13,6 +13,8 @@ services:
   frontend-node:
     build:
       context: frontend/docker/node
+    environment:
+      PORT: 8080
     volumes:
       - ./frontend:/app
     command: sh -c "until [ -f .is-ready ] ; do sleep 1 ; done && npm run start"

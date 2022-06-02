@@ -1,0 +1,25 @@
+version: "3"
+
+services:
+
+  frontend-nginx:
+    build:
+      context: frontend/docker/nginx
+    ports:
+      - "8080:80"
+    depends_on:
+      - frontend-node
+
+  frontend-node:
+    build:
+      context: frontend/docker/node
+    volumes:
+      - ./frontend:/app
+    command: sh -c "until [ -f .is-ready ] ; do sleep 1 ; done && npm run start"
+    tty: true
+
+  frontend-cli:
+    build:
+      context: frontend/docker/node
+    volumes:
+      - ./frontend:/app

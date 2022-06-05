@@ -1,5 +1,5 @@
 import {Box} from "@mui/material";
-import {ComponentResolver, useLayoutContext} from "layouts/Main/LayoutContext";
+import {ComponentResolver, useLayoutContext} from "frontend/src/pages/Main/LayoutContext";
 
 const MiddleColumn = () => {
 

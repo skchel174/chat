@@ -1,4 +1,4 @@
-import Layout from "layouts/Main/Layout";
+import MainPage from "frontend/src/pages/Main/Layout";
 import {createContext, useState, useContext} from "react";
 
 const components = {};
@@ -53,7 +53,7 @@ export const LayoutContext = () => {
 
   return (
     <Context.Provider value={{leftColumn, middleColumn, rightColumn}}>
-      <Layout/>
+      <MainPage/>
     </Context.Provider>
   );
 };

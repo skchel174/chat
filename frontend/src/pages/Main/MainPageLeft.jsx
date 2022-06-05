@@ -1,6 +1,6 @@
 import {Drawer} from "@mui/material";
 import PropTypes from "prop-types";
-import {ComponentResolver, useLayoutContext} from "layouts/Main/LayoutContext";
+import {ComponentResolver, useLayoutContext} from "frontend/src/pages/Main/LayoutContext";
 
 const LeftColumn = ({width}) => {
 

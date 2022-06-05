@@ -1,11 +1,10 @@
-import Layout from "layouts/Main/Layout";
 import {createContext, useState, useContext} from "react";
 
 const components = {};
 
 const Context = createContext();
 
-export const useLayoutContext = () => {
+export const useMainPageContext = () => {
   return useContext(Context);
 }
 
@@ -17,7 +16,7 @@ export const ComponentResolver = ({component}) => {
     : null;
 };
 
-export const LayoutContext = () => {
+export const MainPageContext = ({children}) => {
   const [leftComponent, setLeftComponent] = useState(null);
   const [isLeftOpen, setLeftOpen] = useState(false);
 
@@ -52,8 +51,14 @@ export const LayoutContext = () => {
   };
 
   return (
-    <Context.Provider value={{leftColumn, middleColumn, rightColumn}}>
-      <Layout/>
+    <Context.Provider
+      value={{
+        leftColumn,
+        middleColumn,
+        rightColumn,
+      }}
+    >
+      {children}
     </Context.Provider>
   );
 };

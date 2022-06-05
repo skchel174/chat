@@ -1,14 +1,14 @@
 import {Box} from "@mui/material";
-import {ComponentResolver, useLayoutContext} from "layouts/Main/LayoutContext";
+import {ComponentResolver, useMainPageContext} from "pages/Main/MainPageContext";
 
-const MiddleColumn = () => {
+const MainPageMiddle = () => {
 
   const styles = {
     flexGrow: 1,
     backgroundColor: 'inherit',
   };
 
-  const {middleColumn} = useLayoutContext();
+  const {middleColumn} = useMainPageContext();
 
   return (
     <Box
@@ -22,4 +22,4 @@ const MiddleColumn = () => {
   );
 }
 
-export default MiddleColumn;
+export default MainPageMiddle;

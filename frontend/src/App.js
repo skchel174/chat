@@ -1,10 +1,29 @@
-import {LayoutContext as MainLayout} from "layouts/Main/LayoutContext";
+import {Routes, Route} from "react-router-dom";
+import MainPage from "pages/Main/MainPage";
+import NotFoundPage from "pages/NotFound/NotFoundPage";
+import {Box} from "@mui/material";
 
 const App = () => {
   return (
-    <div className="App">
-      <MainLayout/>
-    </div>
+    <Box
+      className="App"
+      sx={{
+        width: "100%",
+        height: "100%",
+      }}
+    >
+      <Routes>
+        <Route
+          path="/"
+          element={<MainPage/>}
+        />
+
+        <Route
+          path="*"
+          element={<NotFoundPage/>}
+        />
+      </Routes>
+    </Box>
   );
 }
 

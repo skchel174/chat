@@ -1,11 +1,12 @@
 import {useEffect, useState} from "react";
 import {Box} from '@mui/material';
 import useBreakpoints from "hooks/common/useBreakpoints";
-import LeftColumn from "layouts/Main/LeftColumn";
-import MiddleColumn from "layouts/Main/MiddleColumn";
-import RightColumn from "layouts/Main/RightColumn";
+import MainPageLeft from "pages/Main/MainPageLeft";
+import MainPageMiddle from "pages/Main/MainPageMiddle";
+import MainPageRight from "pages/Main/MainPageRight";
+import {MainPageContext} from "pages/Main/MainPageContext";
 
-const Layout = () => {
+const MainPage = () => {
   const {ex} = useBreakpoints();
 
   const [leftColumnWidth, setLeftColumnWidth] = useState(400);
@@ -22,14 +23,16 @@ const Layout = () => {
   }, [ex]);
 
   return (
-    <Box sx={{
-      display: 'flex',
-    }}>
-      <LeftColumn width={leftColumnWidth}/>
-      <MiddleColumn/>
-      <RightColumn width={rightColumnWidth}/>
-    </Box>
+    <MainPageContext>
+      <Box sx={{
+        display: 'flex',
+      }}>
+        <MainPageLeft width={leftColumnWidth}/>
+        <MainPageMiddle/>
+        <MainPageRight width={rightColumnWidth}/>
+      </Box>
+    </MainPageContext>
   );
 }
 
-export default Layout;
+export default MainPage;

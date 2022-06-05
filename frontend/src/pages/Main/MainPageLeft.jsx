@@ -1,8 +1,8 @@
 import {Drawer} from "@mui/material";
 import PropTypes from "prop-types";
-import {ComponentResolver, useLayoutContext} from "frontend/src/pages/Main/LayoutContext";
+import {ComponentResolver, useMainPageContext} from "pages/Main/MainPageContext";
 
-const LeftColumn = ({width}) => {
+const MainPageLeft = ({width}) => {
 
   const styles = {
     width,
@@ -12,7 +12,7 @@ const LeftColumn = ({width}) => {
     },
   };
 
-  const {leftColumn} = useLayoutContext();
+  const {leftColumn} = useMainPageContext();
 
   return (
     <Drawer
@@ -28,9 +28,9 @@ const LeftColumn = ({width}) => {
   );
 };
 
-LeftColumn.propTypes = {
+MainPageLeft.propTypes = {
   width: PropTypes.number.isRequired,
 };
 
-export default LeftColumn;
+export default MainPageLeft;
 

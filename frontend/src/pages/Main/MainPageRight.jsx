@@ -1,8 +1,8 @@
 import {Drawer} from "@mui/material";
 import PropTypes from "prop-types";
-import {ComponentResolver, useLayoutContext} from "./LayoutContext";
+import {ComponentResolver, useMainPageContext} from "pages/Main/MainPageContext";
 
-const RightColumn = ({width}) => {
+const MainPageRight = ({width}) => {
 
   const styles = {
     width,
@@ -12,7 +12,7 @@ const RightColumn = ({width}) => {
     },
   };
 
-  const {rightColumn} = useLayoutContext();
+  const {rightColumn} = useMainPageContext();
 
   return (
     <Drawer
@@ -28,8 +28,8 @@ const RightColumn = ({width}) => {
   );
 };
 
-RightColumn.propTypes = {
+MainPageRight.propTypes = {
   width: PropTypes.number.isRequired,
 };
 
-export default RightColumn;
+export default MainPageRight;

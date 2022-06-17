@@ -17,10 +17,6 @@ const Header = ({chat}) => {
 
   const leftColumn = useLeftColumn();
 
-  useEffect(() => {
-    console.log(ex)
-  })
-
   const {open, setComponent} = useRightColumn();
 
   const openSearch = () => {

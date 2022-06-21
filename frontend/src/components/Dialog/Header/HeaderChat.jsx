@@ -17,7 +17,6 @@ const Chat = styled("div")(
 
 const HeaderChat = ({chat}) => {
   const {title, avatar, members, activityDate} = useChatInfo(chat);
-
   const {open, setComponent} = useRightColumn();
 
   const showChatInfo = () => {
@@ -48,8 +47,8 @@ const HeaderChat = ({chat}) => {
         </ChatTitle>
         {
           chat.type === "group"
-            ? <ChatSubtitle>{members}</ChatSubtitle>
-            : <ChatSubtitle>{"Last seen " + activityDate}</ChatSubtitle>
+            ? <ChatSubtitle>{members} members</ChatSubtitle>
+            : <ChatSubtitle>Last seen {activityDate}</ChatSubtitle>
         }
       </Stack>
     </Stack>

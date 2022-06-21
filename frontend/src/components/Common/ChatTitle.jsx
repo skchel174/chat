@@ -20,7 +20,6 @@ const ChatTitle = ({children, sx = {}}) => {
 };
 
 ChatTitle.propTypes = {
-  children: PropTypes.string.isRequired,
   sx: PropTypes.object,
 };
 

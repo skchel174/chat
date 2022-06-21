@@ -1,5 +1,4 @@
 import {Box, useTheme} from "@mui/material";
-import PropTypes from "prop-types";
 
 const ChatSubtitle = ({children, sx = {}}) => {
   const theme = useTheme();
@@ -20,10 +19,6 @@ const ChatSubtitle = ({children, sx = {}}) => {
       {children}
     </Box>
   )
-};
-
-ChatSubtitle.propTypes = {
-  children: PropTypes.string.isRequired,
 };
 
 export default ChatSubtitle;

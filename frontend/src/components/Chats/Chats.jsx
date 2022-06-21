@@ -1,17 +1,27 @@
-import Chat from "components/Chat";
 import ChatsHeader from "./ChatsHeader";
-import {useEffect} from "react";
 import ChatsMenu from "./ChatsMenu";
+import ChatsItem from "./ChatsItem";
 import usePopover from "hooks/common/usePopover";
 import DrawerContainer from "components/Layout/DrawerContainer";
-import ChatsContainer from "./ChatsContainer";
 import useInput from "hooks/common/useInput";
-import {useLeftColumn} from "infrastructure/Context/LeftColumnContext";
 import useBreakpoints from "hooks/common/useBreakpoints";
+import {useEffect} from "react";
+import {useLeftColumn} from "infrastructure/Context/LeftColumnContext";
 import {useDispatch, useSelector} from "react-redux";
 import {setSelectedChat} from "store/chatsSlice";
-import getChats from "store/chatsSlice/getChats";
 import {useCenter} from "infrastructure/Context/CenterContext";
+import getChats from "store/chatsSlice/getChats";
+import {styled} from "@mui/material";
+
+const ChatsList = styled("div")(
+  () => ({
+    height: "100%",
+    padding: ".5rem",
+    display: "flex",
+    flexDirection: "column",
+    overflow: "auto",
+  })
+);
 
 const Chats = () => {
   const dispatch = useDispatch();
@@ -61,10 +71,10 @@ const Chats = () => {
     <DrawerContainer>
       <ChatsHeader input={input}/>
 
-      <ChatsContainer>
+      <ChatsList>
         {
           chats.map(chat =>
-            <Chat
+            <ChatsItem
               key={chat.id}
               chat={chat}
               selected={selectedChat === chat.id}
@@ -73,7 +83,7 @@ const Chats = () => {
             />
           )
         }
-      </ChatsContainer>
+      </ChatsList>
 
       <ChatsMenu
         position={popover.position}

@@ -8,8 +8,7 @@ const ChatAvatar = ({img = null, alt = null}) => {
       className="chat__avatar"
       sx={{
         height: "100%",
-        width: "auto",
-        marginRight: ".6rem"
+        width: "100%",
       }}
       src={img && requireImage(img)}
       alt={alt}

@@ -1,19 +1,10 @@
-import {Box, Stack, styled} from "@mui/material";
+import {Stack} from "@mui/material";
 import {useRightColumn} from "infrastructure/Context/RightColumnContext";
 import ChatTitle from "components/Common/ChatTitle";
 import ChatSubtitle from "components/Common/ChatSubtitle";
 import ChatAvatar from "components/Common/ChatAvatar";
 import useChatInfo from "hooks/useChatInfo";
 import PropTypes from "prop-types";
-
-const Chat = styled("div")(
-  () => ({
-    display: "flex",
-    alignItems: "center",
-    height: "100%",
-    overflow: "hidden",
-  })
-);
 
 const HeaderChat = ({chat}) => {
   const {title, avatar, members, activityDate} = useChatInfo(chat);
@@ -25,9 +16,7 @@ const HeaderChat = ({chat}) => {
   }
 
   return (
-    <Stack
-      direction="row"
-    >
+    <Stack direction="row">
       <ChatAvatar
         sx={{
           width: "3rem",

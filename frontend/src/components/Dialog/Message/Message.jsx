@@ -1,45 +1,57 @@
 import PropTypes from "prop-types";
-import MessageContainer from "./MessageContainer";
-import MessageAvatar from "./MessageAvatar";
 import MessageBox from "./MessageBox";
-import MessageAuthor from "./MessageAuthor";
-import MessageText from "./MessageText";
 import MessageMeta from "./MessageMeta";
 import MessageAppendix from "./MessageAppendix";
-import user from "storage/user";
-import chat from "storage/chat";
+import ChatAvatar from "components/Common/ChatAvatar";
+import {styled, Typography} from "@mui/material";
+import useMessageInfo from "hooks/useMessageInfo";
 
-export const TYPE = {
-  INPUT: 'input',
-  OUTPUT: 'output',
-};
+const MessageContainer = styled("div", {
+  shouldForwardProp: (prop) => prop !== "type",
+})(({type}) => ({
+  position: "relative",
+  margin: "15px 0",
+  width: "100%",
+  display: "flex",
+  alignItems: "flex-end",
+  justifyContent: type === "input" ? "flex-start" : "flex-end",
+}));
 
 const Message = ({message}) => {
-  // todo: add to hook
-  const messageType = message.author.id === user.id ? TYPE.OUTPUT : TYPE.INPUT;
-  const chatType = chat.type === "group" ? "group" : "individual";
+  const {type, time, author, chatType} = useMessageInfo(message);
 
   return (
-    <MessageContainer type={messageType}>
+    <MessageContainer type={type}>
       {
-        (chatType === "group" && messageType === TYPE.INPUT) &&
-        <MessageAvatar
-          img={message.author.img}
-          alt={message.author.name}
+        (chatType === "group" && type === "input") &&
+        <ChatAvatar
+          sx={{marginRight: ".4rem"}}
+          img={author.img}
+          name={author.name}
         />
       }
 
-      <MessageBox type={messageType}>
+      <MessageBox type={type}>
         {
-          chatType === "group" && <MessageAuthor author={message.author.name}/>
+          (chatType === "group" && type === "input") &&
+          <Typography
+            fontSize=".8rem"
+            fontWeight="600"
+            sx={{marginBottom: ".4rem"}}
+          >
+            {author.name}
+          </Typography>
         }
 
-        <MessageText>
+        <Typography
+          lineHeight="1.3"
+          fontSize=".9rem"
+        >
           {message.text}
-          <MessageMeta time={message.time}/>
-        </MessageText>
+          <MessageMeta time={time}/>
+        </Typography>
 
-        <MessageAppendix type={messageType}/>
+        <MessageAppendix type={type}/>
       </MessageBox>
     </MessageContainer>
   )

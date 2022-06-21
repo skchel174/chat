@@ -1,16 +1,23 @@
 import HeaderContainer from "components/Layout/HeaderContainer";
 import HeaderChat from "./HeaderChat";
-import {Box, IconButton} from "@mui/material";
+import {Box, IconButton, styled} from "@mui/material";
 import PropTypes from "prop-types";
 import useBreakpoints from "hooks/common/useBreakpoints";
 import ArrowBack from "@mui/icons-material/ArrowBack";
 import {useLeftColumn} from "infrastructure/Context/LeftColumnContext";
-import {useEffect} from "react";
 import SearchIcon from "@mui/icons-material/Search";
 import MoreIcon from "@mui/icons-material/MoreVert";
 import HeaderMenu from "./HeaderMenu";
 import {useRightColumn} from "infrastructure/Context/RightColumnContext";
 import usePopover from "hooks/common/usePopover";
+
+const Content = styled("div")(
+  ({theme}) => ({
+    width: "100%",
+    boxShadow: theme.palette.shadow.secondary,
+    zIndex: 1000,
+  })
+);
 
 const Header = ({chat}) => {
   const {ex} = useBreakpoints();
@@ -34,12 +41,7 @@ const Header = ({chat}) => {
   });
 
   return (
-    <Box
-      sx={{
-        width: "100%",
-        boxShadow: "0 2px 2px rgba(114, 114, 114, .15)",
-      }}
-    >
+    <Content>
       <HeaderContainer>
         {
           ex &&
@@ -71,7 +73,7 @@ const Header = ({chat}) => {
           />
         </Box>
       </HeaderContainer>
-    </Box>
+    </Content>
   )
 };
 

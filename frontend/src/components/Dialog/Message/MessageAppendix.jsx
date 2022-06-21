@@ -17,7 +17,7 @@ const MessageAppendix = ({type}) => {
       sx={{
         bottom: "-0.14rem",
         left: type === TYPE.INPUT ? "-0.4rem" : "auto",
-        right: type === TYPE.OUTPUT ? "-0.51rem" : "auto",
+        right: type === TYPE.OUTPUT ? "-0.5rem" : "auto",
         color: type === TYPE.INPUT
           ? theme.palette.background.primary
           : theme.palette.background.success,

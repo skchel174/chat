@@ -1,50 +1,40 @@
 import Messages from "./Messages";
 import Form from "./Form";
-import DialogCenter from "./DialogCenter";
-import DialogContent from "./DialogContent";
-import useBreakpoints from "hooks/common/useBreakpoints";
-import {useRightColumn} from "infrastructure/Context/RightColumnContext";
-import {useEffect, useState} from "react";
-import DialogMessages from "./DialogMessages";
 import Header from "./Header";
-import messages from "storage/messages";
-import chat from "storage/chat";
-
+import {Box, Stack} from "@mui/material";
+import useChat from "hooks/useChat";
+import DialogCenter from "./DialodCenter";
 
 const Dialog = () => {
-  const {md} = useBreakpoints();
-  const {isOpen} = useRightColumn();
-
-  const [contentWidth, setContentWidth] = useState({
-    width: "70%",
-    minWidth: "400px",
-    maxWidth: "1200px",
-  });
-
-  useEffect(() => {
-    setContentWidth(prev => ({
-      ...prev,
-      width: (md || isOpen) ? "95%" : "70%",
-    }))
-  }, [md, isOpen])
+  const {chat} = useChat();
 
   return (
-    <DialogContent>
-      <Header chat={chat}/>
+    <Stack sx={{
+      height: "100vh",
+    }}>
+      {
+        chat && <>
+          <Header chat={chat}/>
 
-      <DialogMessages>
-        <DialogCenter width={contentWidth}>
-          <Messages
-            contentWidth={contentWidth}
-            messages={messages}
-          />
-        </DialogCenter>
-      </DialogMessages>
+          <Box sx={{
+            width: "100%",
+            height: "100%",
+            overflowY: "auto",
+          }}>
+            <DialogCenter sx={{height: "100%"}}>
+              <Messages messages={chat.messages}/>
+            </DialogCenter>
+          </Box>
+        </>
+      }
 
-      <DialogCenter width={contentWidth}>
-        <Form contentWidth={contentWidth}/>
+      <DialogCenter sx={{
+        padding: ".5rem 0",
+        display: "flex",
+      }}>
+        <Form/>
       </DialogCenter>
-    </DialogContent>
+    </Stack>
   )
 };
 

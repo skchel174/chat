@@ -4,6 +4,7 @@ import PropTypes from "prop-types";
 const FormInput = ({value, onChange, onKeyDown}) => {
   return (
     <InputBase
+      autoFocus
       sx={{ml: 1, flex: 1}}
       placeholder="Message"
       multiline

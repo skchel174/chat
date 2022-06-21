@@ -2,44 +2,38 @@ import useInput from "hooks/common/useInput";
 import Appendix from "components/Common/Appendix";
 import {DIRECTION} from "components/Common/Appendix";
 import AttachFileIcon from "@mui/icons-material/AttachFile";
-import {styled} from "@mui/material";
 import FormEmoji from "./FormEmoji";
 import FormInput from "./FormInput";
 import FormIcon from "./FormIcon";
 import FormSubmit from "./FormSubmit";
 import FormField from "./FormField";
-
-const FormContainer = styled("div")(
-  () => ({
-    width: "100%",
-    display: "flex",
-    padding: "10px 0 15px",
-  })
-)
+import {useDispatch} from "react-redux";
+import addMessage from "store/chatsSlice/addMessage";
 
 const Form = () => {
   const {value, setValue, handleInput, handleEnterDown} = useInput('');
+
+  const dispatch = useDispatch();
 
   const sendInput = () => {
     const content = value.trim();
 
     if (content.length > 0) {
-      //todo: add send message function
-      console.log(content);
+      dispatch(addMessage(value));
     }
 
     setValue('');
   };
 
   return (
-    <FormContainer>
+    <>
       <FormField>
         <FormEmoji setInput={setValue}/>
 
         <FormInput
           value={value}
           onChange={handleInput}
-          onKeyDown={handleEnterDown}
+          onKeyDown={(event) => handleEnterDown(event, sendInput)}
         />
 
         <FormIcon>
@@ -59,7 +53,7 @@ const Form = () => {
         isActive={value.length > 0}
         onClick={sendInput}
       />
-    </FormContainer>
+    </>
   )
 };
 

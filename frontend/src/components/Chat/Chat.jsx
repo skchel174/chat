@@ -27,7 +27,7 @@ const Chat = ({chat, selected, handleLeftClick, handleRightClick}) => {
           title={chat.name}
           fWeight={400}
         >
-          <ChatSubtitle content={chat.message.text}/>
+          <ChatSubtitle content={chat.messages[chat.messages.length - 1].text}/>
         </ChatTitle>
 
         <ChatDate date={chat.visit}/>

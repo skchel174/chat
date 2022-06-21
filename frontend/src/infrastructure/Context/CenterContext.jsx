@@ -2,7 +2,7 @@ import {createContext, useContext, useState} from "react";
 
 const Context = createContext();
 
-export const useCenterContext = () => useContext(Context);
+export const useCenter = () => useContext(Context);
 
 const CenterContext = ({children}) => {
   const [component, setComponent] = useState(null);

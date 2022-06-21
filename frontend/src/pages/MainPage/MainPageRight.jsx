@@ -2,11 +2,22 @@ import useBreakpoints from "hooks/common/useBreakpoints";
 import Drawer from "components/Layout/Drawer";
 import {useRightColumn} from "infrastructure/Context/RightColumnContext";
 import ComponentResolver from "infrastructure/Context/ComponentResolver";
+import {useEffect} from "react";
 
-const MainPageRight = ({width}) => {
-  const {md} = useBreakpoints();
+const MainPageRight = () => {
+  const {md, lg, ex} = useBreakpoints();
 
-  const {isOpen, component} = useRightColumn();
+  const {width, setWidth, isOpen, component} = useRightColumn();
+
+  useEffect(() => {
+    if (ex) {
+      setWidth(600);
+    } else if (lg) {
+      setWidth(365);
+    } else {
+      setWidth(400);
+    }
+  }, [ex, lg]);
 
   return (
     <Drawer

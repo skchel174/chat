@@ -7,6 +7,7 @@ export const useRightColumn = () => useContext(Context);
 const RightColumnContext = ({children}) => {
   const [component, setComponent] = useState(null);
   const [isOpen, setOpen] = useState(false);
+  const [width, setWidth] = useState(400);
 
   return (
     <Context.Provider
@@ -14,6 +15,10 @@ const RightColumnContext = ({children}) => {
         isOpen,
         open: () => setOpen(true),
         close: () => setOpen(false),
+
+        width,
+        setWidth,
+
         component,
         setComponent,
       }}

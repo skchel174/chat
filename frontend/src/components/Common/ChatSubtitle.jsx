@@ -5,7 +5,9 @@ const ChatSubtitle = ({children, sx = {}}) => {
   const theme = useTheme();
 
   return (
-    <Box sx={{
+    <Box
+      className="chat-subtitle"
+      sx={{
         fontSize: ".85rem",
         lineHeight: "1.3rem",
         whiteSpace: "nowrap",
@@ -13,7 +15,8 @@ const ChatSubtitle = ({children, sx = {}}) => {
         textOverflow: "ellipsis",
         color: theme.palette.text.secondary,
         ...sx,
-    }}>
+      }}
+    >
       {children}
     </Box>
   )

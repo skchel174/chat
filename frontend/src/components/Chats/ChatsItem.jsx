@@ -1,9 +1,9 @@
 import PropTypes from "prop-types";
-import {Avatar, ListItemButton, Stack, styled} from "@mui/material";
+import {ListItemButton, Stack, styled} from "@mui/material";
 import useChatInfo from "hooks/useChatInfo";
 import ChatTitle from "components/Common/ChatTitle";
 import ChatSubtitle from "components/Common/ChatSubtitle";
-import requireImage from "helpers/requireImage";
+import ChatAvatar from "components/Common/ChatAvatar";
 import formatDate from "helpers/formatDate";
 
 const ChatContainer = styled(ListItemButton, {
@@ -24,7 +24,7 @@ const ChatContainer = styled(ListItemButton, {
     backgroundColor: (active ? theme.palette.active.primary : theme.palette.background.secondary) + "!important",
   },
 
-  "& .chat__title, .chat__subtitle, .folder__date": {
+  "& .chat-title, .chat-subtitle, .chat-date": {
     color: (active && theme.palette.text.neutral),
   }
 }));
@@ -39,14 +39,6 @@ const ChatDate = styled("div")(
   })
 );
 
-const ChatAvatar = styled(Avatar)(
-  () => ({
-    width: "4rem",
-    height: "4rem",
-    marginRight: ".5rem",
-  })
-);
-
 const ChatsItem = ({chat, selected, handleLeftClick, handleRightClick}) => {
   const {title, avatar, currentMessage} = useChatInfo(chat);
 
@@ -56,14 +48,24 @@ const ChatsItem = ({chat, selected, handleLeftClick, handleRightClick}) => {
       onClick={() => handleLeftClick(chat.id)}
       onContextMenu={handleRightClick}
     >
-      <ChatAvatar src={avatar && requireImage(avatar)}>{title[0]}</ChatAvatar>
+      <ChatAvatar
+        sx={{
+          width: "3.5rem",
+          height: "3.5rem",
+          marginRight: ".5rem",
+        }}
+        img={avatar}
+        name={title[0]}
+      />
 
       <Stack sx={{overflow: "hidden"}}>
         <ChatTitle>{title}</ChatTitle>
         <ChatSubtitle>{currentMessage.text}</ChatSubtitle>
       </Stack>
 
-      <ChatDate>{formatDate(currentMessage.created_at, "date")}</ChatDate>
+      <ChatDate className="chat-date">
+        {formatDate(currentMessage.created_at, "date")}
+      </ChatDate>
     </ChatContainer>
   );
 };

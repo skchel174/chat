@@ -2,23 +2,20 @@ import {Avatar} from "@mui/material";
 import requireImage from "helpers/requireImage";
 import PropTypes from "prop-types";
 
-const ChatAvatar = ({img = null, alt = null}) => {
+const ChatAvatar = ({sx = {}, img = null, name = null}) => {
   return (
     <Avatar
-      className="chat__avatar"
-      sx={{
-        height: "100%",
-        width: "100%",
-      }}
+      sx={sx}
       src={img && requireImage(img)}
-      alt={alt}
+      alt={name}
     >
-      {alt && alt[0]}
+      {name && name[0]}
     </Avatar>
   )
 }
 
 ChatAvatar.propTypes = {
+  sx: PropTypes.object,
   alt: PropTypes.string,
   img: PropTypes.string,
 };

@@ -1,29 +1,33 @@
-import {AppBar as MuiAppBar, styled, Toolbar as MuiToolbar} from "@mui/material";
+import {AppBar, Toolbar, useTheme} from "@mui/material";
+import PropTypes from "prop-types";
 
-const AppBar = styled(MuiAppBar)(
-  ({theme}) => ({
-    boxShadow: "none",
-    backgroundColor: theme.palette.background.primary,
-  })
-);
-
-const Toolbar = styled(MuiToolbar)(
-  () => ({
-    padding: ".4rem 1rem!important",
-    justifyContent: "space-between",
-    height: "3.8rem!important",
-  })
-);
-
-const HeaderContainer = ({children}) => {
-
+const HeaderContainer = ({children, sx = {}}) => {
+  const theme = useTheme();
   return (
-    <AppBar position="static">
-      <Toolbar variant="dense">
+    <AppBar
+      position="static"
+      sx={{
+        boxShadow: "none",
+        backgroundColor: theme.palette.background.primary,
+        ...sx,
+      }}
+    >
+      <Toolbar
+        variant="dense"
+        sx={{
+          padding: ".4rem 1rem!important",
+          justifyContent: "space-between",
+          height: "3.8rem!important",
+        }}
+      >
         {children}
       </Toolbar>
     </AppBar>
   )
-}
+};
+
+HeaderContainer.propTypes = {
+  sx: PropTypes.object,
+};
 
 export default HeaderContainer;

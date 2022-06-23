@@ -11,14 +11,14 @@ export default [
       {id: 2, name: 'Homer Simpson', img: 'homer-simpson-avatar.png', visited_at: "2022-06-11 17:38:56"},
     ],
 
-    messages: [{
+    lastMessage: {
       id: 239,
       chatId: 2,
       authorId: 1,
       text: 'At, rerum.',
       date: '2022-06-13',
       time: '22:04',
-    }],
+    },
   },
 
   {
@@ -33,14 +33,14 @@ export default [
       {id: 2, name: 'Homer Simpson', img: 'homer-simpson-avatar.png', visited_at: "2022-06-11 17:38:56"},
     ],
 
-    messages: [{
+    lastMessage: {
       id: 239,
       chatId: 2,
       authorId: 1,
       text: 'At, rerum.',
       date: '2022-06-13',
       time: '22:04',
-    }],
+    },
   },
 
   {
@@ -54,7 +54,5 @@ export default [
       {id: 1, name: 'John Doe', img: 'john-doe-avatar.png', visited_at: "2022-06-11 17:38:56"},
       {id: 2, name: 'Homer Simpson', img: 'homer-simpson-avatar.png', visited_at: "2022-06-11 17:38:56"},
     ],
-
-    messages: [],
   },
 ]

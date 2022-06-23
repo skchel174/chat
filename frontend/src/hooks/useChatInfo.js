@@ -7,11 +7,15 @@ export default function useChatInfo(chat) {
   let avatar;
   let title;
   let activityDate;
-  let members = chat.users.length;
+  let currentMessage;
 
-  const currentMessage = (chat.messages && chat.messages.length > 0)
-    ? chat.messages[chat.messages.length - 1]
-    : null;
+  if (chat.messages && chat.messages.length > 0) {
+    currentMessage = chat.messages[chat.messages.length - 1];
+  } else if (chat.lastMessage) {
+    currentMessage = chat.lastMessage;
+  } else {
+    currentMessage = null;
+  }
 
   if (chat.type === "private") {
     const participant = chat.users.find(chatUser => chatUser.id !== user.id);
@@ -26,6 +30,8 @@ export default function useChatInfo(chat) {
       ? formatDate(currentMessage.date, "date")
       : formatDate(chat.created_at, "date");
   }
+
+  let members = chat.users.length;
 
   return {
     title,

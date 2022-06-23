@@ -3,16 +3,17 @@ import api from "api";
 
 const getMessages = createAsyncThunk(
   'chats/getMessages',
-  async (_, {rejectWithValue}) => {
-    try {
-      const messages = await api.chats.getMessages();
+  async (_, {getState}) => {
+    const {chats} = getState();
 
-      return {
-        messages,
-      };
-    } catch (error) {
-      rejectWithValue(error);
-    }
+    console.log("request messages; chat id: " + chats.selectedChat)
+
+    const messages = await api.chats.getMessages();
+
+    return {
+      chatId: chats.selectedChat,
+      messages,
+    };
   },
 );
 

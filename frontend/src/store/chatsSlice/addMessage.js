@@ -9,10 +9,10 @@ const getMessages = createAsyncThunk(
     const message = {
       id: (new Date).getTime(),
       chatId: state.chats.selectedChat,
-      author: {id: 2, name: 'Homer Simpson', img: 'john-doe-avatar.png'},
-      text,
+      authorId: state.user.data.id,
       date: moment().format("YYYY-MM-DD"),
-      time: moment().format("hh:mm")
+      time: moment().format("hh:mm"),
+      text,
     }
 
     return {

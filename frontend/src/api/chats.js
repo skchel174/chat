@@ -19,7 +19,7 @@ export default {
       setTimeout(() => {
         resolve(messages.map(message => ({
           ...message,
-          id: message.id * (new Date).getTime()
+          id: message.id + (new Date).getTime()
         })))
       }, 2000);
     });

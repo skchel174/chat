@@ -4,7 +4,7 @@ import {useEffect, useRef} from "react";
 const IntersectObserver = ({scrollArea, intersectHandler}) => {
   const observableRef = useRef(null);
 
-  const intersectionCallback = (entries, observer) => {
+  const intersectionCallback = (entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
         intersectHandler();

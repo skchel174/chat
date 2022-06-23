@@ -32,8 +32,8 @@ const ChatContainer = styled(ListItemButton, {
 const ChatDate = styled("div")(
   ({theme}) => ({
     position: "absolute",
-    top: ".7rem",
-    right: ".5rem",
+    top: ".8rem",
+    right: ".6rem",
     fontSize: ".7rem",
     color: theme.palette.text.secondary,
   })
@@ -60,7 +60,9 @@ const ChatsItem = ({chat, selected, handleLeftClick, handleRightClick}) => {
 
       <Stack sx={{overflow: "hidden"}}>
         <ChatTitle>{title}</ChatTitle>
-        <ChatSubtitle>{currentMessage.text}</ChatSubtitle>
+        {
+          <ChatSubtitle>{currentMessage.text}</ChatSubtitle>
+        }
       </Stack>
 
       <ChatDate className="chat-date">

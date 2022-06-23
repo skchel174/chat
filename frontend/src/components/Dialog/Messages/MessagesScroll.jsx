@@ -24,7 +24,7 @@ const ProgressWrapper = styled("div")(
 const MessagesScroll = ({show = false}) => {
   return (
     <ProgressContainer>
-      <Zoom in={show} unmountOnExit>
+      <Zoom in={show}>
         <ProgressWrapper>
           <CircularProgress size="2rem"/>
         </ProgressWrapper>

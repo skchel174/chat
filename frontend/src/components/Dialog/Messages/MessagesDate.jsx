@@ -23,11 +23,9 @@ const Date = styled("div")(
 );
 
 const MessagesDate = ({date}) => {
-  const formattedDate = formatDate(date, "date");
-
   return (
     <DateBox>
-      <Date>{formattedDate}</Date>
+      <Date>{formatDate(date, "date")}</Date>
     </DateBox>
   )
 }

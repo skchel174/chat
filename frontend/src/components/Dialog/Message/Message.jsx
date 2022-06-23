@@ -4,26 +4,23 @@ import MessageMeta from "./MessageMeta";
 import MessageAppendix from "./MessageAppendix";
 import ChatAvatar from "components/Common/ChatAvatar";
 import {styled, Typography} from "@mui/material";
-import useMessageInfo from "hooks/useMessageInfo";
 
 const MessageContainer = styled("div", {
   shouldForwardProp: (prop) => prop !== "type",
 })(({type}) => ({
   position: "relative",
-  margin: "15px 0",
+  margin: ".3rem 0",
   width: "100%",
   display: "flex",
   alignItems: "flex-end",
   justifyContent: type === "input" ? "flex-start" : "flex-end",
 }));
 
-const Message = ({message}) => {
-  const {type, time, author, chatType} = useMessageInfo(message);
-
+const Message = ({type, author, message, isGroupChat}) => {
   return (
     <MessageContainer type={type}>
       {
-        (chatType === "group" && type === "input") &&
+        (isGroupChat && type === "input") &&
         <ChatAvatar
           sx={{marginRight: ".4rem"}}
           img={author.img}
@@ -33,7 +30,7 @@ const Message = ({message}) => {
 
       <MessageBox type={type}>
         {
-          (chatType === "group" && type === "input") &&
+          (isGroupChat && type === "input") &&
           <Typography
             fontSize=".8rem"
             fontWeight="600"
@@ -48,7 +45,7 @@ const Message = ({message}) => {
           fontSize=".9rem"
         >
           {message.text}
-          <MessageMeta time={time}/>
+          <MessageMeta time={message.time}/>
         </Typography>
 
         <MessageAppendix type={type}/>
@@ -58,7 +55,10 @@ const Message = ({message}) => {
 };
 
 Message.propTypes = {
+  type: PropTypes.oneOf(["input", "output"]).isRequired,
+  author: PropTypes.object.isRequired,
   message: PropTypes.object.isRequired,
+  isGroupChat: PropTypes.bool,
 };
 
 export default Message;

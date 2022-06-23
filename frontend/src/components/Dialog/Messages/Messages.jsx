@@ -1,42 +1,40 @@
-import {Box, Stack} from "@mui/material";
-import {useEffect, useRef, useState} from "react";
+import {Stack} from "@mui/material";
+import {useEffect, useState} from "react";
 import PropTypes from "prop-types";
-import Message from "../Message";
-import MessagesDate from "./MessagesDate";
 import IntersectObserver from "components/Common/IntersectObserver";
 import {useDispatch, useSelector} from "react-redux";
 import getMessages from "store/chatsSlice/getMessages";
 import MessagesScroll from "./MessagesScroll";
+import MessagesItem from "./MessagesItem";
 
-const Messages = ({messages}) => {
-  const messagesRef = useRef();
+const Messages = ({messagesRef, chat}) => {
 
-  useEffect(() => {
-    scrollToCurrentMessage(messagesRef.current, {block: "end"})
-  }, []);
+  const messagesStatus = useSelector(state => state.chats.messagesRequestStatus);
 
-  const [viewPosition, setCurrentPosition] = useState(null);
-
-  useEffect(() => {
-    if (viewPosition) {
-      viewPosition.scrollIntoView();
-      setCurrentPosition(null);
-    } else {
-      scrollToCurrentMessage(messagesRef.current, {
-        behavior: "smooth",
-        block: "end",
-      })
-    }
-  }, [messages]);
+  const [position, setPosition] = useState(null);
 
   const dispatch = useDispatch();
 
-  const loadMessages = () => {
-    setCurrentPosition(messagesRef.current.children[2])
-    dispatch(getMessages());
+  const intersectHandler = () => {
+    const messagesEl = messagesRef.current;
+    if (messagesEl.children.length > 2) {
+      setPosition(messagesEl.children[2]);
+      dispatch(getMessages());
+    }
   };
 
-  const messagesStatus = useSelector(state => state.chats.messagesStatus);
+  useEffect(() => {
+    if (position) {
+      position.scrollIntoView({block: "center"});
+      setPosition(null);
+    }
+  }, [chat.messages]);
+
+  const user = useSelector(state => state.user.data);
+
+  const resolveType = (authorId) => authorId === user.id ? "output" : "input";
+
+  const resolveAuthor = (authorId) => chat.users.find(chatUser => chatUser.id === authorId);
 
   return (
     <Stack
@@ -46,20 +44,21 @@ const Messages = ({messages}) => {
     >
       <IntersectObserver
         scrollArea={messagesRef.current}
-        intersectHandler={loadMessages}
+        intersectHandler={intersectHandler}
       />
 
       <MessagesScroll show={messagesStatus === "pending"}/>
 
       {
-        messages.map((message, key) =>
-          <Box key={message.id}>
-            {
-              (messages[key - 1] && messages[key - 1].date !== message.date)
-              && <MessagesDate date={message.date}/>
-            }
-            <Message message={message}/>
-          </Box>
+        chat.messages.map((message, key) =>
+          <MessagesItem
+            key={message.id}
+            chatType={chat.type}
+            messageType={resolveType(message.authorId)}
+            messageAuthor={resolveAuthor(message.authorId)}
+            message={message}
+            prevMessage={chat.messages[key - 1]}
+          />
         )
       }
     </Stack>
@@ -67,15 +66,7 @@ const Messages = ({messages}) => {
 }
 
 Messages.propTypes = {
-  messages: PropTypes.array.isRequired,
+  chat: PropTypes.object.isRequired,
 };
 
 export default Messages;
-
-function scrollToCurrentMessage(messagesEl, options) {
-  if (messagesEl) {
-    const messages = messagesEl.children;
-    const lastChild = messages[messages.length - 1];
-    lastChild.scrollIntoView(options);
-  }
-}

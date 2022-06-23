@@ -40,7 +40,7 @@ const ChatDate = styled("div")(
 );
 
 const ChatsItem = ({chat, selected, handleLeftClick, handleRightClick}) => {
-  const {title, avatar, currentMessage} = useChatInfo(chat);
+  const {title, avatar, activityDate, currentMessage} = useChatInfo(chat);
 
   return (
     <ChatContainer
@@ -61,13 +61,11 @@ const ChatsItem = ({chat, selected, handleLeftClick, handleRightClick}) => {
       <Stack sx={{overflow: "hidden"}}>
         <ChatTitle>{title}</ChatTitle>
         {
-          <ChatSubtitle>{currentMessage.text}</ChatSubtitle>
+          currentMessage && <ChatSubtitle>{currentMessage.text}</ChatSubtitle>
         }
       </Stack>
 
-      <ChatDate className="chat-date">
-        {formatDate(currentMessage.created_at, "date")}
-      </ChatDate>
+      <ChatDate className="chat-date">{activityDate}</ChatDate>
     </ChatContainer>
   );
 };

@@ -8,7 +8,7 @@ const getMessages = createAsyncThunk(
 
     console.log("request messages; chat id: " + chats.selectedChat)
 
-    const messages = await api.chats.getMessages();
+    const messages = await api.chats.getMessages(chats.selectedChat);
 
     return {
       chatId: chats.selectedChat,

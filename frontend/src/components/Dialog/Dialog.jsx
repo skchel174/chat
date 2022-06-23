@@ -1,14 +1,13 @@
 import Messages from "./Messages";
 import Form from "./Form";
 import Header from "./Header";
-import {Box, Stack} from "@mui/material";
 import DialogCenter from "./DialodCenter";
 import {useEffect, useRef} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import useChat from "hooks/useChat";
 import getMessages from "store/chatsSlice/getMessages";
 import addMessage from "store/chatsSlice/addMessage";
-
+import {Box, Stack} from "@mui/material";
 
 const Dialog = () => {
   const {chat} = useChat();

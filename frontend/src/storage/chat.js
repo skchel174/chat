@@ -18,7 +18,7 @@ export default {
 // export default {
 //   id: 1,
 //   name: "John Doe",
-//   type: "individual",
+//   type: "private",
 //   img: "john-doe-avatar.png",
 //   visit: "2022-06-11 17:38:56",
 //

@@ -14,13 +14,15 @@ export default {
     });
   },
 
-  getMessages() {
+  getMessages(chatId) {
     return new Promise(resolve => {
       setTimeout(() => {
-        resolve(messages.map(message => ({
-          ...message,
-          id: message.id + (new Date).getTime()
-        })))
+        resolve(messages
+          .filter(message => message.chatId === chatId)
+          .map(message => ({
+            ...message,
+            id: message.id + (new Date).getTime()
+          })))
       }, 2000);
     });
   },

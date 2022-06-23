@@ -4,7 +4,7 @@ import messages from "storage/messages";
 export default {
   getItems() {
     return new Promise(resolve => {
-      setTimeout(() => resolve(chats.map(chat => ({...chat, messages: []}))), 0);
+      setTimeout(() => resolve(chats.map(chat => ({...chat, messages: []}))), 2000);
     });
   },
 

@@ -4,6 +4,7 @@ import ChatsItem from "./ChatsItem";
 import usePopover from "hooks/common/usePopover";
 import DrawerContainer from "components/Layout/DrawerContainer";
 import useInput from "hooks/common/useInput";
+import ProgressBar from "components/Common/PregressBar";
 import useBreakpoints from "hooks/common/useBreakpoints";
 import {useEffect} from "react";
 import {useLeftColumn} from "infrastructure/Context/LeftColumnContext";
@@ -11,7 +12,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {setSelectedChat} from "store/chatsSlice";
 import {useCenter} from "infrastructure/Context/CenterContext";
 import getChats from "store/chatsSlice/getChats";
-import {styled} from "@mui/material";
+import {Box, Fade, styled} from "@mui/material";
 
 const ChatsList = styled("div")(
   () => ({
@@ -67,9 +68,17 @@ const Chats = () => {
     }
   }, []);
 
+  const chatsRequestStatus = useSelector(state => state.chats.chatsRequestStatus);
+
   return (
     <DrawerContainer>
       <ChatsHeader input={input}/>
+
+      <Fade in={chatsRequestStatus === "pending"}>
+        <Box>
+          <ProgressBar/>
+        </Box>
+      </Fade>
 
       <ChatsList>
         {

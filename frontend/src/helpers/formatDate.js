@@ -2,34 +2,20 @@ import moment from "moment";
 
 export default function formatDate(value, format = null) {
   const timestamp = moment(value);
-
   const today = isToday(timestamp);
 
-  if (format === "datetime") {
-    if (today) {
+  switch (format) {
+    case "datetime":
+      return today ? showTime(timestamp) : showDate(timestamp);
+    case "date":
+      return today ? "Today" : showDate(timestamp);
+    case "time":
       return showTime(timestamp);
-    }
-
-    return showDate(timestamp);
+    case "visit":
+      return today ? timestamp.fromNow() : timestamp.calendar();
+    default:
+      return timestamp.toString();
   }
-
-  if (format === "date") {
-    if (today) {
-      return "Today";
-    }
-
-    return showDate(timestamp);
-  }
-
-  if (format === "visit") {
-    if (today) {
-      return timestamp.fromNow();
-    }
-
-    return timestamp.calendar();
-  }
-
-  return timestamp.toString();
 }
 
 function isToday(timestamp) {

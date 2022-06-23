@@ -10,44 +10,40 @@ import {useEffect, useState} from "react";
 
 const MenuButton = styled(IconButton, {
   shouldForwardProp: (prop) => prop !== "focus",
-})(
-  ({focus}) => ({
-    position: 'absolute',
-    opacity: '1',
-    zIndex: '10',
-    transition: 'opacity .2s, transform .3s !important',
+})(({focus}) => ({
+  position: 'absolute',
+  opacity: '1',
+  zIndex: '10',
+  transition: 'opacity .2s, transform .3s !important',
 
-    "& .MuiSvgIcon-root": {
-      fontSize: "1.5rem",
-    },
+  "& .MuiSvgIcon-root": {
+    fontSize: "1.5rem",
+  },
 
-    ...(focus) && {
-      transform: 'rotate(90deg)',
-      opacity: '0',
-      zIndex: '1',
-    },
-  })
-);
+  ...(focus) && {
+    transform: 'rotate(90deg)',
+    opacity: '0',
+    zIndex: '1',
+  },
+}));
 
 const ForwardButton = styled(IconButton, {
   shouldForwardProp: (prop) => prop !== "focus",
-})(
-  ({focus}) => ({
-    opacity: '0',
-    zIndex: '1',
-    transition: 'opacity .2s, transform .3s !important',
+})(({focus}) => ({
+  opacity: '0',
+  zIndex: '1',
+  transition: 'opacity .2s, transform .3s !important',
 
-    "& .MuiSvgIcon-root": {
-      fontSize: "1.8rem",
-    },
+  "& .MuiSvgIcon-root": {
+    fontSize: "1.8rem",
+  },
 
-    ...(focus) && {
-      transform: 'rotate(180deg)',
-      opacity: '1',
-      zIndex: '10',
-    },
-  })
-)
+  ...(focus) && {
+    transform: 'rotate(180deg)',
+    opacity: '1',
+    zIndex: '10',
+  },
+}));
 
 const ChatsHeader = ({input}) => {
   const focus = useFocus();

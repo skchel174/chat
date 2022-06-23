@@ -4,18 +4,28 @@ import ComponentResolver from "infrastructure/Context/ComponentResolver";
 import Drawer from "components/Layout/Drawer";
 import useBreakpoints from "hooks/common/useBreakpoints";
 
-const MainPageLeft = ({width}) => {
-  const {isOpen, open, component, setComponent} = useLeftColumn();
-
-  useEffect(() => setComponent("Chats"), []);
-
-  const {ex} = useBreakpoints();
+const MainPageLeft = () => {
+  const {width, setWidth, isOpen, open, component, setComponent} = useLeftColumn();
 
   useEffect(() => {
+    setComponent("Chats")
+  }, []);
+
+  const {ex, sm, lg} = useBreakpoints();
+
+  useEffect(() => {
+    if (ex) {
+      setWidth(600);
+    } else if (sm) {
+      setWidth(365);
+    } else {
+      setWidth(400);
+    }
+
     if (!ex) {
       open();
     }
-  }, [ex]);
+  }, [ex, sm, lg]);
 
   return (
     <Drawer

@@ -1,50 +1,75 @@
 import Messages from "./Messages";
 import Form from "./Form";
-import DialogCenter from "./DialogCenter";
-import DialogContent from "./DialogContent";
-import useBreakpoints from "hooks/common/useBreakpoints";
-import {useRightColumn} from "infrastructure/Context/RightColumnContext";
-import {useEffect, useState} from "react";
-import DialogMessages from "./DialogMessages";
 import Header from "./Header";
-import messages from "storage/messages";
-import chat from "storage/chat";
-
+import DialogCenter from "./DialodCenter";
+import {useEffect, useRef} from "react";
+import {useDispatch, useSelector} from "react-redux";
+import useChat from "hooks/useChat";
+import getMessages from "store/chatsSlice/getMessages";
+import addMessage from "store/chatsSlice/addMessage";
+import {Box, Stack} from "@mui/material";
 
 const Dialog = () => {
-  const {md} = useBreakpoints();
-  const {isOpen} = useRightColumn();
+  const {chat} = useChat();
 
-  const [contentWidth, setContentWidth] = useState({
-    width: "70%",
-    minWidth: "400px",
-    maxWidth: "1200px",
-  });
+  const dispatch = useDispatch();
+
+  const chatId = useSelector(state => state.chats.selectedChat);
+
+  const messagesRef = useRef();
 
   useEffect(() => {
-    setContentWidth(prev => ({
-      ...prev,
-      width: (md || isOpen) ? "95%" : "70%",
-    }))
-  }, [md, isOpen])
+    if (chat.messages.length === 0) {
+      dispatch(getMessages())
+        .then(() => scrollToLastMessage(messagesRef.current, {block: "end"}));
+    } else {
+      scrollToLastMessage(messagesRef.current, {block: "end"});
+    }
+  }, [chatId]);
+
+  const submitHandler = (value) => {
+    dispatch(addMessage(value)).then(() => {
+      scrollToLastMessage(messagesRef.current, {
+        behavior: "smooth",
+        block: "end",
+      });
+    });
+  };
+
+  const scrollToLastMessage = (options) => {
+    const messages = messagesRef.current.children;
+    const lastChild = messages[messages.length - 1];
+    lastChild.scrollIntoView(options);
+  };
 
   return (
-    <DialogContent>
-      <Header chat={chat}/>
+    <Stack sx={{height: "100vh"}}>
+      {
+        chat && <>
+          <Header chat={chat}/>
 
-      <DialogMessages>
-        <DialogCenter width={contentWidth}>
-          <Messages
-            contentWidth={contentWidth}
-            messages={messages}
-          />
-        </DialogCenter>
-      </DialogMessages>
+          <Box sx={{
+            width: "100%",
+            height: "100%",
+            overflowY: "auto",
+          }}>
+            <DialogCenter sx={{height: "100%"}}>
+              <Messages
+                messagesRef={messagesRef}
+                chat={chat}
+              />
+            </DialogCenter>
+          </Box>
+        </>
+      }
 
-      <DialogCenter width={contentWidth}>
-        <Form contentWidth={contentWidth}/>
+      <DialogCenter sx={{
+        display: "flex",
+        padding: ".5rem 0",
+      }}>
+        <Form onSubmit={submitHandler}/>
       </DialogCenter>
-    </DialogContent>
+    </Stack>
   )
 };
 

@@ -1,90 +1,58 @@
 export default [
   {
     id: 1,
-    name: "John Doe",
-    type: "individual",
-    img: "john-doe-avatar.png",
-    visit: "2022-06-11 17:38:56",
+    name: null,
+    img: null,
+    type: "private",
+    created_at: "2022-06-05 13:00:00",
 
-    message: {
-      id: 385,
-      author: {id: 1, name: 'John Doe', img: 'john-doe-avatar.png'},
-      text: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Rerum, saepe!",
-      date: "2022-06-05 17:38:56",
+    users: [
+      {id: 1, name: 'John Doe', img: 'john-doe-avatar.png', visited_at: "2022-06-11 17:38:56"},
+      {id: 2, name: 'Homer Simpson', img: 'homer-simpson-avatar.png', visited_at: "2022-06-11 17:38:56"},
+    ],
+
+    lastMessage: {
+      id: 239,
+      chatId: 2,
+      authorId: 1,
+      text: 'At, rerum.',
+      date: '2022-06-13',
+      time: '22:04',
     },
   },
+
   {
     id: 2,
-    name: "My Super Chat",
-    members: 1302,
-    online: 177,
-    type: "group",
+    name: "Super Chat",
     img: "test-chat-img.jpeg",
-    visit: "2022-06-05 17:38:56",
+    type: "group",
+    created_at: "2022-05-23 13:00:00",
 
-    message: {
-      id: 385,
-      author: {id: 1, name: 'John Doe', img: 'john-doe-avatar.png'},
-      text: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Rerum, saepe!",
-      date: "2022-06-05 17:38:56",
+    users: [
+      {id: 1, name: 'John Doe', img: 'john-doe-avatar.png', visited_at: "2022-06-11 17:38:56"},
+      {id: 2, name: 'Homer Simpson', img: 'homer-simpson-avatar.png', visited_at: "2022-06-11 17:38:56"},
+    ],
+
+    lastMessage: {
+      id: 239,
+      chatId: 2,
+      authorId: 1,
+      text: 'At, rerum.',
+      date: '2022-06-13',
+      time: '22:04',
     },
   },
+
   {
     id: 3,
-    name: "John Doe",
-    type: "individual",
-    img: "john-doe-avatar.png",
-    visit: "2022-06-11 17:38:56",
-
-    message: {
-      id: 385,
-      author: {id: 1, name: 'John Doe', img: 'john-doe-avatar.png'},
-      text: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Rerum, saepe!",
-      date: "2022-06-05 17:38:56",
-    },
-  },
-  {
-    id: 4,
-    name: "John Doe",
-    type: "individual",
-    img: "john-doe-avatar.png",
-    visit: "2022-06-11 17:38:56",
-
-    message: {
-      id: 385,
-      author: {id: 1, name: 'John Doe', img: 'john-doe-avatar.png'},
-      text: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Rerum, saepe!",
-      date: "2022-06-05 17:38:56",
-    },
-  },
-  {
-    id: 5,
-    name: "My Super Chat",
-    members: 1302,
-    online: 177,
-    type: "group",
+    name: "Super Chat",
     img: "test-chat-img.jpeg",
-    visit: "2022-06-05 17:38:56",
+    type: "group",
+    created_at: "2022-06-10 13:20:00",
 
-    message: {
-      id: 385,
-      author: {id: 1, name: 'John Doe', img: 'john-doe-avatar.png'},
-      text: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Rerum, saepe!",
-      date: "2022-06-05 17:38:56",
-    },
-  },
-  {
-    id: 6,
-    name: "John Doe",
-    type: "individual",
-    img: "john-doe-avatar.png",
-    visit: "2022-06-13 12:38:56",
-
-    message: {
-      id: 385,
-      author: {id: 1, name: 'John Doe', img: 'john-doe-avatar.png'},
-      text: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Rerum, saepe!",
-      date: "2022-06-13 12:38:56",
-    },
+    users: [
+      {id: 1, name: 'John Doe', img: 'john-doe-avatar.png', visited_at: "2022-06-11 17:38:56"},
+      {id: 2, name: 'Homer Simpson', img: 'homer-simpson-avatar.png', visited_at: "2022-06-11 17:38:56"},
+    ],
   },
 ]

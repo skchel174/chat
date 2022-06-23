@@ -9,9 +9,9 @@ const DialogCenter = ({sx, children}) => {
 
   useEffect(() => {
     if (xl) {
-      setWidth("60%");
-    } else if (lg) {
       setWidth("75%");
+    } else if (lg) {
+      setWidth("85%");
     } else {
       setWidth("95%");
     }

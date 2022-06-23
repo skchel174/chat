@@ -14,6 +14,7 @@ const LightTheme = {
   shadow: {
     primary: "0 .25rem .5rem .125rem rgb(114, 114, 114, .25098)",
     secondary: "0 2px 2px rgba(114, 114, 114, .15)",
+    inset: "inset 0 -0.0625rem 0 0 rgb(228, 228, 229)",
   },
 
   text: {

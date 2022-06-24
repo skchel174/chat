@@ -17,6 +17,10 @@ const LightTheme = {
     inset: "inset 0 -0.0625rem 0 0 rgb(228, 228, 229)",
   },
 
+  border: {
+    primary: "rgb(218, 220, 224)",
+  },
+
   text: {
     primary: "rgb(0, 0, 0)",
     secondary: "rgb(112, 117, 121)",

@@ -3,7 +3,9 @@ import Chats from "components/Chats";
 import Search from "components/Search";
 import Profile from "components/Profile";
 import Dialog from "components/Dialog";
-import {SettingsMenu, ProfileSettings, GeneralSettings} from "components/Settings";
+import SettingsMenu from "components/Settings/Menu";
+import ProfileSettings from "components/Settings/Profile";
+import GeneralSettings from "components/Settings/General";
 
 export const components = {
   Dialog,

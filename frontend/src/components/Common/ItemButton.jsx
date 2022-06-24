@@ -1,28 +1,29 @@
-import {ListItemButton, styled} from "@mui/material";
+import {ListItemButton} from "@mui/material";
 import PropTypes from "prop-types";
 
-const Container = styled(ListItemButton)(
-  () => ({
-    width: "100%",
-    padding: "1rem",
-    lineHeight: "1.5rem",
-    borderRadius: ".75rem",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "space-between",
-  })
-);
-
-const ProfileInfoItem = ({children, onClick}) => {
+const ItemButton = ({children, onClick, sx = {}}) => {
   return (
-    <Container onClick={onClick}>
+    <ListItemButton
+      sx={{
+        width: "100%",
+        padding: "1rem",
+        lineHeight: "1.5rem",
+        borderRadius: ".75rem",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "space-between",
+        ...sx,
+      }}
+      onClick={onClick}
+    >
       {children}
-    </Container>
+    </ListItemButton>
   );
 };
 
-ProfileInfoItem.propTypes = {
+ItemButton.propTypes = {
   onCLick: PropTypes.func,
+  sx: PropTypes.object,
 };
 
-export default ProfileInfoItem;
+export default ItemButton;

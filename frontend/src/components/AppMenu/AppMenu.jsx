@@ -7,15 +7,24 @@ import NightsStayOutlinedIcon from "@mui/icons-material/NightsStayOutlined";
 import HelpOutlineOutlinedIcon from "@mui/icons-material/HelpOutlineOutlined";
 import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined";
 import {useState} from "react";
-import PropTypes from "prop-types";
+import {useLeftColumn} from "infrastructure/Context/LeftColumnContext";
 import Menu from "components/Common/Menu";
 import MenuItem from "components/Common/MenuItem";
+import PropTypes from "prop-types";
 
 const AppMenu = ({position, anchor, handleClose}) => {
   const [nightTheme, setNightTheme] = useState(false);
   const changeTheme = () => setNightTheme(!nightTheme);
 
   const handleItemSelect = () => {
+    handleClose();
+  };
+
+  const leftColumn = useLeftColumn();
+
+  const openSettings = () => {
+    leftColumn.setComponent("SettingsMenu");
+    leftColumn.open();
     handleClose();
   };
 
@@ -43,7 +52,7 @@ const AppMenu = ({position, anchor, handleClose}) => {
       <MenuItem
         icon={<SettingsOutlinedIcon/>}
         title="Settings"
-        handleSelect={handleItemSelect}
+        handleSelect={openSettings}
       />
       <MenuItem
         icon={<NightsStayOutlinedIcon/>}

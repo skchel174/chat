@@ -1,7 +1,7 @@
 import {useEffect} from "react";
 import {useLeftColumn} from "infrastructure/Context/LeftColumnContext";
 import ComponentResolver from "infrastructure/Context/ComponentResolver";
-import Drawer from "components/Layout/Drawer";
+import Drawer from "components/Common/Drawer";
 import useBreakpoints from "hooks/common/useBreakpoints";
 
 const MainPageLeft = () => {

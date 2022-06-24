@@ -1,5 +1,5 @@
 import useBreakpoints from "hooks/common/useBreakpoints";
-import Drawer from "components/Layout/Drawer";
+import Drawer from "components/Common/Drawer";
 import {useRightColumn} from "infrastructure/Context/RightColumnContext";
 import ComponentResolver from "infrastructure/Context/ComponentResolver";
 import {useEffect} from "react";

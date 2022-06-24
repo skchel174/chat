@@ -2,7 +2,7 @@ import ChatsHeader from "./ChatsHeader";
 import ChatsMenu from "./ChatsMenu";
 import ChatsItem from "./ChatsItem";
 import usePopover from "hooks/common/usePopover";
-import DrawerContainer from "components/Layout/DrawerContainer";
+import DrawerContainer from "components/Common/DrawerContainer";
 import useInput from "hooks/common/useInput";
 import ProgressBar from "components/Common/PregressBar";
 import useBreakpoints from "hooks/common/useBreakpoints";

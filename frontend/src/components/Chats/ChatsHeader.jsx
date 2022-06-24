@@ -2,7 +2,7 @@ import useFocus from "hooks/common/useFocus";
 import usePopover from "hooks/common/usePopover";
 import AppMenu from "components/AppMenu";
 import SearchField from "components/Common/SearchField";
-import HeaderContainer from "components/Layout/HeaderContainer";
+import HeaderContainer from "components/Common/HeaderContainer";
 import {Box, IconButton, styled} from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";

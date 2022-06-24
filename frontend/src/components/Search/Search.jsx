@@ -2,7 +2,7 @@ import {styled} from "@mui/material";
 import SearchHeader from "./SearchHeader";
 import useInput from "hooks/common/useInput";
 import {useRightColumn} from "infrastructure/Context/RightColumnContext";
-import DrawerContainer from "components/Layout/DrawerContainer";
+import DrawerContainer from "components/Common/DrawerContainer";
 import {useMemo} from "react";
 import PropTypes from "prop-types";
 

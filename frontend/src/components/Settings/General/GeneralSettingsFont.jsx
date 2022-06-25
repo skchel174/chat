@@ -2,12 +2,15 @@ import DrawerBox from "components/Common/DrawerBox";
 import DrawerTitle from "components/Common/DrawerTitle";
 import ItemButton from "components/Common/ItemButton";
 import StyledIcon from "components/Common/StyledIcon";
+import {useLeftColumn} from "infrastructure/Context/LeftColumnContext";
 import {Box, Slider, Stack, Typography, useTheme} from "@mui/material";
 import InsertPhotoOutlinedIcon from "@mui/icons-material/InsertPhotoOutlined";
 import PropTypes from "prop-types";
 
 const GeneralSettingsFont = ({value, onChange}) => {
   const theme = useTheme();
+
+  const leftColumn = useLeftColumn();
 
   return (
     <DrawerBox sx={{marginBottom: ".625rem"}}>
@@ -46,7 +49,10 @@ const GeneralSettingsFont = ({value, onChange}) => {
         />
       </Stack>
 
-      <ItemButton sx={{justifyContent: "flex-start"}}>
+      <ItemButton
+        sx={{justifyContent: "flex-start"}}
+        onClick={() => leftColumn.setComponent("BackgroundSettings")}
+      >
         <StyledIcon icon={InsertPhotoOutlinedIcon}/>
         <Typography>Chat Background</Typography>
       </ItemButton>

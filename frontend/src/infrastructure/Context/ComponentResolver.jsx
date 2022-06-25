@@ -6,6 +6,7 @@ import Dialog from "components/Dialog";
 import SettingsMenu from "components/Settings/Menu";
 import ProfileSettings from "components/Settings/Profile";
 import GeneralSettings from "components/Settings/General";
+import BackgroundSettings from "components/Settings/Background";
 
 export const components = {
   Dialog,
@@ -15,6 +16,7 @@ export const components = {
   SettingsMenu,
   ProfileSettings,
   GeneralSettings,
+  BackgroundSettings,
 };
 
 const ComponentResolver = ({is}) => {

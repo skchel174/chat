@@ -1,4 +1,3 @@
-import {useState} from "react";
 import DrawerContainer from "components/Common/DrawerContainer";
 import ItemButton from "components/Common/ItemButton";
 import StyledIcon from "components/Common/StyledIcon";
@@ -8,16 +7,27 @@ import wallpapers from "infrastructure/Wallpapers";
 import AddAPhotoOutlinedIcon from '@mui/icons-material/AddAPhotoOutlined';
 import {Checkbox, Stack, Typography, useTheme} from "@mui/material";
 import BackgroundSettingsColor from "./BackgroundSettingsColor";
+import {useDispatch, useSelector} from "react-redux";
+import {setColor, setTmpColor, toggleDefaultWallpapers} from "store/settingsSlice";
 
 const BackgroundSettings = () => {
   const theme = useTheme();
 
-  const [defaultBackground, setDefaultBackground] = useState(true);
-  const selectDefaultBackground = (event) => setDefaultBackground(event.target.checked);
+  const settings = useSelector(state => state.settings);
 
-  const [wallpaperColor, setWallpaperColor] = useState("#e5ddd5");
-  const selectWallpaperColor = (value) => setWallpaperColor(value);
-  const focusWallpaperColor = (value) => console.log(value);
+  const dispatch = useDispatch();
+
+  const toggleWallpapers = () => {
+    dispatch(toggleDefaultWallpapers({defaultWallpapers: !settings.defaultWallpapers}));
+  };
+
+  const selectWallpaperColor = (value) => {
+    dispatch(setColor({color: value}));
+  };
+
+  const focusWallpaperColor = (value) => {
+    dispatch(setTmpColor({tmpColor: value}));
+  };
 
   return (
     <DrawerContainer sx={{
@@ -45,12 +55,15 @@ const BackgroundSettings = () => {
 
         <ItemButton
           sx={{justifyContent: "flex-start"}}
-          onClick={() => setDefaultBackground(!defaultBackground)}
+          onClick={toggleWallpapers}
         >
           <Checkbox
-            checked={defaultBackground}
-            onChange={selectDefaultBackground}
-            sx={{padding: "0 2rem 0 0"}}
+            checked={settings.defaultWallpapers}
+            onChange={toggleWallpapers}
+            sx={{
+              padding: 0,
+              marginRight: "2rem",
+            }}
           />
           <Typography>Set default background</Typography>
         </ItemButton>
@@ -63,14 +76,15 @@ const BackgroundSettings = () => {
           justifyContent="center"
         >
           {
-            wallpapers.map(
-              wallpaper => <BackgroundSettingsColor
-                key={wallpaper}
-                color={wallpaper}
-                selected={wallpaper === wallpaperColor}
-                onFocus={focusWallpaperColor}
-                onClick={selectWallpaperColor}
-              />
+            wallpapers.map(wallpaper => {
+                return <BackgroundSettingsColor
+                  key={wallpaper}
+                  color={wallpaper}
+                  selected={wallpaper === settings.color}
+                  onFocus={focusWallpaperColor}
+                  onClick={selectWallpaperColor}
+                />
+              }
             )
           }
         </Stack>

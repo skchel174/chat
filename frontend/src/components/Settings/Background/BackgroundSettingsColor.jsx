@@ -1,9 +1,12 @@
 import PropTypes from "prop-types";
 import {Box, useTheme} from "@mui/material";
 import useFocus from "hooks/common/useFocus";
+import {useSelector} from "react-redux";
 
 const BackgroundSettingsColor = ({color, onFocus, onClick, selected = false}) => {
   const theme = useTheme();
+
+  const settings = useSelector(state => state.settings);
 
   const {value, focus, blur} = useFocus();
 
@@ -37,7 +40,13 @@ const BackgroundSettingsColor = ({color, onFocus, onClick, selected = false}) =>
       onMouseEnter={handleFocus}
       onMouseLeave={handleBlur}
       onClick={handleClick}
-    />
+    >
+      <Box sx={{
+        height: "100%",
+        width: "100%",
+        backgroundColor: settings.theme === "dark" && "rgb(0, 0, 0, .5)",
+      }}/>
+    </Box>
   );
 };
 

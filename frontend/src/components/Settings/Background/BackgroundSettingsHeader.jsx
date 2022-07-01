@@ -2,10 +2,10 @@ import HeaderContainer from "components/Common/HeaderContainer";
 import {IconButton, useTheme} from "@mui/material";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import HeaderTitle from "components/Common/HeaderTitle";
-import {useLeftColumn} from "infrastructure/Context/LeftColumnContext";
+import {useMainPageLayout} from "pages/MainPage/MainPageContext";
 
 const BackgroundSettingsHeader = () => {
-  const leftColumn = useLeftColumn();
+  const {leftColumn} = useMainPageLayout();
 
   const moveBack = () => leftColumn.setComponent("GeneralSettings");
 

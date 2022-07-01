@@ -11,12 +11,12 @@ import NotificationsNoneOutlinedIcon from '@mui/icons-material/NotificationsNone
 import StorageOutlinedIcon from '@mui/icons-material/StorageOutlined';
 import HttpsOutlinedIcon from '@mui/icons-material/HttpsOutlined';
 import FolderSharedOutlinedIcon from '@mui/icons-material/FolderSharedOutlined';
-import {useLeftColumn} from "infrastructure/Context/LeftColumnContext";
+import {useMainPageLayout} from "pages/MainPage/MainPageContext";
 
 const SettingsMenu = () => {
   const user = useSelector(state => state.user.data);
 
-  const leftColumn = useLeftColumn();
+  const {leftColumn} = useMainPageLayout();
 
   const theme = useTheme();
 

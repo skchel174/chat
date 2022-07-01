@@ -1,4 +1,3 @@
-import {useLeftColumn} from "infrastructure/Context/LeftColumnContext";
 import usePopover from "hooks/common/usePopover";
 import HeaderContainer from "components/Common/HeaderContainer";
 import HeaderTitle from "components/Common/HeaderTitle";
@@ -9,9 +8,10 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import CreateOutlinedIcon from "@mui/icons-material/CreateOutlined";
 import MoreIcon from "@mui/icons-material/MoreVert";
 import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined";
+import {useMainPageLayout} from "pages/MainPage/MainPageContext";
 
 const SettingsMenuHeader = () => {
-  const leftColumn = useLeftColumn();
+  const {leftColumn} = useMainPageLayout();
 
   const popover = usePopover({
     anchor: {

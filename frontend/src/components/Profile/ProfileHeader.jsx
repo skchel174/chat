@@ -1,16 +1,16 @@
 import {IconButton, Stack} from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
-import {useRightColumn} from "infrastructure/Context/RightColumnContext";
 import HeaderContainer from "components/Common/HeaderContainer";
 import HeaderTitle from "components/Common/HeaderTitle";
+import {useMainPageLayout} from "pages/MainPage/MainPageContext";
 
 const ProfileHeader = () => {
-  const {close} = useRightColumn();
+  const {rightColumn} = useMainPageLayout();
 
   return (
     <HeaderContainer>
       <Stack flexDirection="row" alignItems="center">
-        <IconButton onClick={close}>
+        <IconButton onClick={rightColumn.close}>
           <CloseIcon/>
         </IconButton>
 

@@ -1,10 +1,9 @@
-import {useLeftColumn} from "infrastructure/Context/LeftColumnContext";
-import {useRightColumn} from "infrastructure/Context/RightColumnContext";
 import useBreakpoints from "hooks/common/useBreakpoints";
 import HeaderContainer from "components/Common/HeaderContainer";
 import HeaderChat from "./HeaderChat";
 import HeaderMenu from "./HeaderMenu";
 import usePopover from "hooks/common/usePopover";
+import {useMainPageLayout} from "pages/MainPage/MainPageContext";
 import {Box, IconButton, useTheme} from "@mui/material";
 import ArrowBack from "@mui/icons-material/ArrowBack";
 import SearchIcon from "@mui/icons-material/Search";
@@ -14,13 +13,11 @@ import PropTypes from "prop-types";
 const Header = ({chat}) => {
   const {ex} = useBreakpoints();
 
-  const leftColumn = useLeftColumn();
-
-  const {open, setComponent} = useRightColumn();
+  const {leftColumn, rightColumn} = useMainPageLayout();
 
   const openSearch = () => {
-    setComponent('Search');
-    open();
+    rightColumn.setComponent('Search');
+    rightColumn.open();
   };
 
   const openChatOptions = (event) => {

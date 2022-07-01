@@ -1,29 +1,34 @@
 import {useEffect} from "react";
-import {useLeftColumn} from "infrastructure/Context/LeftColumnContext";
-import ComponentResolver from "infrastructure/Context/ComponentResolver";
 import Drawer from "components/Common/Drawer";
 import useBreakpoints from "hooks/common/useBreakpoints";
+import {useMainPageLayout} from "pages/MainPage/MainPageContext";
+import DrawerTransition from "components/Common/DrawerTransition";
+import Chats from "components/Chats";
+import SettingsMenu from "components/Settings/Menu";
+import ProfileSettings from "components/Settings/Profile";
+import GeneralSettings from "components/Settings/General";
+import BackgroundSettings from "components/Settings/Background";
 
 const MainPageLeft = () => {
-  const {width, setWidth, isOpen, open, component, setComponent} = useLeftColumn();
+  const {leftColumn} = useMainPageLayout();
 
   useEffect(() => {
-    setComponent("Chats")
+    leftColumn.setComponent("Chats")
   }, []);
 
   const {ex, sm, lg} = useBreakpoints();
 
   useEffect(() => {
     if (ex) {
-      setWidth(600);
+      leftColumn.setWidth(600);
     } else if (sm) {
-      setWidth(365);
+      leftColumn.setWidth(365);
     } else {
-      setWidth(400);
+      leftColumn.setWidth(400);
     }
 
     if (!ex) {
-      open();
+      leftColumn.open();
     }
   }, [ex, sm, lg]);
 
@@ -31,13 +36,29 @@ const MainPageLeft = () => {
     <Drawer
       anchor="left"
       elevation={0}
-      width={width}
-      open={isOpen}
-      variant={isOpen ? "persistent" : "temporary"}
+      width={leftColumn.width}
+      open={leftColumn.isOpen}
+      variant={leftColumn.isOpen ? "persistent" : "temporary"}
     >
-      {
-        component && <ComponentResolver is={component}/>
-      }
+      <DrawerTransition show={leftColumn.component === "Chats"}>
+        <Chats/>
+      </DrawerTransition>
+
+      <DrawerTransition show={leftColumn.component === "SettingsMenu"}>
+        <SettingsMenu/>
+      </DrawerTransition>
+
+      <DrawerTransition show={leftColumn.component === "ProfileSettings"}>
+        <ProfileSettings/>
+      </DrawerTransition>
+
+      <DrawerTransition show={leftColumn.component === "GeneralSettings"}>
+        <GeneralSettings/>
+      </DrawerTransition>
+
+      <DrawerTransition show={leftColumn.component === "BackgroundSettings"}>
+        <BackgroundSettings/>
+      </DrawerTransition>
     </Drawer>
   )
 }

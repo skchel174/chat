@@ -19,7 +19,7 @@ const Dialog = () => {
   const messagesRef = useRef();
 
   useEffect(() => {
-    if (chat.messages.length === 0) {
+    if (chat?.messages.length === 0) {
       dispatch(getMessages())
         .then(() => scrollToLastMessage(messagesRef.current, {block: "end"}));
     } else {
@@ -37,9 +37,11 @@ const Dialog = () => {
   };
 
   const scrollToLastMessage = (options) => {
-    const messages = messagesRef.current.children;
-    const lastChild = messages[messages.length - 1];
-    lastChild.scrollIntoView(options);
+    if (messagesRef.current) {
+      const messages = messagesRef.current.children;
+      const lastChild = messages[messages.length - 1];
+      lastChild.scrollIntoView(options);
+    }
   };
 
   return (
@@ -60,15 +62,15 @@ const Dialog = () => {
               />
             </DialogCenter>
           </Box>
+
+          <DialogCenter sx={{
+            display: "flex",
+            padding: ".5rem 0",
+          }}>
+            <Form onSubmit={submitHandler}/>
+          </DialogCenter>
         </>
       }
-
-      <DialogCenter sx={{
-        display: "flex",
-        padding: ".5rem 0",
-      }}>
-        <Form onSubmit={submitHandler}/>
-      </DialogCenter>
     </Stack>
   )
 };

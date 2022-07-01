@@ -7,9 +7,9 @@ import NightsStayOutlinedIcon from "@mui/icons-material/NightsStayOutlined";
 import HelpOutlineOutlinedIcon from "@mui/icons-material/HelpOutlineOutlined";
 import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined";
 import {useState} from "react";
-import {useLeftColumn} from "infrastructure/Context/LeftColumnContext";
 import Menu from "components/Common/Menu";
 import MenuItem from "components/Common/MenuItem";
+import {useMainPageLayout} from "pages/MainPage/MainPageContext";
 import PropTypes from "prop-types";
 
 const AppMenu = ({position, anchor, handleClose}) => {
@@ -20,11 +20,12 @@ const AppMenu = ({position, anchor, handleClose}) => {
     handleClose();
   };
 
-  const leftColumn = useLeftColumn();
+  const {leftColumn} = useMainPageLayout();
 
   const openSettings = () => {
     leftColumn.setComponent("SettingsMenu");
     leftColumn.open();
+
     handleClose();
   };
 

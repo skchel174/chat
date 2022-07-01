@@ -7,10 +7,9 @@ import useInput from "hooks/common/useInput";
 import ProgressBar from "components/Common/PregressBar";
 import useBreakpoints from "hooks/common/useBreakpoints";
 import {useEffect} from "react";
-import {useLeftColumn} from "infrastructure/Context/LeftColumnContext";
 import {useDispatch, useSelector} from "react-redux";
 import {setSelectedChat} from "store/chatsSlice";
-import {useCenter} from "infrastructure/Context/CenterContext";
+import {useMainPageLayout} from "pages/MainPage/MainPageContext";
 import getChats from "store/chatsSlice/getChats";
 import {Box, Fade, styled} from "@mui/material";
 
@@ -29,13 +28,12 @@ const Chats = () => {
 
   const selectedChat = useSelector(state => state.chats.selectedChat);
 
-  const center = useCenter();
-  const leftColumn = useLeftColumn();
+  const {leftColumn} = useMainPageLayout();
+
   const {ex} = useBreakpoints();
 
   const select = (id) => {
     dispatch(setSelectedChat({id}));
-    center.setComponent("Dialog");
 
     if (ex) {
       leftColumn.close();

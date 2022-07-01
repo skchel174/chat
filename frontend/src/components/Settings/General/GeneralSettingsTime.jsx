@@ -23,7 +23,7 @@ const GeneralSettingsTime = ({value, onChange}) => {
       >
         <FormControlLabel
           control={<Radio/>}
-          value={12}
+          value="12"
           label={
             <Box sx={{marginLeft: "1rem"}}>12</Box>
           }
@@ -31,7 +31,7 @@ const GeneralSettingsTime = ({value, onChange}) => {
 
         <FormControlLabel
           control={<Radio/>}
-          value={24}
+          value="24"
           label={
             <Box sx={{marginLeft: "1rem"}}>24</Box>
           }
@@ -42,7 +42,7 @@ const GeneralSettingsTime = ({value, onChange}) => {
 };
 
 GeneralSettingsTime.propTypes = {
-  value: PropTypes.number.isRequired,
+  value: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
 };
 

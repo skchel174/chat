@@ -1,4 +1,3 @@
-import {useState} from "react";
 import {useTheme} from "@mui/material";
 import DrawerContainer from "components/Common/DrawerContainer";
 import GeneralSettingsHeader from "./GeneralSettingsHeader";
@@ -6,21 +5,31 @@ import GeneralSettingsFont from "./GeneralSettingsFont";
 import GeneralSettingsTheme from "./GeneralSettingsTheme";
 import GeneralSettingsTime from "./GeneralSettingsTime";
 import GeneralSettingsKeyboard from "./GeneralSettingsKeyboard";
+import {useDispatch, useSelector} from "react-redux";
+import {setFontSize, setKeyboard, setTheme, setTimeFormat} from "store/settingsSlice";
 
 const GeneralSettings = () => {
   const theme = useTheme();
 
-  const [fontSize, setFontSize] = useState(16);
-  const selectFontSize = (event, value) => setFontSize(value);
+  const dispatch = useDispatch();
 
-  const [appTheme, setAppTheme] = useState("light");
-  const selectAppTheme = (event) => setAppTheme(event.target.value);
+  const settings = useSelector(state => state.settings);
 
-  const [timeFormat, setTimeFormat] = useState(24);
-  const selectTimeFormat = (event) => setTimeFormat(event.target.value);
+  const selectFontSize = (event, value) => {
+    dispatch(setFontSize({fontSize: value}));
+  };
 
-  const [keyboard, setKeyboard] = useState("enter");
-  const selectKeyboard = (event) => setKeyboard(event.target.value);
+  const selectAppTheme = (event) => {
+    dispatch(setTheme({theme: event.target.value}));
+  };
+
+  const selectTimeFormat = (event) => {
+    dispatch(setTimeFormat({timeFormat: event.target.value}));
+  };
+
+  const selectKeyboard = (event) => {
+    dispatch(setKeyboard({keyboard: event.target.value}));
+  };
 
   return (
     <DrawerContainer sx={{
@@ -29,22 +38,22 @@ const GeneralSettings = () => {
       <GeneralSettingsHeader/>
 
       <GeneralSettingsFont
-        value={fontSize}
+        value={settings.fontSize}
         onChange={selectFontSize}
       />
 
       <GeneralSettingsTheme
-        value={appTheme}
+        value={settings.theme}
         onChange={selectAppTheme}
       />
 
       <GeneralSettingsTime
-        value={timeFormat}
+        value={settings.timeFormat}
         onChange={selectTimeFormat}
       />
 
       <GeneralSettingsKeyboard
-        value={keyboard}
+        value={settings.keyboard}
         onChange={selectKeyboard}
       />
     </DrawerContainer>

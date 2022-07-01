@@ -4,6 +4,7 @@ import MessageMeta from "./MessageMeta";
 import MessageAppendix from "./MessageAppendix";
 import ChatAvatar from "components/Common/ChatAvatar";
 import {styled, Typography} from "@mui/material";
+import {useSelector} from "react-redux";
 
 const MessageContainer = styled("div", {
   shouldForwardProp: (prop) => prop !== "type",
@@ -17,6 +18,8 @@ const MessageContainer = styled("div", {
 }));
 
 const Message = ({type, author, message, isGroupChat}) => {
+  const settings = useSelector(state => state.settings);
+
   return (
     <MessageContainer type={type}>
       {
@@ -32,7 +35,7 @@ const Message = ({type, author, message, isGroupChat}) => {
         {
           (isGroupChat && type === "input") &&
           <Typography
-            fontSize=".8rem"
+            fontSize={`${settings.fontSize}px`}
             fontWeight="600"
             sx={{marginBottom: ".4rem"}}
           >
@@ -42,7 +45,8 @@ const Message = ({type, author, message, isGroupChat}) => {
 
         <Typography
           lineHeight="1.3"
-          fontSize=".9rem"
+          whiteSpace="pre-line"
+          fontSize={`${settings.fontSize}px`}
         >
           {message.text}
           <MessageMeta time={message.time}/>

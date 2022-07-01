@@ -6,6 +6,8 @@ import FormEmoji from "./FormEmoji";
 import FormIcon from "./FormIcon";
 import FormSubmit from "./FormSubmit";
 import {InputBase, Stack, styled} from "@mui/material";
+import {useEffect, useState} from "react";
+import {useSelector} from "react-redux";
 import PropTypes from "prop-types";
 
 const InputContainer = styled("div")(
@@ -26,14 +28,38 @@ const InputContainer = styled("div")(
 );
 
 const Form = ({onSubmit}) => {
-  const {value, setValue, handleInput, handleEnterDown} = useInput('');
+  const {value, setValue, handleInput} = useInput("");
 
-  const sendInput = () => {
-    const content = value.trim();
+  const handlers = {
+    sendInput: () => {
+      const content = value.trim();
+      if (content.length > 0) {
+        onSubmit(content);
+        setValue('');
+      }
+    },
 
-    if (content.length > 0) {
-      onSubmit(content);
-      setValue('');
+    breakLine: () => {
+      setValue(prev => prev + "\n");
+    }
+  };
+
+  const settings = useSelector(state => state.settings);
+
+  const [enterHandler, setEnterHandler] = useState("sendInput");
+  const [shiftEnterHandler, setShiftEnterHandler] = useState("breakLine");
+
+  useEffect(() => {
+    const isSendMessageByEnter = settings.keyboard === "enter";
+    setEnterHandler(isSendMessageByEnter ? "sendInput" : "breakLine");
+    setShiftEnterHandler(isSendMessageByEnter ? "breakLine" : "sendInput");
+  }, [settings.keyboard]);
+
+  const handleKeydown = (event) => {
+    if (event.keyCode === 13) {
+      const handler = event.shiftKey ? shiftEnterHandler : enterHandler;
+      handlers[handler]()
+      event.preventDefault();
     }
   };
 
@@ -53,7 +79,7 @@ const Form = ({onSubmit}) => {
           maxRows={20}
           value={value}
           onChange={handleInput}
-          onKeyDown={event => handleEnterDown(event, sendInput)}
+          onKeyDown={handleKeydown}
         />
 
         <FormIcon>
@@ -71,7 +97,7 @@ const Form = ({onSubmit}) => {
 
       <FormSubmit
         isActive={value.length > 0}
-        onClick={sendInput}
+        onClick={handlers.sendInput}
       />
     </Stack>
   )

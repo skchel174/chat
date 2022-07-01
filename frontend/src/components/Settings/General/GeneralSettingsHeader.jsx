@@ -2,10 +2,10 @@ import {IconButton, useTheme} from "@mui/material";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import HeaderContainer from "components/Common/HeaderContainer";
 import HeaderTitle from "components/Common/HeaderTitle";
-import {useLeftColumn} from "infrastructure/Context/LeftColumnContext";
+import {useMainPageLayout} from "pages/MainPage/MainPageContext";
 
 const GeneralSettingsHeader = () => {
-  const leftColumn = useLeftColumn();
+  const {leftColumn} = useMainPageLayout();
 
   const moveBack = () => leftColumn.setComponent("SettingsMenu");
 

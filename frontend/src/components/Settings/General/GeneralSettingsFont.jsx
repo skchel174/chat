@@ -2,7 +2,7 @@ import DrawerBox from "components/Common/DrawerBox";
 import DrawerTitle from "components/Common/DrawerTitle";
 import ItemButton from "components/Common/ItemButton";
 import StyledIcon from "components/Common/StyledIcon";
-import {useLeftColumn} from "infrastructure/Context/LeftColumnContext";
+import {useMainPageLayout} from "pages/MainPage/MainPageContext";
 import {Box, Slider, Stack, Typography, useTheme} from "@mui/material";
 import InsertPhotoOutlinedIcon from "@mui/icons-material/InsertPhotoOutlined";
 import PropTypes from "prop-types";
@@ -10,7 +10,7 @@ import PropTypes from "prop-types";
 const GeneralSettingsFont = ({value, onChange}) => {
   const theme = useTheme();
 
-  const leftColumn = useLeftColumn();
+  const {leftColumn} = useMainPageLayout();
 
   return (
     <DrawerBox sx={{marginBottom: ".625rem"}}>
@@ -21,12 +21,10 @@ const GeneralSettingsFont = ({value, onChange}) => {
         Settings
       </DrawerTitle>
 
-      <Stack
-        sx={{
-          width: "100%",
-          padding: "0 1rem 1rem",
-        }}
-      >
+      <Stack sx={{
+        width: "100%",
+        padding: "0 1rem 1rem",
+      }}>
         <Box sx={{
           display: "flex",
           justifyContent: "space-between",
@@ -36,7 +34,9 @@ const GeneralSettingsFont = ({value, onChange}) => {
           <Typography
             component="span"
             color={theme.palette.text.secondary}
-          >{value}</Typography>
+          >
+            {value}
+          </Typography>
         </Box>
 
         <Slider

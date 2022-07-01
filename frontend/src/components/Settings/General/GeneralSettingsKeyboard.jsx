@@ -11,7 +11,7 @@ const GeneralSettingsKeyboard = ({value, onChange}) => {
         marginBottom: "2rem",
         padding: "0 1rem",
       }}>
-        Time Format
+        Keyboard
       </DrawerTitle>
 
       <RadioGroup

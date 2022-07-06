@@ -6,7 +6,7 @@ export const useMainPageLayout = () => useContext(Context);
 
 const MainPageContext = ({children}) => {
   const [leftComponent, setLeftComponent] = useState(null);
-  const [leftOpen, setLeftOpen] = useState(false);
+  const [leftOpen, setLeftOpen] = useState(true);
   const [leftWidth, setLeftWidth] = useState(400);
 
   const leftColumn = {

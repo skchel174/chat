@@ -11,7 +11,7 @@ const FormIcon = ({children}) => {
 
         "& .MuiSvgIcon-root": {
           fontSize: "1.8rem",
-          color: theme.palette.icon.primary,
+          color: theme.palette.text.secondary,
           transition: "color .3s",
 
           "&:hover": {

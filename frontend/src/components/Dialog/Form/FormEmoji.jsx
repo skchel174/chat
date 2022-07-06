@@ -1,29 +1,51 @@
 import PropTypes from "prop-types";
 import {useState, useEffect} from "react";
 import {styled, Zoom} from "@mui/material";
-import EmojiPicker from "components/Common/EmojiPicker";
 import SentimentSatisfiedAltOutlinedIcon from "@mui/icons-material/SentimentSatisfiedAltOutlined";
+import Picker from "emoji-picker-react";
 import FormIcon from "./FormIcon";
 
 const PickerContainer = styled("div")(
-  () => ({
+  ({theme}) => ({
     position: "absolute!important",
     top: "-420px",
     left: 0,
+
+    "& .emoji-picker-react": {
+      width: "26rem",
+      height: "26rem",
+      borderRadius: "10px",
+      backgroundColor: theme.palette.background.primary,
+      border: "none",
+      boxShadow: "none",
+
+      "& .emoji-group:before": {
+        backgroundColor: theme.palette.background.primary,
+      },
+
+      "& input.emoji-search": {
+        backgroundColor: theme.palette.background.primary,
+        border: "1px solid " + theme.palette.background.secondary,
+      },
+    },
   })
 )
 
 const FormEmoji = ({setInput}) => {
-  const [emojiPickerOpen, setEmojiPickerOpen] = useState(false);
+  const [emojiOpen, setEmojiOpen] = useState(false);
 
-  const selectEmoji = (event, {emoji}) => setInput(prev => prev + emoji);
+  const selectEmoji = (event, payload) => {
+    setInput(prev => prev + payload.emoji);
+  };
 
-  const toggleEmojiPicker = () => setEmojiPickerOpen(!emojiPickerOpen);
+  const toggleEmojiPicker = () => {
+    setEmojiOpen(!emojiOpen);
+  };
 
   useEffect(() => {
     const clickHandler = (event) => {
       if (!event.target.closest("#emoji-picker") && !event.target.closest("#emoji-picker-icon")) {
-        setEmojiPickerOpen(false);
+        setEmojiOpen(false);
       }
     };
 
@@ -41,11 +63,11 @@ const FormEmoji = ({setInput}) => {
       </FormIcon>
 
       <Zoom
-        in={emojiPickerOpen}
+        in={emojiOpen}
         mountOnEnter={true}
       >
         <PickerContainer id="emoji-picker">
-          <EmojiPicker handleSelect={selectEmoji}/>
+          <Picker onEmojiClick={selectEmoji}/>
         </PickerContainer>
       </Zoom>
     </>

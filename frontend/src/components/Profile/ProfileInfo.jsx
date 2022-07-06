@@ -23,7 +23,10 @@ const ProfileInfo = ({chat}) => {
   return (
     <Container>
       <ItemButton onClick={toggleNotifications}>
-        <StyledIcon icon={NotificationsNoneOutlinedIcon}/>
+        <StyledIcon
+          sx={{marginRight: "2rem"}}
+          icon={NotificationsNoneOutlinedIcon}
+        />
         <Typography>Notifications</Typography>
         <SwitchButton
           checked={notifications}

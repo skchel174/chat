@@ -53,7 +53,10 @@ const GeneralSettingsFont = ({value, onChange}) => {
         sx={{justifyContent: "flex-start"}}
         onClick={() => leftColumn.setComponent("BackgroundSettings")}
       >
-        <StyledIcon icon={InsertPhotoOutlinedIcon}/>
+        <StyledIcon
+          sx={{marginRight: "2rem"}}
+          icon={InsertPhotoOutlinedIcon}
+        />
         <Typography>Chat Background</Typography>
       </ItemButton>
     </DrawerBox>

@@ -3,6 +3,7 @@ import HeaderContainer from "components/Common/HeaderContainer";
 import HeaderTitle from "components/Common/HeaderTitle";
 import Menu from "components/Common/Menu";
 import MenuItem from "components/Common/MenuItem";
+import StyledIcon from "components/Common/StyledIcon";
 import {Box, IconButton} from "@mui/material";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import CreateOutlinedIcon from "@mui/icons-material/CreateOutlined";
@@ -28,7 +29,7 @@ const SettingsMenuHeader = () => {
     <HeaderContainer>
       <Box sx={{flex: 1}}>
         <IconButton onClick={() => leftColumn.setComponent("Chats")}>
-          <ArrowBackIcon/>
+          <StyledIcon icon={ArrowBackIcon}/>
         </IconButton>
       </Box>
 
@@ -41,11 +42,11 @@ const SettingsMenuHeader = () => {
           sx={{marginRight: ".2rem"}}
           onClick={() => leftColumn.setComponent("ProfileSettings")}
         >
-          <CreateOutlinedIcon/>
+          <StyledIcon icon={CreateOutlinedIcon}/>
         </IconButton>
 
         <IconButton onClick={popover.open}>
-          <MoreIcon/>
+          <StyledIcon icon={MoreIcon}/>
         </IconButton>
       </Box>
 

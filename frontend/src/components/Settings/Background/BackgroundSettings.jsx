@@ -37,7 +37,10 @@ const BackgroundSettings = () => {
 
       <DrawerBox sx={{marginBottom: ".625rem"}}>
         <ItemButton sx={{justifyContent: "flex-start"}}>
-          <StyledIcon icon={AddAPhotoOutlinedIcon}/>
+          <StyledIcon
+            sx={{marginRight: "2rem"}}
+            icon={AddAPhotoOutlinedIcon}
+          />
           <Typography>Chat Background</Typography>
 
           <input

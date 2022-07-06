@@ -41,27 +41,42 @@ const SettingsMenu = () => {
             sx={{justifyContent: "flex-start"}}
             onClick={() => leftColumn.setComponent("GeneralSettings")}
           >
-            <StyledIcon icon={SettingsOutlinedIcon}/>
+            <StyledIcon
+              sx={{marginRight: "2rem"}}
+              icon={SettingsOutlinedIcon}
+            />
             <Typography>General Settings</Typography>
           </ItemButton>
 
           <ItemButton sx={{justifyContent: "flex-start"}}>
-            <StyledIcon icon={NotificationsNoneOutlinedIcon}/>
+            <StyledIcon
+              sx={{marginRight: "2rem"}}
+              icon={NotificationsNoneOutlinedIcon}
+            />
             <Typography>Notifications</Typography>
           </ItemButton>
 
           <ItemButton sx={{justifyContent: "flex-start"}}>
-            <StyledIcon icon={StorageOutlinedIcon}/>
+            <StyledIcon
+              sx={{marginRight: "2rem"}}
+              icon={StorageOutlinedIcon}
+            />
             <Typography>Data and Storage</Typography>
           </ItemButton>
 
           <ItemButton sx={{justifyContent: "flex-start"}}>
-            <StyledIcon icon={HttpsOutlinedIcon}/>
+            <StyledIcon
+              sx={{marginRight: "2rem"}}
+              icon={HttpsOutlinedIcon}
+            />
             <Typography>Privacy and Security</Typography>
           </ItemButton>
 
           <ItemButton sx={{justifyContent: "flex-start"}}>
-            <StyledIcon icon={FolderSharedOutlinedIcon}/>
+            <StyledIcon
+              sx={{marginRight: "2rem"}}
+              icon={FolderSharedOutlinedIcon}
+            />
             <Typography>Chat Folders</Typography>
           </ItemButton>
         </Box>

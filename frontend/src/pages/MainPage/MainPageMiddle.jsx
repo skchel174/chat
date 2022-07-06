@@ -25,7 +25,7 @@ const MainPageMiddle = () => {
   const [wallpapers, setWallpapers] = useState();
 
   useEffect(() => {
-    settings.theme === "light" ? setWallpapers(lightWallpapers) : setWallpapers(darkWallpapers);
+    theme.palette.mode === "light" ? setWallpapers(lightWallpapers) : setWallpapers(darkWallpapers);
   }, [settings.theme]);
 
   return (
@@ -58,7 +58,7 @@ const MainPageMiddle = () => {
       }),
     }}>
       <Box sx={{
-        backgroundColor: settings.theme === "dark" && "rgb(0, 0, 0, .5)",
+        backgroundColor: theme.palette.mode === "dark" && "rgb(0, 0, 0, .8)",
         height: "100%",
         width: "100%",
       }}>

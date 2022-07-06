@@ -7,14 +7,16 @@ const StyledIcon = ({icon, sx = {}}) => {
   const IconComponent = icon;
 
   return (
-    <Box sx={{
-      display: "flex",
-      alignItems: "center",
-      marginRight: "2rem",
-      fontSize: "1.5rem",
-      color: theme.palette.text.secondary,
-      ...sx,
-    }}>
+    <Box
+      className="styled-icon"
+      sx={{
+        display: "flex",
+        alignItems: "center",
+        fontSize: "1.5rem",
+        color: theme.palette.text.secondary,
+        ...sx,
+      }}
+    >
       <IconComponent/>
     </Box>
   )

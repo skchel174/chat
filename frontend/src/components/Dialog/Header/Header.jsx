@@ -9,6 +9,7 @@ import ArrowBack from "@mui/icons-material/ArrowBack";
 import SearchIcon from "@mui/icons-material/Search";
 import MoreIcon from "@mui/icons-material/MoreVert";
 import PropTypes from "prop-types";
+import StyledIcon from "components/Common/StyledIcon";
 
 const Header = ({chat}) => {
   const {ex} = useBreakpoints();
@@ -42,7 +43,7 @@ const Header = ({chat}) => {
           sx={{marginRight: ".5rem"}}
           onClick={() => leftColumn.open()}
         >
-          <ArrowBack/>
+          <StyledIcon icon={ArrowBack}/>
         </IconButton>
       }
 
@@ -52,11 +53,11 @@ const Header = ({chat}) => {
 
       <Box sx={{display: "flex"}}>
         <IconButton onClick={openSearch}>
-          <SearchIcon/>
+          <StyledIcon icon={SearchIcon}/>
         </IconButton>
 
         <IconButton onClick={openChatOptions}>
-          <MoreIcon/>
+          <StyledIcon icon={MoreIcon}/>
         </IconButton>
 
         <HeaderMenu

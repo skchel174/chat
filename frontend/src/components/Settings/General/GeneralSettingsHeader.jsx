@@ -2,6 +2,7 @@ import {IconButton, useTheme} from "@mui/material";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import HeaderContainer from "components/Common/HeaderContainer";
 import HeaderTitle from "components/Common/HeaderTitle";
+import StyledIcon from "components/Common/StyledIcon";
 import {useMainPageLayout} from "pages/MainPage/MainPageContext";
 
 const GeneralSettingsHeader = () => {
@@ -9,15 +10,10 @@ const GeneralSettingsHeader = () => {
 
   const moveBack = () => leftColumn.setComponent("SettingsMenu");
 
-  const theme = useTheme();
-
   return (
-    <HeaderContainer sx={{
-      alignItems: "flex-start",
-      borderBottom: "1px solid " + theme.palette.border.primary,
-    }}>
+    <HeaderContainer sx={{alignItems: "flex-start"}}>
       <IconButton onClick={moveBack}>
-        <ArrowBackIcon/>
+        <StyledIcon icon={ArrowBackIcon}/>
       </IconButton>
 
       <HeaderTitle>General</HeaderTitle>

@@ -1,6 +1,6 @@
 import {styled, Switch} from "@mui/material";
 
-const SwitchButton = styled(Switch)(({ theme }) => ({
+const SwitchButton = styled(Switch)(({theme}) => ({
   marginLeft: "auto",
   width: 28,
   height: 12,
@@ -41,8 +41,7 @@ const SwitchButton = styled(Switch)(({ theme }) => ({
   '& .MuiSwitch-track': {
     borderRadius: 12 / 2,
     opacity: 1,
-    backgroundColor:
-      theme.palette.mode === 'dark' ? 'rgba(255, 255, 255, .35)' : 'rgba(0, 0, 0, .25)',
+    backgroundColor: theme.palette.mode === 'dark' ? 'rgba(255, 255, 255, .35)' : 'rgba(0, 0, 0, .25)',
     boxSizing: 'border-box',
   },
 }));

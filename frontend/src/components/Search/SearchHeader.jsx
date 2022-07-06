@@ -1,8 +1,9 @@
 import {IconButton} from "@mui/material";
-import HeaderContainer from "components/Common/HeaderContainer";
 import CloseIcon from '@mui/icons-material/Close';
 import CalendarTodayOutlinedIcon from '@mui/icons-material/CalendarTodayOutlined';
+import HeaderContainer from "components/Common/HeaderContainer";
 import SearchField from "components/Common/SearchField";
+import StyledIcon from "components/Common/StyledIcon";
 import useFocus from "hooks/common/useFocus";
 import PropTypes from "prop-types";
 
@@ -16,7 +17,7 @@ const SearchHeader = ({input, closeHandler}) => {
         sx={{marginRight: "10px"}}
         onClick={closeHandler}
       >
-        <CloseIcon/>
+        <StyledIcon icon={CloseIcon}/>
       </IconButton>
 
       <SearchField
@@ -25,7 +26,7 @@ const SearchHeader = ({input, closeHandler}) => {
       />
 
       <IconButton sx={{marginLeft: "10px"}}>
-        <CalendarTodayOutlinedIcon/>
+        <StyledIcon icon={CalendarTodayOutlinedIcon}/>
       </IconButton>
     </HeaderContainer>
   )

@@ -4,7 +4,7 @@ const settingsSlice = createSlice({
   name: "settings",
 
   initialState: {
-    theme: "light",
+    theme: "system",
     fontSize: 16,
     timeFormat: "24",
     keyboard: "enter",
@@ -15,7 +15,6 @@ const settingsSlice = createSlice({
 
   reducers: {
     setFontSize: (state, action) => {
-      console.log('test')
       state.fontSize = action.payload.fontSize;
     },
 

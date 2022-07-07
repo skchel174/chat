@@ -26,7 +26,7 @@ const ThemeProvider = ({children}) => {
     return createTheme({
       palette: {...(value === "dark" ? DarkTheme : LightTheme)},
     });
-  }, [settings.theme]);
+  }, [settings.theme, prefersDarkMode]);
 
   return (
     <MuiThemeProvider theme={theme}>

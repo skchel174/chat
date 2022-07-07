@@ -1,6 +1,21 @@
 import PropTypes from "prop-types";
-import {TextField} from "@mui/material";
+import {styled, TextField} from "@mui/material";
 import {useEffect, useState} from "react";
+
+const InputStyle = styled(TextField)(
+  ({theme}) => ({
+    width: "100%",
+
+    "& .MuiOutlinedInput-root": {
+      borderRadius: ".75rem",
+    },
+
+    "& input:-webkit-autofill": {
+      WebkitBoxShadow: `0 0 0 100px ${theme.palette.background.secondary} inset`,
+      WebkitTextFillColor: theme.palette.text.primary,
+    },
+  })
+)
 
 const availableRules = {
   required: () => ({
@@ -16,6 +31,11 @@ const availableRules = {
   max: (max) => ({
     handler: (value) => value.trim().length >= max,
     message: (label) => `Field ${label} may not be greater than ${max} characters.`,
+  }),
+
+  confirm: (confirmationValue) => ({
+    handler: (value) => value === confirmationValue,
+    message: (label) => `Field ${label} does not match.`,
   }),
 };
 
@@ -69,15 +89,8 @@ const InputField = ({
   }, [])
 
   return (
-    <TextField
-      sx={{
-        width: "100%",
-
-        "& .MuiOutlinedInput-root": {
-          borderRadius: ".75rem",
-        },
-        ...sx,
-      }}
+    <InputStyle
+      sx={{...sx}}
       variant="outlined"
       error={error}
       type={type}

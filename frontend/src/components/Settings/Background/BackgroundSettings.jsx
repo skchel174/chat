@@ -8,25 +8,25 @@ import AddAPhotoOutlinedIcon from '@mui/icons-material/AddAPhotoOutlined';
 import {Checkbox, Stack, Typography, useTheme} from "@mui/material";
 import BackgroundSettingsColor from "./BackgroundSettingsColor";
 import {useDispatch, useSelector} from "react-redux";
-import {setColor, setTmpColor, toggleDefaultWallpapers} from "store/settingsSlice";
+import {changeSettings} from "store/settingsSlice";
 
 const BackgroundSettings = () => {
   const theme = useTheme();
 
-  const settings = useSelector(state => state.settings);
+  const settings = useSelector(state => state.settings.data);
 
   const dispatch = useDispatch();
 
   const toggleWallpapers = () => {
-    dispatch(toggleDefaultWallpapers({defaultWallpapers: !settings.defaultWallpapers}));
+    dispatch(changeSettings({defaultWallpapers: !settings.defaultWallpapers}));
   };
 
   const selectWallpaperColor = (value) => {
-    dispatch(setColor({color: value}));
+    dispatch(changeSettings({color: value}));
   };
 
   const focusWallpaperColor = (value) => {
-    dispatch(setTmpColor({tmpColor: value}));
+    dispatch(changeSettings({tmpColor: value}));
   };
 
   return (

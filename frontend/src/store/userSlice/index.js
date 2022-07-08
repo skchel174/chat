@@ -1,4 +1,5 @@
 import {createSlice} from "@reduxjs/toolkit";
+import changeSettings from "./changeSettings";
 
 const userSlice = createSlice({
   name: "user",
@@ -15,7 +16,21 @@ const userSlice = createSlice({
       visited_at: "2022-06-11 17:38:56",
     },
 
-    userRequestStatus: null,
+    settings: {
+      theme: "system",
+      fontSize: 16,
+      timeFormat: "24",
+      keyboard: "enter",
+      color: "#e5ddd5",
+      tmpColor: null,
+      defaultWallpapers: true,
+    },
+  },
+
+  extraReducers: {
+    [changeSettings.fulfilled]: (state, action) => {
+      state.settings = {...state.settings, ...action.payload.settings};
+    },
   },
 });
 

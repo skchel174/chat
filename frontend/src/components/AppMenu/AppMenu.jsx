@@ -10,9 +10,9 @@ import Menu from "components/Common/Menu";
 import MenuItem from "components/Common/MenuItem";
 import {useMainPageLayout} from "pages/MainPage/MainPageContext";
 import {useDispatch} from "react-redux";
-import {setTheme} from "store/settingsSlice";
 import PropTypes from "prop-types";
 import {useTheme} from "@mui/material";
+import {changeSettings} from "store/settingsSlice";
 
 const AppMenu = ({position, anchor, handleClose}) => {
   const dispatch = useDispatch();
@@ -20,7 +20,7 @@ const AppMenu = ({position, anchor, handleClose}) => {
   const theme = useTheme();
 
   const changeTheme = () => {
-    dispatch(setTheme({
+    dispatch(changeSettings({
       theme: (theme.palette.mode === "light" ? "dark" : "light"),
     }));
   };

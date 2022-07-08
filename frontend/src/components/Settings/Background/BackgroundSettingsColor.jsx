@@ -6,7 +6,7 @@ import {useSelector} from "react-redux";
 const BackgroundSettingsColor = ({color, onFocus, onClick, selected = false}) => {
   const theme = useTheme();
 
-  const settings = useSelector(state => state.settings);
+  const settings = useSelector(state => state.settings.data);
 
   const {value, focus, blur} = useFocus();
 

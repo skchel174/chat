@@ -62,7 +62,7 @@ const Form = ({onSubmit}) => {
     }
   };
 
-  const settings = useSelector(state => state.settings);
+  const settings = useSelector(state => state.settings.data);
 
   const [enterHandler, setEnterHandler] = useState("sendInput");
   const [shiftEnterHandler, setShiftEnterHandler] = useState("breakLine");

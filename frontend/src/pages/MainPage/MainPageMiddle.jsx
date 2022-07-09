@@ -12,7 +12,7 @@ const MainPageMiddle = () => {
 
   const {md} = useBreakpoints();
 
-  const settings = useSelector(state => state.settings);
+  const settings = useSelector(state => state.settings.data);
 
   const theme = useTheme();
 

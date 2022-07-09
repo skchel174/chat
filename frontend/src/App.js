@@ -2,7 +2,13 @@ import {Routes, Route} from "react-router-dom";
 import ThemeProvider from "infrastructure/Theme/ThemeProvider";
 import {Box} from "@mui/material";
 import MainPage from "pages/MainPage";
+import SignInPage from "pages/SignInPage";
+import SignUpPage from "pages/SignUpPage";
 import NotFoundPage from "pages/NotFound/NotFoundPage";
+import AuthLayout from "layouts/AuthLayout";
+import AuthGuard from "infrastructure/Auth/AuthGuard";
+import GuestGuard from "infrastructure/Auth/GuestGuard";
+import Auth from "infrastructure/Auth/Auth";
 
 const App = () => {
   const styles = {
@@ -12,22 +18,44 @@ const App = () => {
 
   return (
     <ThemeProvider>
-      <Box
-        className="App"
-        sx={styles}
-      >
-        <Routes>
-          <Route
-            path="/"
-            element={<MainPage/>}
-          />
+      <Auth>
+        <Box
+          className="App"
+          sx={styles}
+        >
+          <Routes>
+            <Route
+              path="/"
+              element={
+                <AuthGuard>
+                  <MainPage/>
+                </AuthGuard>
+              }
+            />
 
-          <Route
-            path="*"
-            element={<NotFoundPage/>}
-          />
-        </Routes>
-      </Box>
+            <Route element={
+              <GuestGuard>
+                <AuthLayout/>
+              </GuestGuard>
+            }>
+              <Route
+                path="/login"
+                element={<SignInPage/>}
+              />
+
+              <Route
+                path="/register"
+                element={<SignUpPage/>}
+              />
+            </Route>
+
+            <Route
+              path="*"
+              element={<NotFoundPage/>}
+            />
+          </Routes>
+        </Box>
+      </Auth>
     </ThemeProvider>
   );
 }

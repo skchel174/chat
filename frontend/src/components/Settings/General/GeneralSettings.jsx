@@ -6,29 +6,29 @@ import GeneralSettingsTheme from "./GeneralSettingsTheme";
 import GeneralSettingsTime from "./GeneralSettingsTime";
 import GeneralSettingsKeyboard from "./GeneralSettingsKeyboard";
 import {useDispatch, useSelector} from "react-redux";
-import {setFontSize, setKeyboard, setTheme, setTimeFormat} from "store/settingsSlice";
+import {changeSettings} from "store/settingsSlice";
 
 const GeneralSettings = () => {
   const theme = useTheme();
 
   const dispatch = useDispatch();
 
-  const settings = useSelector(state => state.settings);
+  const settings = useSelector(state => state.settings.data);
 
   const selectFontSize = (event, value) => {
-    dispatch(setFontSize({fontSize: value}));
+    dispatch(changeSettings({fontSize: value}));
   };
 
   const selectAppTheme = (event) => {
-    dispatch(setTheme({theme: event.target.value}));
+    dispatch(changeSettings({theme: event.target.value}));
   };
 
   const selectTimeFormat = (event) => {
-    dispatch(setTimeFormat({timeFormat: event.target.value}));
+    dispatch(changeSettings({timeFormat: event.target.value}));
   };
 
   const selectKeyboard = (event) => {
-    dispatch(setKeyboard({keyboard: event.target.value}));
+    dispatch(changeSettings({keyboard: event.target.value}));
   };
 
   return (

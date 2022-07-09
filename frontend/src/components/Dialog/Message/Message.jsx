@@ -18,7 +18,7 @@ const MessageContainer = styled("div", {
 }));
 
 const Message = ({type, author, message, isGroupChat}) => {
-  const settings = useSelector(state => state.settings);
+  const settings = useSelector(state => state.settings.data);
 
   const theme = useTheme();
 

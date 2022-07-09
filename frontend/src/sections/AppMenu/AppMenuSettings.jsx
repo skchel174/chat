@@ -1,4 +1,4 @@
-import MenuItem from "components/Common/MenuItem";
+import MenuItem from "components/MenuItem";
 import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
 import PropTypes from "prop-types";
 

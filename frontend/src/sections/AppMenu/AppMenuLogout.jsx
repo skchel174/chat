@@ -1,4 +1,4 @@
-import MenuItem from "components/Common/MenuItem";
+import MenuItem from "components/MenuItem";
 import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined";
 import logout from "store/userSlice/reducers/logout";
 import {useDispatch} from "react-redux";

@@ -1,9 +1,9 @@
 import {Stack} from "@mui/material";
-import Checkbox from "components/Common/Checkbox";
-import SubmitButton from "components/Common/SubmitButton";
+import Checkbox from "components/Checkbox";
+import SubmitButton from "components/SubmitButton";
 import useAuthForm from "hooks/auth/useAuthForm";
-import InputField from "components/Common/InputField";
-import RouterLink from "components/Common/RouterLink";
+import InputField from "components/InputField";
+import RouterLink from "components/RouterLink";
 import {useSelector} from "react-redux";
 
 const LoginForm = () => {

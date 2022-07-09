@@ -1,10 +1,10 @@
 import useBreakpoints from "hooks/common/useBreakpoints";
-import Drawer from "components/Common/Drawer";
+import Drawer from "components/Drawer";
 import {useMainPageLayout} from "pages/MainPage/MainPageContext";
 import {useEffect} from "react";
-import Search from "components/Search";
-import Profile from "components/Profile";
-import DrawerTransition from "components/Common/DrawerTransition";
+import Search from "sections/Search";
+import Profile from "sections/Profile";
+import DrawerTransition from "components/DrawerTransition";
 
 const MainPageRight = () => {
   const {md, lg, ex} = useBreakpoints();

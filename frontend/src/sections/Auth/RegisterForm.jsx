@@ -1,5 +1,5 @@
-import SubmitButton from "components/Common/SubmitButton";
-import InputField from "components/Common/InputField";
+import SubmitButton from "components/SubmitButton";
+import InputField from "components/InputField";
 import useAuthForm from "hooks/auth/useAuthForm";
 import {useSelector} from "react-redux";
 

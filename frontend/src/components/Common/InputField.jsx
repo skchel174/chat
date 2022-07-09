@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 import {styled, TextField} from "@mui/material";
-import {useEffect, useState} from "react";
+import {useEffect} from "react";
 
 const InputStyle = styled(TextField)(
   ({theme}) => ({
@@ -40,17 +40,16 @@ const availableRules = {
 };
 
 const InputField = ({
+  value,
   onChange,
-  onError,
-  type = 'text',
-  label = '',
-  value = '',
+  type = "text",
+  name = "",
+  label = "",
+  error= null,
+  onError = null,
   sx = {},
   ...rules
 }) => {
-  const [error, setError] = useState(false);
-  const [helperText, setHelperText] = useState('');
-
   useEffect(() => {
     for (let [name, val] of Object.entries(rules)) {
       if (!availableRules[name]) {
@@ -58,14 +57,10 @@ const InputField = ({
       }
 
       const rule = availableRules[name](val);
-
       const check = rule.handler(value);
 
       if (!check) {
-        setError(true);
-
         const message = rule.message(label);
-        setHelperText(message);
 
         if (onError) {
           onError(message);
@@ -75,39 +70,34 @@ const InputField = ({
       }
     }
 
-    setError(false);
-    setHelperText('');
-
     if (onError) {
       onError(null);
     }
   }, [value]);
 
-  useEffect(() => {
-    setError(false);
-    setHelperText('');
-  }, [])
-
   return (
     <InputStyle
-      sx={{...sx}}
       variant="outlined"
-      error={error}
+      sx={{...sx}}
       type={type}
       label={label}
+      name={name}
       value={value}
       onChange={onChange}
-      helperText={helperText}
+      onError={onError}
+      error={Boolean(error)}
+      helperText={error}
     />
   );
 };
 
 InputField.propTypes = {
   onChange: PropTypes.func.isRequired,
-  onError: PropTypes.func,
   type: PropTypes.string,
   label: PropTypes.string,
   value: PropTypes.string,
+  error: PropTypes.string,
+  onError: PropTypes.func,
   rules: PropTypes.array,
   sx: PropTypes.object,
 };

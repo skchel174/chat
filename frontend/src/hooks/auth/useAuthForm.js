@@ -21,42 +21,46 @@ export default function useAuthForm() {
   const navigate = useNavigate();
 
   const submitRegister = async () => {
-    validateForm();
+    const errorMsg = validateForm();
 
-    if (!error) {
-      await dispatch(register({
-        email: email.value,
-        login: login.value,
-        name: name.value,
-        password: password.value,
-      }));
-
-      navigate("/");
+    if (errorMsg) {
+      setError(errorMsg);
+      return;
     }
+
+    await dispatch(register({
+      email: email.value,
+      login: login.value,
+      name: name.value,
+      password: password.value,
+    }));
+
+    navigate("/");
   };
 
   const submitLogin = async () => {
-    validateForm();
+    const errorMsg = validateForm();
 
-    if (!error) {
-      await dispatch(userLogin({
-        login: login.value,
-        password: password.value,
-        remember: remember.value,
-      }));
-
-      navigate("/");
+    if (errorMsg) {
+      setError(errorMsg);
+      return;
     }
+
+    await dispatch(userLogin({
+      login: login.value,
+      password: password.value,
+      remember: remember.value,
+    }));
+
+    navigate("/");
   };
 
   const validateForm = () => {
-    const result = email.error
+    return email.error
       || login.error
       || name.error
       || password.error
       || passwordConfirmation.error;
-
-    setError(result);
   };
 
   return {

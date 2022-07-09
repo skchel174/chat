@@ -3,12 +3,12 @@ import ItemButton from "components/Common/ItemButton";
 import StyledIcon from "components/Common/StyledIcon";
 import DrawerBox from "components/Common/DrawerBox";
 import BackgroundSettingsHeader from "./BackgroundSettingsHeader";
-import wallpapers from "infrastructure/Wallpapers";
 import AddAPhotoOutlinedIcon from '@mui/icons-material/AddAPhotoOutlined';
 import {Checkbox, Stack, Typography, useTheme} from "@mui/material";
 import BackgroundSettingsColor from "./BackgroundSettingsColor";
 import {useDispatch, useSelector} from "react-redux";
 import {changeSettings} from "store/settingsSlice";
+import bgColors from "theme/Background"
 
 const BackgroundSettings = () => {
   const theme = useTheme();
@@ -79,11 +79,11 @@ const BackgroundSettings = () => {
           justifyContent="center"
         >
           {
-            wallpapers.map(wallpaper => {
+            bgColors.map(color => {
                 return <BackgroundSettingsColor
-                  key={wallpaper}
-                  color={wallpaper}
-                  selected={wallpaper === settings.color}
+                  key={color}
+                  color={color}
+                  selected={color === settings.color}
                   onFocus={focusWallpaperColor}
                   onClick={selectWallpaperColor}
                 />

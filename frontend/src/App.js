@@ -1,5 +1,5 @@
-import ThemeProvider from "infrastructure/Theme/ThemeProvider";
 import {styled} from "@mui/material";
+import ThemeProvider from "theme/ThemeProvider";
 import Router from "router";
 import Auth from "auth";
 

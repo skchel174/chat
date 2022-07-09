@@ -1,6 +1,6 @@
 import useFocus from "hooks/common/useFocus";
 import usePopover from "hooks/common/usePopover";
-import AppMenu from "components/AppMenu";
+import AppMenu from "sections/AppMenu";
 import SearchField from "components/Common/SearchField";
 import HeaderContainer from "components/Common/HeaderContainer";
 import StyledIcon from "components/Common/StyledIcon";

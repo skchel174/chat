@@ -18,7 +18,6 @@ const MicButton = styled(IconButton)(
     width: "3.5rem",
     marginLeft: ".5rem",
     backgroundColor: theme.palette.background.primary,
-    boxShadow: "0 1px 2px rgba(114, 114, 114, .25098)",
     transition: "background-color .3s",
 
     "&:hover": {

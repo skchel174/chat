@@ -57,7 +57,10 @@ const SearchField = ({focus, input}) => {
           }}
           onClick={() => input.setValue('')}
         >
-          <CloseIcon fontSize="small"/>
+          <CloseIcon
+            sx={{color: theme.palette.text.secondary}}
+            fontSize="small"
+          />
         </IconButton>
       }
     </Content>

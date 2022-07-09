@@ -7,20 +7,9 @@ export default function useInput(initialState = '') {
     setValue(event.target.value);
   };
 
-  const handleEnterDown = (event, callback) => {
-    if (event.keyCode !== 13) {
-      return;
-    }
-
-    event.preventDefault();
-
-    callback();
-  };
-
   return {
     value,
     setValue,
     handleInput,
-    handleEnterDown,
   }
 }

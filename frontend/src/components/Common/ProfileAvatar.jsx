@@ -33,9 +33,7 @@ const Subtitle = styled("span")(
   })
 );
 
-const ProfileAvatar = ({chat}) => {
-  const {title, avatar, members, activityDate} = useChatInfo(chat);
-
+const ProfileAvatar = ({type, name, avatar = null, activityDate = null, members = null}) => {
   return (
     <Box sx={{position: "relative"}}>
       <Avatar
@@ -43,17 +41,19 @@ const ProfileAvatar = ({chat}) => {
           width: "100%",
           height: "100%",
           cursor: "pointer",
+          fontSize: "10rem",
+          minHeight: !avatar && "350px",
         }}
         src={avatar && requireImage(avatar)}
         variant="square"
       >
-        {title[0]}
+        {name[0]}
       </Avatar>
 
       <Info>
-        <Title>{title}</Title>
+        <Title>{name}</Title>
         {
-          chat.type === "group"
+          type === "group"
             ? <Subtitle>{members} members</Subtitle>
             : <Subtitle>{activityDate}</Subtitle>
         }
@@ -63,7 +63,11 @@ const ProfileAvatar = ({chat}) => {
 };
 
 ProfileAvatar.propTypes = {
-  chat: PropTypes.object.isRequired,
+  type: PropTypes.oneOf(["group", "private"]).isRequired,
+  name: PropTypes.string.isRequired,
+  avatar: PropTypes.string,
+  activityDate: PropTypes.string,
+  members: PropTypes.number,
 };
 
 export default ProfileAvatar;

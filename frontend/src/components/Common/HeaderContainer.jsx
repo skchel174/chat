@@ -8,6 +8,7 @@ const HeaderContainer = ({children, sx = {}}) => {
       position="static"
       sx={{
         boxShadow: "none",
+        backgroundImage: "none",
         backgroundColor: theme.palette.background.primary,
         ...sx,
       }}

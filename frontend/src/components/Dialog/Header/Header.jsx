@@ -1,26 +1,24 @@
-import {useLeftColumn} from "infrastructure/Context/LeftColumnContext";
-import {useRightColumn} from "infrastructure/Context/RightColumnContext";
 import useBreakpoints from "hooks/common/useBreakpoints";
-import HeaderContainer from "components/Layout/HeaderContainer";
+import HeaderContainer from "components/Common/HeaderContainer";
 import HeaderChat from "./HeaderChat";
 import HeaderMenu from "./HeaderMenu";
 import usePopover from "hooks/common/usePopover";
+import {useMainPageLayout} from "pages/MainPage/MainPageContext";
 import {Box, IconButton, useTheme} from "@mui/material";
 import ArrowBack from "@mui/icons-material/ArrowBack";
 import SearchIcon from "@mui/icons-material/Search";
 import MoreIcon from "@mui/icons-material/MoreVert";
 import PropTypes from "prop-types";
+import StyledIcon from "components/Common/StyledIcon";
 
 const Header = ({chat}) => {
   const {ex} = useBreakpoints();
 
-  const leftColumn = useLeftColumn();
-
-  const {open, setComponent} = useRightColumn();
+  const {leftColumn, rightColumn} = useMainPageLayout();
 
   const openSearch = () => {
-    setComponent('Search');
-    open();
+    rightColumn.setComponent('Search');
+    rightColumn.open();
   };
 
   const openChatOptions = (event) => {
@@ -45,7 +43,7 @@ const Header = ({chat}) => {
           sx={{marginRight: ".5rem"}}
           onClick={() => leftColumn.open()}
         >
-          <ArrowBack/>
+          <StyledIcon icon={ArrowBack}/>
         </IconButton>
       }
 
@@ -55,11 +53,11 @@ const Header = ({chat}) => {
 
       <Box sx={{display: "flex"}}>
         <IconButton onClick={openSearch}>
-          <SearchIcon/>
+          <StyledIcon icon={SearchIcon}/>
         </IconButton>
 
         <IconButton onClick={openChatOptions}>
-          <MoreIcon/>
+          <StyledIcon icon={MoreIcon}/>
         </IconButton>
 
         <HeaderMenu

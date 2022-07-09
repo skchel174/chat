@@ -1,21 +1,23 @@
 import useBreakpoints from "hooks/common/useBreakpoints";
-import Drawer from "components/Layout/Drawer";
-import {useRightColumn} from "infrastructure/Context/RightColumnContext";
-import ComponentResolver from "infrastructure/Context/ComponentResolver";
+import Drawer from "components/Common/Drawer";
+import {useMainPageLayout} from "pages/MainPage/MainPageContext";
 import {useEffect} from "react";
+import Search from "components/Search";
+import Profile from "components/Profile";
+import DrawerTransition from "components/Common/DrawerTransition";
 
 const MainPageRight = () => {
   const {md, lg, ex} = useBreakpoints();
 
-  const {width, setWidth, isOpen, component} = useRightColumn();
+  const {rightColumn} = useMainPageLayout();
 
   useEffect(() => {
     if (ex) {
-      setWidth(600);
+      rightColumn.setWidth(600);
     } else if (lg) {
-      setWidth(365);
+      rightColumn.setWidth(365);
     } else {
-      setWidth(400);
+      rightColumn.setWidth(400);
     }
   }, [ex, lg]);
 
@@ -23,15 +25,21 @@ const MainPageRight = () => {
     <Drawer
       anchor="right"
       elevation={md ? 5 : 0}
-      width={width}
-      open={isOpen}
+      width={rightColumn.width}
+      open={rightColumn.isOpen}
       variant={md ? "temporary" : "persistent"}
     >
-      {
-        component && <ComponentResolver is={component}/>
-      }
+      <DrawerTransition show={rightColumn.component === "Search"}>
+        <Search/>
+      </DrawerTransition>
+
+      <DrawerTransition show={rightColumn.component === "Profile"}>
+        <Profile/>
+      </DrawerTransition>
     </Drawer>
-  )
+  );
 }
 
 export default MainPageRight;
+
+

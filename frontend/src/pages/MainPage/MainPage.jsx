@@ -1,27 +1,21 @@
 import {Box} from '@mui/material';
+import MainPageContext from "pages/MainPage/MainPageContext";
 import MainPageLeft from "./MainPageLeft";
 import MainPageRight from "./MainPageRight";
-import MainPageCenter from "./MainPageCenter";
-import LeftColumnContext from "infrastructure/Context/LeftColumnContext";
-import CenterContext from "infrastructure/Context/CenterContext";
-import RightColumnContext from "infrastructure/Context/RightColumnContext";
+import MainPageMiddle from "./MainPageMiddle";
 
 const MainPage = () => {
   return (
-    <LeftColumnContext>
-      <CenterContext>
-        <RightColumnContext>
-          <Box sx={{
-            height: "100%",
-            display: "flex",
-          }}>
-            <MainPageLeft/>
-            <MainPageCenter/>
-            <MainPageRight/>
-          </Box>
-        </RightColumnContext>
-      </CenterContext>
-    </LeftColumnContext>
+    <MainPageContext>
+      <Box sx={{
+        height: "100%",
+        display: "flex",
+      }}>
+        <MainPageLeft/>
+        <MainPageMiddle/>
+        <MainPageRight/>
+      </Box>
+    </MainPageContext>
   );
 }
 

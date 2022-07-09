@@ -1,28 +1,21 @@
-import {IconButton, Stack, styled} from "@mui/material";
+import {IconButton, Stack} from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
-import {useRightColumn} from "infrastructure/Context/RightColumnContext";
-import HeaderContainer from "components/Layout/HeaderContainer";
-
-const Title = styled("div")(
-  ({theme}) => ({
-    marginLeft: "1.375rem",
-    fontSize: "1.25rem",
-    fontWeight: 500,
-    color: theme.palette.text.primary,
-  })
-);
+import HeaderContainer from "components/Common/HeaderContainer";
+import HeaderTitle from "components/Common/HeaderTitle";
+import StyledIcon from "components/Common/StyledIcon";
+import {useMainPageLayout} from "pages/MainPage/MainPageContext";
 
 const ProfileHeader = () => {
-  const {close} = useRightColumn();
+  const {rightColumn} = useMainPageLayout();
 
   return (
     <HeaderContainer>
       <Stack flexDirection="row" alignItems="center">
-        <IconButton onClick={close}>
-          <CloseIcon/>
+        <IconButton onClick={rightColumn.close}>
+          <StyledIcon icon={CloseIcon}/>
         </IconButton>
 
-        <Title>Profile</Title>
+        <HeaderTitle>Profile</HeaderTitle>
       </Stack>
     </HeaderContainer>
   );

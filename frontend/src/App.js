@@ -1,7 +1,7 @@
 import ThemeProvider from "infrastructure/Theme/ThemeProvider";
 import {styled} from "@mui/material";
-import Auth from "infrastructure/Auth/Auth";
 import Router from "router";
+import Auth from "auth";
 
 const Root = styled("div")(
   () => ({

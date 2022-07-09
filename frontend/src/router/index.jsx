@@ -1,11 +1,11 @@
 import {useRoutes} from "react-router-dom";
 import MainPage from "pages/MainPage";
-import AuthGuard from "infrastructure/Auth/AuthGuard";
-import GuestGuard from "infrastructure/Auth/GuestGuard";
 import AuthLayout from "layouts/AuthLayout";
 import SignInPage from "pages/SignInPage";
 import SignUpPage from "pages/SignUpPage";
 import NotFoundPage from "pages/NotFound/NotFoundPage";
+import AuthGuard from "auth/AuthGuard";
+import GuestGuard from "auth/GuestGuard";
 
 const Router = () => {
   return useRoutes([

@@ -13,6 +13,7 @@ import {useDispatch} from "react-redux";
 import PropTypes from "prop-types";
 import {useTheme} from "@mui/material";
 import {changeSettings} from "store/settingsSlice";
+import logout from "store/userSlice/reducers/logout";
 
 const AppMenu = ({position, anchor, handleClose}) => {
   const dispatch = useDispatch();
@@ -36,6 +37,10 @@ const AppMenu = ({position, anchor, handleClose}) => {
     leftColumn.open();
 
     handleClose();
+  };
+
+  const logoutFromApp = () => {
+    dispatch(logout());
   };
 
   return (
@@ -83,7 +88,7 @@ const AppMenu = ({position, anchor, handleClose}) => {
       <MenuItem
         icon={<LogoutOutlinedIcon/>}
         title="Log Out"
-        handleSelect={handleItemSelect}
+        handleSelect={logoutFromApp}
       />
     </Menu>
   )

@@ -9,12 +9,13 @@ export function formatVisitTime(value) {
     : timestamp.calendar();
 }
 
-export function formatDateTime(value) {
+export function formatDateTime(value, format = "24") {
   const timestamp = moment(value);
   const today = isToday(timestamp);
+  const pattern = resolvePattern(format);
 
   return today
-    ? timestamp.format("HH:mm")
+    ? timestamp.format(pattern)
     : showDate(timestamp);
 }
 
@@ -25,10 +26,11 @@ export function formatDate(value) {
   return today ? "Today" : showDate(timestamp);
 }
 
-export function formatTime(value) {
+export function formatTime(value, format = "24") {
   const timestamp = moment(value);
+  const pattern = resolvePattern(format);
 
-  return timestamp.format("HH:mm");
+  return timestamp.format(pattern);
 }
 
 function isToday(timestamp) {
@@ -43,4 +45,8 @@ function showDate(timestamp) {
   }
 
   return timestamp.format(pattern);
+}
+
+function resolvePattern(format) {
+  return format === "24" ? "HH:mm" : "hh:mm a";
 }

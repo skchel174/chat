@@ -6,8 +6,8 @@ const MessagesItem = ({chatType, messageType, messageAuthor, message, prevMessag
   return (
     <>
       {
-        (!prevMessage || prevMessage.date !== message.date)
-        && <MessagesDate date={message.date}/>
+        (!prevMessage || prevMessage.datetime !== message.datetime)
+        && <MessagesDate date={message.datetime}/>
       }
 
       <Message

@@ -54,7 +54,7 @@ const Message = ({type, author, message, isGroupChat}) => {
           color={theme.palette.text.primary}
         >
           {message.text}
-          <MessageMeta time={message.time}/>
+          <MessageMeta time={message.datetime}/>
         </Typography>
 
         <MessageAppendix type={type}/>

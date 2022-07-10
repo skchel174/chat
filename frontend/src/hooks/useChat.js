@@ -23,7 +23,7 @@ function useChat() {
       : chat?.lastMessage;
 
     let date = message
-      ? formatDate(message.date)
+      ? formatDate(message.datetime)
       : formatDate(chat.created_at);
 
     if (chat.type === "private") {

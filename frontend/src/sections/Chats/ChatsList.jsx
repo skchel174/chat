@@ -1,5 +1,4 @@
-import {Box, Fade, Stack} from "@mui/material";
-import ProgressBar from "components/PregressBar";
+import {Fade, LinearProgress, Stack} from "@mui/material";
 import ChatsListItem from "./ChatsListItem";
 import {useSelector} from "react-redux";
 import ChatsMenu from "./ChatsMenu";
@@ -45,9 +44,7 @@ const ChatsList = ({chats}) => {
   return (
     <>
       <Fade in={chatsRequestStatus === "pending"}>
-        <Box>
-          <ProgressBar/>
-        </Box>
+        <LinearProgress/>
       </Fade>
 
       <Stack sx={{

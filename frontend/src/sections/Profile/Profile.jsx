@@ -1,14 +1,13 @@
 import DrawerContainer from "components/DrawerContainer";
+import ProfileAvatar from "components/ProfileAvatar";
 import useChat from "hooks/useChat";
 import ProfileHeader from "./ProfileHeader";
 import ProfileInfo from "./ProfileInfo";
-import ProfileAvatar from "components/ProfileAvatar";
-import useChatInfo from "hooks/useChatInfo";
 
 const Profile = () => {
-  const {chat} = useChat();
+  const {chat, getChatInfo} = useChat();
 
-  const {title, avatar, members, activityDate} = useChatInfo(chat);
+  const {title, avatar, members, date} = getChatInfo(chat);
 
   return (
     <DrawerContainer>
@@ -19,7 +18,7 @@ const Profile = () => {
         name={title}
         avatar={avatar}
         members={members}
-        activityDate={activityDate}
+        activityDate={date}
       />
 
       <ProfileInfo chat={chat}/>

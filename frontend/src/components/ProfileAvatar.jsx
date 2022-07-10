@@ -1,5 +1,4 @@
 import {Avatar, Box, styled} from "@mui/material";
-import useChatInfo from "hooks/useChatInfo";
 import requireImage from "helpers/requireImage";
 import PropTypes from "prop-types";
 

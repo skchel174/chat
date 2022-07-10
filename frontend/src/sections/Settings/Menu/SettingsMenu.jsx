@@ -1,5 +1,4 @@
 import {useSelector} from "react-redux";
-import formatDate from "helpers/formatDate";
 import {Box, Typography, useTheme} from "@mui/material";
 import SettingsMenuHeader from "./SettingsMenuHeader";
 import DrawerContainer from "components/DrawerContainer";
@@ -12,6 +11,7 @@ import StorageOutlinedIcon from '@mui/icons-material/StorageOutlined';
 import HttpsOutlinedIcon from '@mui/icons-material/HttpsOutlined';
 import FolderSharedOutlinedIcon from '@mui/icons-material/FolderSharedOutlined';
 import {useMainPageLayout} from "pages/MainPage/MainPageContext";
+import {formatVisitTime} from "helpers/formatTime";
 
 const SettingsMenu = () => {
   const user = useSelector(state => state.user.data);
@@ -33,7 +33,7 @@ const SettingsMenu = () => {
           type="private"
           name={user.name}
           avatar={user.img}
-          activityDate={formatDate(user.visited_at, "visit")}
+          activityDate={formatVisitTime(user.visited_at)}
         />
 
         <Box sx={{padding: "0.5rem 0.75rem"}}>

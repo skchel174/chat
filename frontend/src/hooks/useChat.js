@@ -1,6 +1,6 @@
 import {useDispatch, useSelector} from "react-redux";
 import {setSelectedChat} from "store/chatsSlice";
-import formatDate from "helpers/formatDate";
+import {formatDate, formatVisitTime} from "helpers/formatTime";
 
 function useChat() {
   const dispatch = useDispatch();
@@ -23,15 +23,15 @@ function useChat() {
       : chat?.lastMessage;
 
     let date = message
-      ? formatDate(message.date, "date")
-      : formatDate(chat.created_at, "date");
+      ? formatDate(message.date)
+      : formatDate(chat.created_at);
 
     if (chat.type === "private") {
       const companion = chat.users.find(chatUser => chatUser.id !== user.id);
 
       title = companion.name;
       avatar = companion.img;
-      date = formatDate(companion.visited_at, "visit");
+      date = formatVisitTime(companion.visited_at);
     }
 
     return {

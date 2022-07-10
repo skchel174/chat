@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
-import formatDate from "helpers/formatDate";
 import {styled} from "@mui/material";
+import {formatDate} from "helpers/formatTime";
 
 const DateBox = styled("div")(
   () => ({
@@ -25,7 +25,7 @@ const Date = styled("div")(
 const MessagesDate = ({date}) => {
   return (
     <DateBox>
-      <Date>{formatDate(date, "date")}</Date>
+      <Date>{formatDate(date)}</Date>
     </DateBox>
   )
 }

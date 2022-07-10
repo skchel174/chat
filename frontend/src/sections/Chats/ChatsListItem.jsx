@@ -1,35 +1,10 @@
+import {styled, Typography} from "@mui/material";
+import Chat from "components/Chat";
+import useChat from "hooks/useChat";
+import ItemButton from "components/ItemButton";
 import PropTypes from "prop-types";
-import {ListItemButton, Stack, styled} from "@mui/material";
-import useChatInfo from "hooks/useChatInfo";
-import ChatTitle from "components/ChatTitle";
-import ChatSubtitle from "components/ChatSubtitle";
-import ChatAvatar from "components/ChatAvatar";
-import formatDate from "helpers/formatDate";
 
-const ChatContainer = styled(ListItemButton, {
-  shouldForwardProp: (prop) => prop !== "active",
-})(({theme, active}) => ({
-  position: "relative",
-  width: "100%",
-  height: "4.7rem",
-  padding: ".55rem",
-  borderRadius: ".75rem",
-  display: "flex",
-  alignItems: "center",
-  flexGrow: 0,
-  backgroundColor: active ? theme.palette.active.primary : "inherit",
-  cursor: "pointer",
-
-  "&:hover": {
-    backgroundColor: (active ? theme.palette.active.primary : theme.palette.background.secondary) + "!important",
-  },
-
-  "& .chat-title, .chat-subtitle, .chat-date": {
-    color: (active && theme.palette.text.neutral),
-  }
-}));
-
-const ChatDate = styled("div")(
+const Date = styled(Typography)(
   ({theme}) => ({
     position: "absolute",
     top: ".8rem",
@@ -39,42 +14,35 @@ const ChatDate = styled("div")(
   })
 );
 
-const ChatsItem = ({chat, selected, handleLeftClick, handleRightClick}) => {
-  const {title, avatar, activityDate, currentMessage} = useChatInfo(chat);
+const ChatsListItem = ({chat, selected, onLeftClick, onRightClick}) => {
+  const {getChatInfo} = useChat(chat);
+
+  const {title, avatar, date, message} = getChatInfo(chat);
+
+  const handleLeftClick = () => onLeftClick(chat.id);
 
   return (
-    <ChatContainer
+    <ItemButton
       active={selected}
-      onClick={() => handleLeftClick(chat.id)}
-      onContextMenu={handleRightClick}
+      onClick={handleLeftClick}
+      onContextMenu={onRightClick}
     >
-      <ChatAvatar
-        sx={{
-          width: "3.5rem",
-          height: "3.5rem",
-          marginRight: ".5rem",
-        }}
-        img={avatar}
-        name={title[0]}
+      <Chat
+        title={title}
+        subtitle={message?.text}
+        avatar={avatar}
       />
 
-      <Stack sx={{overflow: "hidden"}}>
-        <ChatTitle>{title}</ChatTitle>
-        {
-          currentMessage && <ChatSubtitle>{currentMessage.text}</ChatSubtitle>
-        }
-      </Stack>
-
-      <ChatDate className="chat-date">{activityDate}</ChatDate>
-    </ChatContainer>
+      <Date>{date}</Date>
+    </ItemButton>
   );
 };
 
-ChatsItem.propTypes = {
+ChatsListItem.propTypes = {
   chat: PropTypes.object.isRequired,
   selected: PropTypes.bool.isRequired,
-  handleLeftClick: PropTypes.func.isRequired,
-  handleRightClick: PropTypes.func.isRequired,
+  onLeftClick: PropTypes.func.isRequired,
+  onRightClick: PropTypes.func.isRequired,
 };
 
-export default ChatsItem;
+export default ChatsListItem;

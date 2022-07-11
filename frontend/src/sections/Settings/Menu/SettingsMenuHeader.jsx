@@ -10,6 +10,7 @@ import CreateOutlinedIcon from "@mui/icons-material/CreateOutlined";
 import MoreIcon from "@mui/icons-material/MoreVert";
 import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined";
 import {useMainPageLayout} from "pages/MainPage/MainPageContext";
+import useAuth from "hooks/auth/useAuth";
 
 const SettingsMenuHeader = () => {
   const {leftColumn} = useMainPageLayout();
@@ -17,13 +18,15 @@ const SettingsMenuHeader = () => {
   const popover = usePopover({
     anchor: {
       vertical: "bottom",
-      horizontal: "left",
+      horizontal: "right",
     },
     transform: {
       vertical: "top",
       horizontal: "right",
     },
   });
+
+  const {logout} = useAuth();
 
   return (
     <HeaderContainer>
@@ -58,7 +61,7 @@ const SettingsMenuHeader = () => {
         <MenuItem
           icon={<LogoutOutlinedIcon/>}
           title="Log Out"
-          handleSelect={popover.close}
+          handleSelect={logout}
         />
       </Menu>
     </HeaderContainer>

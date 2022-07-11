@@ -1,7 +1,7 @@
 import {createSlice} from "@reduxjs/toolkit";
-import login from "./reducers/login";
-import register from "./reducers/register";
-import authorize from "./reducers/authorize";
+import login from "./actions/login";
+import register from "./actions/register";
+import authorize from "./actions/authorize";
 
 const userSlice = createSlice({
   name: "user",

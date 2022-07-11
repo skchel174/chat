@@ -1,18 +1,30 @@
 import {useDispatch, useSelector} from "react-redux";
-import {resetState} from "store/userSlice";
-import loginReducer from "store/userSlice/reducers/login";
-import registerReducer from "store/userSlice/reducers/register";
+import {resetState, saveToken} from "store/userSlice";
+import loginReducer from "store/userSlice/actions/login";
+import registerReducer from "store/userSlice/actions/register";
 import {useNavigate} from "react-router-dom";
 import localStorage from "helpers/localStorage";
+import authorize from "store/userSlice/actions/authorize";
 import api from "api";
 
 export default function useAuth() {
+  const requestStatus = useSelector(state => state.user.requestStatus);
   const user = useSelector(state => state.user.data);
   const token = useSelector(state => state.user.data);
-  const requestStatus = useSelector(state => state.user.requestStatus);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const auth = (token) => {
+    if (!token) {
+      token = localStorage.get("token");
+      dispatch(saveToken({token}));
+    }
+
+    if (token) {
+      dispatch(authorize({token}));
+    }
+  };
 
   const login = async (login, password, remember) => {
     const response = await dispatch(loginReducer({
@@ -22,7 +34,7 @@ export default function useAuth() {
     }));
 
     if (remember) {
-      localStorage.set("token", response.data.token);
+      localStorage.set("token", response.payload.data.token);
     }
 
     navigate("/");
@@ -49,6 +61,7 @@ export default function useAuth() {
     user,
     token,
     requestStatus,
+    auth,
     login,
     register,
     logout,

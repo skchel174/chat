@@ -19,7 +19,7 @@ const LoginForm = () => {
 
   const onSubmit = (event) => {
     event.preventDefault();
-    handleSubmit(submitLogin(login, password, remember));
+    handleSubmit(() => submitLogin(login.value, password.value, remember.value));
   };
 
   return (

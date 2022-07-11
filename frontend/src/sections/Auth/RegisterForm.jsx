@@ -18,7 +18,7 @@ const RegisterForm = () => {
 
   const onSubmit = (event) => {
     event.preventDefault();
-    handleSubmit(register(email, login, name, password));
+    handleSubmit(() => register(email.value, login.value, name.value, password.value));
   };
 
   return (

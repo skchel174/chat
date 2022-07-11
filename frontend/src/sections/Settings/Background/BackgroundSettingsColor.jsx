@@ -1,11 +1,23 @@
 import PropTypes from "prop-types";
-import {Box, useTheme} from "@mui/material";
+import {Box, styled} from "@mui/material";
 import useFocus from "hooks/common/useFocus";
 import {useSelector} from "react-redux";
 
-const BackgroundSettingsColor = ({color, onFocus, onClick, selected = false}) => {
-  const theme = useTheme();
+const Root = styled(Box, {
+  shouldForwardProp: (prop) => !["color", "value", "selected"].includes(prop),
+})(({theme, color, value, selected}) => ({
+  backgroundColor: color,
+  margin: ".2rem",
+  height: "6.5rem",
+  width: "6.5rem",
+  cursor: "pointer",
+  opacity: value ? ".7" : null,
+  outline: selected ? ".3rem solid " + theme.palette.active.primary : null,
+  outlineOffset: "-.3rem",
+  transition: "all .3s",
+}));
 
+const BackgroundSettingsColor = ({color, onFocus, onClick, selected = false}) => {
   const settings = useSelector(state => state.settings.data);
 
   const {value, focus, blur} = useFocus();
@@ -25,18 +37,10 @@ const BackgroundSettingsColor = ({color, onFocus, onClick, selected = false}) =>
   };
 
   return (
-    <Box
-      sx={{
-        backgroundColor: color,
-        margin: ".2rem",
-        height: "6.5rem",
-        width: "6.5rem",
-        cursor: "pointer",
-        opacity: value ? ".7" : null,
-        outline: selected ? ".3rem solid " + theme.palette.active.primary : null,
-        outlineOffset: "-.3rem",
-        transition: "all .3s",
-      }}
+    <Root
+      color={color}
+      value={value}
+      selected={selected}
       onMouseEnter={handleFocus}
       onMouseLeave={handleBlur}
       onClick={handleClick}
@@ -46,7 +50,7 @@ const BackgroundSettingsColor = ({color, onFocus, onClick, selected = false}) =>
         width: "100%",
         backgroundColor: settings.theme === "dark" && "rgb(0, 0, 0, .5)",
       }}/>
-    </Box>
+    </Root>
   );
 };
 

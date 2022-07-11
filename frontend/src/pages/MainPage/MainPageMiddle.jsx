@@ -4,8 +4,7 @@ import {useSelector} from "react-redux";
 import useBreakpoints from "hooks/common/useBreakpoints";
 import {useMainPageLayout} from "pages/MainPage/MainPageContext";
 import Dialog from "sections/Dialog";
-import lightWallpapers from "assets/img/dialog-bg-light.png";
-import darkWallpapers from "assets/img/dialog-bg-dark.png";
+import backgroundImg from "assets/img/background.png"
 
 const MainPageMiddle = () => {
   const {rightColumn} = useMainPageLayout();
@@ -22,22 +21,11 @@ const MainPageMiddle = () => {
     settings.tmpColor !== null ? setBgColor(settings.tmpColor) : setBgColor(settings.color);
   }, [settings.color, settings.tmpColor]);
 
-  const [wallpapers, setWallpapers] = useState();
-
-  useEffect(() => {
-    theme.palette.mode === "light" ? setWallpapers(lightWallpapers) : setWallpapers(darkWallpapers);
-  }, [settings.theme]);
-
   return (
     <Box sx={{
       height: "100%",
       width: "100%",
       backgroundColor: bgColor,
-      backgroundImage: `url(${settings.defaultWallpapers && wallpapers})`,
-      backgroundPosition: "top right",
-      backgroundSize: "400px auto",
-      backgroundRepeat: "repeat",
-
       transition: theme.transitions.create(["margin", "background-color"], {
         easing: theme.transitions.easing.sharp,
         duration: theme.transitions.duration.leavingScreen,
@@ -58,7 +46,11 @@ const MainPageMiddle = () => {
       }),
     }}>
       <Box sx={{
-        backgroundColor: theme.palette.mode === "dark" && "rgb(0, 0, 0, .8)",
+        backgroundColor: theme.palette.mode === "dark" && "rgb(0, 0, 0, .5)",
+        backgroundImage: `url(${settings.defaultWallpapers && backgroundImg})`,
+        backgroundPosition: "top right",
+        backgroundSize: "400px auto",
+        backgroundRepeat: "repeat",
         height: "100%",
         width: "100%",
       }}>

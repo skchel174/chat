@@ -19,6 +19,7 @@ const SubmitButton = ({label, ...props}) => {
     <ButtonStyle
       variant="contained"
       color="success"
+      type="submit"
       {...props}
     >
       {label}

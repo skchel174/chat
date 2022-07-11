@@ -1,10 +1,10 @@
 import {Stack} from "@mui/material";
 import Checkbox from "components/Checkbox";
 import SubmitButton from "components/SubmitButton";
-import useAuthForm from "hooks/auth/useAuthForm";
 import InputField from "components/InputField";
 import RouterLink from "components/RouterLink";
-import {useSelector} from "react-redux";
+import useAuth from "hooks/auth/useAuth";
+import useAuthForm from "hooks/auth/useAuthForm";
 
 const LoginForm = () => {
   const {
@@ -12,13 +12,18 @@ const LoginForm = () => {
     password,
     remember,
     error,
-    submitLogin,
+    handleSubmit,
   } = useAuthForm();
 
-  const loginStatus = useSelector(state => state.user.requestStatus)
+  const {requestStatus, login: submitLogin} = useAuth();
+
+  const onSubmit = (event) => {
+    event.preventDefault();
+    handleSubmit(submitLogin(login, password, remember));
+  };
 
   return (
-    <>
+    <form onSubmit={onSubmit}>
       <InputField
         sx={{marginBottom: "1.5rem"}}
         label="Login"
@@ -64,10 +69,9 @@ const LoginForm = () => {
 
       <SubmitButton
         label="Login"
-        loading={loginStatus === "login.pending"}
-        onClick={submitLogin}
+        loading={requestStatus === "login.pending"}
       />
-    </>
+    </form>
   )
 };
 

@@ -1,7 +1,6 @@
 import {createSlice} from "@reduxjs/toolkit";
-import getChats from "./getChats";
-import getMessages from "./getMessages";
-import addMessage from "./addMessage";
+import getChats from "./actions/getChats";
+import getMessages from "./actions/getMessages";
 
 const chatsSlice = createSlice({
   name: "chats",
@@ -10,8 +9,7 @@ const chatsSlice = createSlice({
     data: [],
     chat: null,
     selectedChat: null,
-    chatsRequestStatus: null,
-    messagesRequestStatus: null,
+    requestStatus: null,
   },
 
   reducers: {
@@ -19,39 +17,37 @@ const chatsSlice = createSlice({
       state.selectedChat = action.payload.id;
       state.chat = state.data.find(chat => chat.id === action.payload.id);
     },
+
+    addMessage: (state, action) => {
+      const idx = state.data.findIndex(chat => chat.id === state.selectedChat);
+      state.data[idx].messages.push(action.payload.message);
+    },
   },
 
-  extraReducers: {
-    // Chats
-    [getChats.pending]: (state) => {
-      state.chatsRequestStatus = "pending";
-    },
+  extraReducers: (builder) => {
+    builder
+      .addCase(getChats.pending, (state) => {
+        state.requestStatus = "chats.pending";
+      })
+      .addCase(getChats.fulfilled, (state, action) => {
+        state.requestStatus = "chats.fulfilled";
+        state.data = action.payload.chats;
+      })
 
-    [getChats.fulfilled]: (state, action) => {
-      state.chatsRequestStatus = "fulfilled";
-      state.data = action.payload.chats;
-    },
-
-    // Messages
-    [getMessages.pending]: (state) => {
-      state.messagesRequestStatus = "pending";
-    },
-
-    [getMessages.fulfilled]: (state, action) => {
-      const chat = state.data.find(chat => chat.id === action.payload.chatId);
-      chat.messages = [...action.payload.messages, ...(chat.messages ?? [])];
-      state.messagesRequestStatus = "fulfilled";
-    },
-
-    [addMessage.fulfilled]: (state, action) => {
-      const chat = state.data.find(chat => chat.id === state.selectedChat);
-      chat.messages.push(action.payload.message);
-    },
+      .addCase(getMessages.pending, (state) => {
+        state.requestStatus = "messages.pending";
+      })
+      .addCase(getMessages.fulfilled, (state, action) => {
+        const chat = state.data.find(chat => chat.id === action.payload.chatId);
+        chat.messages = [...action.payload.messages, ...(chat.messages ?? [])];
+        state.requestStatus = "messages.fulfilled";
+      })
   },
 });
 
 export const {
   setSelectedChat,
+  addMessage,
 } = chatsSlice.actions;
 
 export default chatsSlice.reducer;

@@ -23,7 +23,7 @@ const ChatsList = ({chats}) => {
   };
 
   const selectedChat = useSelector(state => state.chats.selectedChat);
-  const chatsRequestStatus = useSelector(state => state.chats.chatsRequestStatus);
+  const chatsRequestStatus = useSelector(state => state.chats.requestStatus);
 
   const popover = usePopover({
     anchor: {
@@ -43,7 +43,7 @@ const ChatsList = ({chats}) => {
 
   return (
     <>
-      <Fade in={chatsRequestStatus === "pending"}>
+      <Fade in={chatsRequestStatus === "chats.pending"}>
         <LinearProgress/>
       </Fade>
 

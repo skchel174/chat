@@ -4,7 +4,7 @@ import DrawerContainer from "components/DrawerContainer";
 import useInput from "hooks/common/useInput";
 import {useEffect} from "react";
 import {useDispatch, useSelector} from "react-redux";
-import getChats from "store/chatsSlice/getChats";
+import getChats from "store/chatsSlice/actions/getChats";
 
 const Chats = () => {
   const dispatch = useDispatch();

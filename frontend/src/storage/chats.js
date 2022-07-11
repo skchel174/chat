@@ -16,8 +16,7 @@ export default [
       chatId: 2,
       authorId: 1,
       text: 'At, rerum.',
-      date: '2022-06-13',
-      time: '22:04',
+      datetime: '2022-06-13T22:04'
     },
   },
 
@@ -38,8 +37,7 @@ export default [
       chatId: 2,
       authorId: 1,
       text: 'At, rerum.',
-      date: '2022-06-13',
-      time: '22:04',
+      datetime: '2022-06-13T22:04'
     },
   },
 

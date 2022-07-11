@@ -3,7 +3,7 @@ import {useEffect, useState} from "react";
 import PropTypes from "prop-types";
 import IntersectObserver from "components/IntersectObserver";
 import {useDispatch, useSelector} from "react-redux";
-import getMessages from "store/chatsSlice/getMessages";
+import getMessages from "store/chatsSlice/actions/getMessages";
 import MessagesScroll from "./MessagesScroll";
 import MessagesItem from "./MessagesItem";
 
@@ -32,7 +32,7 @@ const MessagesList = styled(Stack)(
 
 const Messages = ({messagesRef, chat}) => {
 
-  const messagesStatus = useSelector(state => state.chats.messagesRequestStatus);
+  const messagesStatus = useSelector(state => state.chats.requestStatus);
 
   const [position, setPosition] = useState(null);
 
@@ -74,7 +74,7 @@ const Messages = ({messagesRef, chat}) => {
             />
           </Box>
 
-          <MessagesScroll show={messagesStatus === "pending"}/>
+          <MessagesScroll show={messagesStatus === "messages.pending"}/>
 
           {
             chat.messages.map((message, key) => <MessagesItem

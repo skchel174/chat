@@ -4,12 +4,11 @@ import Header from "./Header";
 import {useEffect, useRef} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import useChat from "hooks/useChat";
-import getMessages from "store/chatsSlice/getMessages";
-import addMessage from "store/chatsSlice/addMessage";
+import getMessages from "store/chatsSlice/actions/getMessages";
 import {Stack} from "@mui/material";
 
 const Dialog = () => {
-  const {chat} = useChat();
+  const {chat, sendMessage} = useChat();
 
   const dispatch = useDispatch();
 
@@ -27,7 +26,7 @@ const Dialog = () => {
   }, [chatId]);
 
   const submitHandler = (value) => {
-    dispatch(addMessage(value))
+    sendMessage(value)
       .then(() => scrollToLastMessage(true));
   };
 

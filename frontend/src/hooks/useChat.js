@@ -1,13 +1,16 @@
 import {useDispatch, useSelector} from "react-redux";
-import {setSelectedChat} from "store/chatsSlice";
+import {addMessage, setSelectedChat} from "store/chatsSlice";
 import {formatDate, formatVisitTime} from "helpers/formatTime";
+import useAuth from "hooks/auth/useAuth";
+import moment from "moment";
 
 function useChat() {
   const dispatch = useDispatch();
 
   const chats = useSelector(state => state.chats.data);
   const selectedChat = useSelector(state => state.chats.selectedChat);
-  const user = useSelector(state => state.user.data);
+
+  const {user} = useAuth();
 
   const chat = chats.find(chat => chat.id === selectedChat);
 
@@ -43,10 +46,23 @@ function useChat() {
     }
   };
 
+  const sendMessage = async (text) => {
+    const message = {
+      id: (new Date).getTime(),
+      chatId: selectedChat,
+      authorId: user.id,
+      datetime: moment().format("YYYY-MM-DD\Thh:mm"),
+      text,
+    };
+
+    return dispatch(addMessage({message}));
+  };
+
   return {
     chat,
     selectChat,
     getChatInfo,
+    sendMessage,
   };
 }
 

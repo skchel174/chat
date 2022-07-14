@@ -14,11 +14,13 @@ function useChat(chat = {}) {
 
   let title = chat.name;
   let avatar = chat.img;
+  let companion = null;
+
   const [currentMessage, setCurrentMessage] = useState(null);
   const [activityDate, setActivityDate] = useState(null);
 
   if (chat.type === "private") {
-    const companion = chat.users.find(item => item.id !== user.id);
+    companion = chat.users.find(item => item.id !== user.id);
     title = companion.name;
     avatar = companion.img;
   }
@@ -42,6 +44,7 @@ function useChat(chat = {}) {
     chat: chats[chatIdx],
     title,
     avatar,
+    companion,
     currentMessage,
     activityDate,
     selectChat,

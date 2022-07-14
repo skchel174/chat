@@ -1,26 +1,16 @@
 import DrawerContainer from "components/DrawerContainer";
 import ProfileAvatar from "components/ProfileAvatar";
-import useChat from "hooks/useChat";
+import useChat from "hooks/dialog/useChat";
 import ProfileHeader from "./ProfileHeader";
 import ProfileInfo from "./ProfileInfo";
 
 const Profile = () => {
-  const {chat, getChatInfo} = useChat();
-
-  const {title, avatar, members, date} = getChatInfo(chat);
+  const {chat} = useChat();
 
   return (
     <DrawerContainer>
       <ProfileHeader/>
-
-      <ProfileAvatar
-        type={chat.type}
-        name={title}
-        avatar={avatar}
-        members={members}
-        activityDate={date}
-      />
-
+      <ProfileAvatar chat={chat}/>
       <ProfileInfo chat={chat}/>
     </DrawerContainer>
   )

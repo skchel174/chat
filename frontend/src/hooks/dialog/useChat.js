@@ -1,20 +1,22 @@
 import {useDispatch, useSelector} from "react-redux";
-import {addMessage, setSelectedChat} from "store/chatsSlice";
 import {formatDate, formatVisitTime} from "helpers/formatTime";
 import useAuth from "hooks/auth/useAuth";
-import moment from "moment";
+import {setChatIdx} from "store/chatsSlice";
+import getMessages from "store/chatsSlice/actions/getMessages";
+import {useEffect, useState} from "react";
 
 function useChat() {
   const dispatch = useDispatch();
 
   const chats = useSelector(state => state.chats.data);
-  const selectedChat = useSelector(state => state.chats.selectedChat);
+  const chatIdx = useSelector(state => state.chats.chatIdx);
+  const requestStatus = useSelector(state => state.chats.requestStatus);
 
   const {user} = useAuth();
 
-  const chat = chats.find(chat => chat.id === selectedChat);
+  const selectChat = (id) => dispatch(setChatIdx({id}));
 
-  const selectChat = (id) => dispatch(setSelectedChat({id}));
+  const fetchMessages = (id) => dispatch(getMessages({chatId: id}));
 
   const getChatInfo = (chat) => {
     let title = chat.name;
@@ -37,33 +39,25 @@ function useChat() {
       date = formatVisitTime(companion.visited_at);
     }
 
-    return {
-      title,
-      avatar,
-      message,
-      members,
-      date,
-    }
-  };
-
-  const sendMessage = async (text) => {
-    const message = {
-      id: (new Date).getTime(),
-      chatId: selectedChat,
-      authorId: user.id,
-      datetime: moment().format("YYYY-MM-DD\Thh:mm"),
-      text,
-    };
-
-    return dispatch(addMessage({message}));
+    return {title, avatar, message, members, date};
   };
 
   return {
-    chat,
+    chatIdx,
+    chat: chats[chatIdx],
+    messagesStatus: requestStatus,
+    fetchMessages,
     selectChat,
     getChatInfo,
-    sendMessage,
   };
 }
 
 export default useChat;
+
+export function getChatName(chat) {
+  if (chat.type === "group") {
+    return chat.name;
+  }
+
+
+}

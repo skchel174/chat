@@ -1,63 +1,51 @@
 import {useDispatch, useSelector} from "react-redux";
-import {formatDate, formatVisitTime} from "helpers/formatTime";
+import {formatDate} from "helpers/formatTime";
 import useAuth from "hooks/auth/useAuth";
 import {setChatIdx} from "store/chatsSlice";
-import getMessages from "store/chatsSlice/actions/getMessages";
 import {useEffect, useState} from "react";
 
-function useChat() {
+function useChat(chat = {}) {
   const dispatch = useDispatch();
-
-  const chats = useSelector(state => state.chats.data);
-  const chatIdx = useSelector(state => state.chats.chatIdx);
-  const requestStatus = useSelector(state => state.chats.requestStatus);
 
   const {user} = useAuth();
 
-  const selectChat = (id) => dispatch(setChatIdx({id}));
+  const chats = useSelector(state => state.chats.data);
+  const chatIdx = useSelector(state => state.chats.chatIdx);
 
-  const fetchMessages = (id) => dispatch(getMessages({chatId: id}));
+  let title = chat.name;
+  let avatar = chat.img;
+  const [currentMessage, setCurrentMessage] = useState(null);
+  const [activityDate, setActivityDate] = useState(null);
 
-  const getChatInfo = (chat) => {
-    let title = chat.name;
-    let avatar = chat.img;
-    let members = chat.users.length;
+  if (chat.type === "private") {
+    const companion = chat.users.find(item => item.id !== user.id);
+    title = companion.name;
+    avatar = companion.img;
+  }
 
-    let message = chat.messages?.length > 0
+  useEffect(() => {
+    const message = chat.messages?.length > 0
       ? chat.messages[chat.messages.length - 1]
       : chat?.lastMessage;
+    setCurrentMessage(message);
+  }, [chat?.messages]);
 
-    let date = message
-      ? formatDate(message.datetime)
-      : formatDate(chat.created_at);
+  useEffect(() => {
+    let date = currentMessage ? currentMessage.datetime : chat.created_at;
+    setActivityDate(formatDate(date))
+  }, [currentMessage]);
 
-    if (chat.type === "private") {
-      const companion = chat.users.find(chatUser => chatUser.id !== user.id);
-
-      title = companion.name;
-      avatar = companion.img;
-      date = formatVisitTime(companion.visited_at);
-    }
-
-    return {title, avatar, message, members, date};
-  };
+  const selectChat = (id) => dispatch(setChatIdx({id}));
 
   return {
     chatIdx,
     chat: chats[chatIdx],
-    messagesStatus: requestStatus,
-    fetchMessages,
+    title,
+    avatar,
+    currentMessage,
+    activityDate,
     selectChat,
-    getChatInfo,
   };
 }
 
 export default useChat;
-
-export function getChatName(chat) {
-  if (chat.type === "group") {
-    return chat.name;
-  }
-
-
-}

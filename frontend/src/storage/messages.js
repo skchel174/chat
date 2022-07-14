@@ -102,7 +102,7 @@ export default [
     id: 12,
     chatId: 2,
     authorId: 1,
-    text: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aspernatur culpa fuga hic nam praesentium!',
+    text: 'Aspernatur culpa fuga hic nam praesentium!',
     date: '2022-06-12',
     time: '11:22',
     datetime: '2022-06-08T15:03',

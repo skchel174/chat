@@ -8,45 +8,46 @@ const chatsSlice = createSlice({
   initialState: {
     data: [],
     chat: null,
-    selectedChat: null,
-    requestStatus: null,
+    chatIdx: null,
+    chatsStatus: null,
+    messagesStatus: null,
   },
 
   reducers: {
-    setSelectedChat: (state, action) => {
-      state.selectedChat = action.payload.id;
-      state.chat = state.data.find(chat => chat.id === action.payload.id);
+    setChatIdx: (state, action) => {
+      state.chatIdx = state.data.findIndex(chat => chat.id === action.payload.id);
     },
 
     addMessage: (state, action) => {
-      const idx = state.data.findIndex(chat => chat.id === state.selectedChat);
-      state.data[idx].messages.push(action.payload.message);
+      state.data[state.chatIdx].messages.push(action.payload.message);
     },
   },
 
   extraReducers: (builder) => {
     builder
       .addCase(getChats.pending, (state) => {
-        state.requestStatus = "chats.pending";
+        state.chatsStatus = "chats.pending";
       })
       .addCase(getChats.fulfilled, (state, action) => {
-        state.requestStatus = "chats.fulfilled";
+        state.chatsStatus = "chats.fulfilled";
         state.data = action.payload.chats;
       })
-
       .addCase(getMessages.pending, (state) => {
-        state.requestStatus = "messages.pending";
+        state.messagesStatus = "messages.pending";
       })
       .addCase(getMessages.fulfilled, (state, action) => {
-        const chat = state.data.find(chat => chat.id === action.payload.chatId);
-        chat.messages = [...action.payload.messages, ...(chat.messages ?? [])];
-        state.requestStatus = "messages.fulfilled";
+        state.data[state.chatIdx].messages = [
+          ...action.payload.messages,
+          ...(state.data[state.chatIdx].messages ?? []),
+        ];
+
+        state.messagesStatus = "messages.fulfilled";
       })
   },
 });
 
 export const {
-  setSelectedChat,
+  setChatIdx,
   addMessage,
 } = chatsSlice.actions;
 

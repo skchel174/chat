@@ -1,5 +1,7 @@
 import {Avatar, Box, styled} from "@mui/material";
 import requireImage from "helpers/requireImage";
+import {formatVisitTime} from "helpers/formatTime";
+import useChat from "hooks/dialog/useChat";
 import PropTypes from "prop-types";
 
 const Info = styled("div")(
@@ -32,7 +34,13 @@ const Subtitle = styled("span")(
   })
 );
 
-const ProfileAvatar = ({type, name, avatar = null, activityDate = null, members = null}) => {
+const ProfileAvatar = ({chat}) => {
+  const {avatar, title, companion, activityDate} = useChat(chat);
+
+  const date = companion !== null
+    ? formatVisitTime(companion.visited_at)
+    : activityDate;
+
   return (
     <Box sx={{position: "relative"}}>
       <Avatar
@@ -46,15 +54,15 @@ const ProfileAvatar = ({type, name, avatar = null, activityDate = null, members 
         src={avatar && requireImage(avatar)}
         variant="square"
       >
-        {name[0]}
+        {title[0]}
       </Avatar>
 
       <Info>
-        <Title>{name}</Title>
+        <Title>{title}</Title>
         {
-          type === "group"
-            ? <Subtitle>{members} members</Subtitle>
-            : <Subtitle>{activityDate}</Subtitle>
+          chat.type === "group"
+            ? <Subtitle>{chat.users.length} members</Subtitle>
+            : <Subtitle>{date}</Subtitle>
         }
       </Info>
     </Box>
@@ -62,11 +70,7 @@ const ProfileAvatar = ({type, name, avatar = null, activityDate = null, members 
 };
 
 ProfileAvatar.propTypes = {
-  type: PropTypes.oneOf(["group", "private"]).isRequired,
-  name: PropTypes.string.isRequired,
-  avatar: PropTypes.string,
-  activityDate: PropTypes.string,
-  members: PropTypes.number,
+  chat: PropTypes.object.isRequired,
 };
 
 export default ProfileAvatar;

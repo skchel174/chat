@@ -1,28 +1,33 @@
 import ChatsHeader from "./ChatsHeader";
 import ChatsList from "./ChatsList";
 import DrawerContainer from "components/DrawerContainer";
+import useChatList from "hooks/dialog/useChatList";
 import useInput from "hooks/common/useInput";
-import {useEffect} from "react";
-import {useDispatch, useSelector} from "react-redux";
-import getChats from "store/chatsSlice/actions/getChats";
+import {useEffect, useState} from "react";
 
 const Chats = () => {
-  const dispatch = useDispatch();
-
   const input = useInput();
 
-  const chats = useSelector(state => state.chats.data);
+  const {chats, fetchChats, filterChats} = useChatList();
 
   useEffect(() => {
     if (chats.length === 0) {
-      dispatch(getChats());
+      fetchChats();
     }
   }, []);
+
+  const [filteredChats, setFilteredChats] = useState(chats);
+
+  useEffect(() => {
+    input.value.length > 0
+      ? setFilteredChats(filterChats(input.value))
+      : setFilteredChats(chats)
+  }, [chats, input.value]);
 
   return (
     <DrawerContainer>
       <ChatsHeader input={input}/>
-      <ChatsList chats={chats}/>
+      <ChatsList chats={filteredChats}/>
     </DrawerContainer>
   )
 };

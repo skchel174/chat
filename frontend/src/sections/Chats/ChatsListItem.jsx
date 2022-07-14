@@ -1,6 +1,6 @@
 import {styled, Typography} from "@mui/material";
 import Chat from "components/Chat";
-import useChat from "hooks/useChat";
+import useChat from "hooks/dialog/useChat";
 import ItemButton from "components/ItemButton";
 import PropTypes from "prop-types";
 
@@ -15,11 +15,9 @@ const Date = styled(Typography)(
 );
 
 const ChatsListItem = ({chat, selected, onLeftClick, onRightClick}) => {
-  const {getChatInfo} = useChat(chat);
-
-  const {title, avatar, date, message} = getChatInfo(chat);
-
   const handleLeftClick = () => onLeftClick(chat.id);
+
+  const {title, avatar, activityDate, currentMessage} = useChat(chat);
 
   return (
     <ItemButton
@@ -29,11 +27,11 @@ const ChatsListItem = ({chat, selected, onLeftClick, onRightClick}) => {
     >
       <Chat
         title={title}
-        subtitle={message?.text}
+        subtitle={currentMessage?.text}
         avatar={avatar}
       />
 
-      <Date>{date}</Date>
+      <Date>{activityDate}</Date>
     </ItemButton>
   );
 };

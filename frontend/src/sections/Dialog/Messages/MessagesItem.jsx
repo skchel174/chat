@@ -1,8 +1,9 @@
 import MessagesDate from "./MessagesDate";
 import Message from "../Message";
 import PropTypes from "prop-types";
+import {Box} from "@mui/material";
 
-const MessagesItem = ({chatType, messageType, messageAuthor, message, prevMessage = null}) => {
+const MessagesItem = ({chatType, messageType, author, message, prevMessage = null}) => {
   return (
     <>
       {
@@ -10,12 +11,14 @@ const MessagesItem = ({chatType, messageType, messageAuthor, message, prevMessag
         && <MessagesDate date={message.datetime}/>
       }
 
-      <Message
-        type={messageType}
-        author={messageAuthor}
-        message={message}
-        isGroupChat={chatType === "group"}
-      />
+      <Box className="messages__item">
+        <Message
+          type={messageType}
+          author={author}
+          message={message}
+          extended={chatType === "group"}
+        />
+      </Box>
     </>
   )
 };
@@ -23,7 +26,7 @@ const MessagesItem = ({chatType, messageType, messageAuthor, message, prevMessag
 MessagesItem.propTypes = {
   chatType: PropTypes.oneOf(["group", "private"]).isRequired,
   messageType: PropTypes.oneOf(["output", "input"]).isRequired,
-  messageAuthor: PropTypes.object.isRequired,
+  author: PropTypes.object.isRequired,
   message: PropTypes.object.isRequired,
   prevMessage: PropTypes.object,
 };

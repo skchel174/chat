@@ -1,13 +1,14 @@
 import {Box, Stack, styled} from "@mui/material";
 import {useEffect, useState} from "react";
-import PropTypes from "prop-types";
 import IntersectObserver from "components/IntersectObserver";
-import {useDispatch, useSelector} from "react-redux";
-import getMessages from "store/chatsSlice/actions/getMessages";
+import {useDispatch} from "react-redux";
+import useChatMessages from "hooks/dialog/useChatMessages";
 import MessagesScroll from "./MessagesScroll";
 import MessagesItem from "./MessagesItem";
+import getMessages from "store/chatsSlice/actions/getMessages";
+import PropTypes from "prop-types";
 
-const MessagesContainer = styled("div")(
+const Root = styled("div")(
   () => ({
     height: "100%",
     display: "flex",
@@ -21,7 +22,7 @@ const MessagesContainer = styled("div")(
   })
 );
 
-const MessagesList = styled(Stack)(
+const List = styled(Stack)(
   () => ({
     minWidth: "20rem",
     maxWidth: "80rem",
@@ -30,20 +31,17 @@ const MessagesList = styled(Stack)(
   })
 );
 
-const Messages = ({messagesRef, chat}) => {
-
-  const messagesStatus = useSelector(state => state.chats.requestStatus);
+const Messages = ({chat, messagesRef}) => {
+  const dispatch = useDispatch();
 
   const [position, setPosition] = useState(null);
 
-  const dispatch = useDispatch();
-
   const intersectHandler = () => {
-    const messagesEl = messagesRef.current;
+    const messageEl = messagesRef.current.querySelector(".messages__item");
 
-    if (messagesEl.children.length > 2) {
-      setPosition(messagesEl.children[2]);
-      dispatch(getMessages());
+    if (messageEl) {
+      setPosition(messageEl);
+      dispatch(getMessages({chatId: chat.id}));
     }
   };
 
@@ -54,42 +52,31 @@ const Messages = ({messagesRef, chat}) => {
     }
   }, [chat.messages]);
 
-  const user = useSelector(state => state.user.data);
-
-  const resolveType = (authorId) => authorId === user.id ? "output" : "input";
-
-  const resolveAuthor = (authorId) => chat.users.find(chatUser => chatUser.id === authorId);
+  const {messagesStatus, resolveType, resolveAuthor} = useChatMessages();
 
   return (
-    <MessagesContainer>
-      <Box sx={{
-        height: "100%",
-        padding: "0 5%",
-      }}>
-        <MessagesList ref={messagesRef}>
-          <Box sx={{marginTop: "auto"}}>
-            <IntersectObserver
-              scrollArea={messagesRef.current}
-              intersectHandler={intersectHandler}
-            />
-          </Box>
+    <Root>
+      <Box sx={{height: "100%", width: "100%", padding: "0 5%"}}>
+        <List ref={messagesRef}>
+          <IntersectObserver
+            sx={{marginTop: "auto"}}
+            scrollArea={messagesRef.current}
+            intersectHandler={intersectHandler}
+          />
 
           <MessagesScroll show={messagesStatus === "messages.pending"}/>
 
-          {
-            chat.messages.map((message, key) => <MessagesItem
-                key={message.id}
-                message={message}
-                chatType={chat.type}
-                messageType={resolveType(message.authorId)}
-                messageAuthor={resolveAuthor(message.authorId)}
-                prevMessage={chat.messages[key - 1]}
-              />
-            )
-          }
-        </MessagesList>
+          {chat.messages.map((message, key) => <MessagesItem
+            key={message.id}
+            message={message}
+            chatType={chat.type}
+            messageType={resolveType(message.authorId)}
+            author={resolveAuthor(message.authorId)}
+            prevMessage={chat.messages[key - 1]}
+          />)}
+        </List>
       </Box>
-    </MessagesContainer>
+    </Root>
   );
 }
 

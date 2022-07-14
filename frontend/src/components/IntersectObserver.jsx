@@ -1,7 +1,7 @@
 import {Box} from "@mui/material";
 import {useEffect, useRef} from "react";
 
-const IntersectObserver = ({scrollArea, intersectHandler}) => {
+const IntersectObserver = ({scrollArea, intersectHandler, ...props}) => {
   const observableRef = useRef(null);
 
   const intersectionCallback = (entries) => {
@@ -16,7 +16,7 @@ const IntersectObserver = ({scrollArea, intersectHandler}) => {
     const observer = new IntersectionObserver(intersectionCallback, {
       root: scrollArea,
       rootMargin: '0px',
-      threshold: 1.0
+      threshold: 1.0,
     });
 
     if (observableRef.current) {
@@ -25,7 +25,10 @@ const IntersectObserver = ({scrollArea, intersectHandler}) => {
   }, [observableRef])
 
   return (
-    <Box ref={observableRef}/>
+    <Box
+      ref={observableRef}
+      {...props}
+    />
   );
 };
 

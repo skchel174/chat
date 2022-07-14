@@ -2,46 +2,41 @@ import Messages from "./Messages";
 import Form from "./Form";
 import Header from "./Header";
 import {useEffect, useRef} from "react";
-import {useDispatch, useSelector} from "react-redux";
-import useChat from "hooks/useChat";
-import getMessages from "store/chatsSlice/actions/getMessages";
+import useChat from "hooks/dialog/useChat";
+import useChatMessages from "hooks/dialog/useChatMessages";
 import {Stack} from "@mui/material";
 
 const Dialog = () => {
-  const {chat, sendMessage} = useChat();
-
-  const dispatch = useDispatch();
-
-  const chatId = useSelector(state => state.chats.selectedChat);
-
-  const messagesRef = useRef();
+  const {chat, chatIdx} = useChat();
+  const {fetchMessages} = useChatMessages();
 
   useEffect(() => {
     if (chat?.messages.length === 0) {
-      dispatch(getMessages())
-        .then(() => scrollToLastMessage());
-    } else {
-      scrollToLastMessage({block: "end"});
-    }
-  }, [chatId]);
-
-  const submitHandler = (value) => {
-    sendMessage(value)
-      .then(() => scrollToLastMessage(true));
-  };
-
-  const scrollToLastMessage = (smooth = false) => {
-    if (!messagesRef.current) {
+      fetchMessages(chat.id).then(scrollToLastMessage);
       return;
     }
 
-    const messages = messagesRef.current.children;
-    const lastChild = messages[messages.length - 1];
+    scrollToLastMessage();
+  }, [chatIdx]);
 
-    lastChild.scrollIntoView({
-      behavior: smooth ? "smooth" : "auto",
-      block: "end",
-    });
+  const {sendMessage} = useChatMessages();
+
+  const submitHandler = (value) => {
+    sendMessage(value).then(() => scrollToLastMessage(true));
+  };
+
+  const messagesRef = useRef();
+
+  const scrollToLastMessage = (smooth = false) => {
+    if (messagesRef.current) {
+      const messages = messagesRef.current.children;
+      const lastChild = messages[messages.length - 1];
+
+      lastChild.scrollIntoView({
+        behavior: smooth ? "smooth" : "auto",
+        block: "end",
+      });
+    }
   };
 
   return (
@@ -49,12 +44,7 @@ const Dialog = () => {
       {
         chat && <>
           <Header chat={chat}/>
-
-          <Messages
-            chat={chat}
-            messagesRef={messagesRef}
-          />
-
+          <Messages chat={chat} messagesRef={messagesRef}/>
           <Form onSubmit={submitHandler}/>
         </>
       }

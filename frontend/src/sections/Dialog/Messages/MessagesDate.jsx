@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 import {styled} from "@mui/material";
 import {formatDate} from "helpers/formatTime";
 
-const DateBox = styled("div")(
+const Root = styled("div")(
   () => ({
     width: "100%",
     display: "flex",
@@ -24,9 +24,9 @@ const Date = styled("div")(
 
 const MessagesDate = ({date}) => {
   return (
-    <DateBox>
+    <Root>
       <Date>{formatDate(date)}</Date>
-    </DateBox>
+    </Root>
   )
 }
 

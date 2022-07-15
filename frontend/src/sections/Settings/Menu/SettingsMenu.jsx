@@ -21,19 +21,14 @@ const SettingsMenu = () => {
   const theme = useTheme();
 
   return (
-    <DrawerContainer sx={{
-      backgroundColor: theme.palette.background.secondary,
-    }}>
-      <Box sx={{
-        backgroundColor: theme.palette.background.primary,
-      }}>
+    <DrawerContainer sx={{backgroundColor: theme.palette.background.secondary}}>
+      <Box sx={{backgroundColor: theme.palette.background.primary}}>
         <SettingsMenuHeader/>
 
         <ProfileAvatar
-          type="private"
-          name={user.name}
           avatar={user.img}
-          activityDate={formatVisitTime(user.visited_at)}
+          title={user.name}
+          subtitle={"last visit at " + formatVisitTime(user.visited_at)}
         />
 
         <Box sx={{padding: "0.5rem 0.75rem"}}>

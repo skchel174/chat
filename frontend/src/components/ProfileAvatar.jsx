@@ -1,7 +1,5 @@
-import {Avatar, Box, styled} from "@mui/material";
+import {Avatar as MuiAvatar, Box, styled} from "@mui/material";
 import requireImage from "helpers/requireImage";
-import {formatVisitTime} from "helpers/formatTime";
-import useChat from "hooks/dialog/useChat";
 import PropTypes from "prop-types";
 
 const Info = styled("div")(
@@ -34,43 +32,35 @@ const Subtitle = styled("span")(
   })
 );
 
-const ProfileAvatar = ({chat}) => {
-  const {avatar, title, companion, activityDate} = useChat(chat);
+const Avatar = styled(MuiAvatar)(
+  () => ({
+    width: "100%",
+    height: "100%",
+    cursor: "pointer",
+    fontSize: "10rem",
+    minHeight: "350px",
+  })
+);
 
-  const date = companion !== null
-    ? formatVisitTime(companion.visited_at)
-    : activityDate;
-
+const ProfileAvatar = ({title, subtitle, avatar = null}) => {
   return (
     <Box sx={{position: "relative"}}>
-      <Avatar
-        sx={{
-          width: "100%",
-          height: "100%",
-          cursor: "pointer",
-          fontSize: "10rem",
-          minHeight: !avatar && "350px",
-        }}
-        src={avatar && requireImage(avatar)}
-        variant="square"
-      >
+      <Avatar src={avatar && requireImage(avatar)} variant="square">
         {title[0]}
       </Avatar>
 
       <Info>
         <Title>{title}</Title>
-        {
-          chat.type === "group"
-            ? <Subtitle>{chat.users.length} members</Subtitle>
-            : <Subtitle>{date}</Subtitle>
-        }
+        <Subtitle>{subtitle}</Subtitle>
       </Info>
     </Box>
   )
 };
 
 ProfileAvatar.propTypes = {
-  chat: PropTypes.object.isRequired,
+  title: PropTypes.string.isRequired,
+  subtitle: PropTypes.string.isRequired,
+  avatar: PropTypes.string,
 };
 
 export default ProfileAvatar;

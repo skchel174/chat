@@ -1,13 +1,13 @@
 import {useEffect} from "react";
-import Drawer from "components/Drawer";
+import Drawer from "components/Common/Drawer";
 import useBreakpoints from "hooks/common/useBreakpoints";
 import {useMainPageLayout} from "pages/MainPage/MainPageContext";
-import DrawerTransition from "components/DrawerTransition";
-import Chats from "sections/Chats";
-import SettingsMenu from "sections/Settings/Menu";
-import ProfileSettings from "sections/Settings/Profile";
-import GeneralSettings from "sections/Settings/General";
-import BackgroundSettings from "sections/Settings/Background";
+import DrawerTransition from "components/Common/DrawerTransition";
+import Chats from "components/Chats";
+import SettingsMenu from "components/Settings/Menu";
+import ProfileSettings from "components/Settings/Profile";
+import GeneralSettings from "components/Settings/General";
+import BackgroundSettings from "components/Settings/Background";
 
 const MainPageLeft = () => {
   const {leftColumn} = useMainPageLayout();

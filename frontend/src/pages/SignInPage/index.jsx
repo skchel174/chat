@@ -1,6 +1,6 @@
 import {Box, Typography, useTheme} from "@mui/material";
-import LoginForm from "sections/Auth/LoginForm";
-import RouterLink from "components/RouterLink";
+import LoginForm from "components/Auth/LoginForm";
+import RouterLink from "components/Common/RouterLink";
 
 const SignInPage = () => {
   const theme = useTheme();

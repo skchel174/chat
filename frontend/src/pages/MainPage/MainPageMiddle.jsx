@@ -3,7 +3,7 @@ import {useEffect, useState} from "react";
 import {useSelector} from "react-redux";
 import useBreakpoints from "hooks/common/useBreakpoints";
 import {useMainPageLayout} from "pages/MainPage/MainPageContext";
-import Dialog from "sections/Dialog";
+import Dialog from "components/Dialog";
 import backgroundImg from "assets/img/background.png"
 
 const MainPageMiddle = () => {

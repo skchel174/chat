@@ -1,6 +1,6 @@
 import {Box, Typography, useTheme} from "@mui/material";
-import RegisterForm from "sections/Auth/RegisterForm";
-import RouterLink from "components/RouterLink";
+import RegisterForm from "components/Auth/RegisterForm";
+import RouterLink from "components/Common/RouterLink";
 
 const SignUpPage = () => {
   const theme = useTheme();

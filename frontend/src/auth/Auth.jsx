@@ -1,4 +1,4 @@
-import AppLoading from "sections/AppLoading";
+import AppLoading from "components/AppLoading";
 import {useEffect} from "react";
 import useAuth from "hooks/auth/useAuth";
 

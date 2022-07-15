@@ -13,7 +13,7 @@ export default function useChatMessages() {
 
   const messagesStatus = useSelector(state => state.chats.messagesStatus);
 
-  const fetchMessages = (id) => dispatch(getMessages({chatId: id}));
+  const fetchMessages = () => dispatch(getMessages());
 
   const sendMessage = async (text) => {
     const message = {
@@ -27,9 +27,9 @@ export default function useChatMessages() {
     return dispatch(addMessage({message}));
   };
 
-  const resolveType = (authorId) => authorId === user.id ? "output" : "input";
+  const resolveType = (message) => message.authorId === user.id ? "output" : "input";
 
-  const resolveAuthor = (authorId) => chat.users.find(chatUser => chatUser.id === authorId);
+  const resolveAuthor = (message) => chat.users.find(chatUser => chatUser.id === message.authorId);
 
   return {
     messagesStatus,

@@ -1,9 +1,11 @@
-import PropTypes from "prop-types";
 import {styled} from "@mui/material";
-import {formatDate} from "helpers/formatTime";
+import PropTypes from "prop-types";
 
 const Root = styled("div")(
   () => ({
+    position: "sticky",
+    top: "0",
+    zIndex: 5000,
     width: "100%",
     display: "flex",
     justifyContent: "center",
@@ -25,7 +27,7 @@ const Date = styled("div")(
 const MessagesDate = ({date}) => {
   return (
     <Root>
-      <Date>{formatDate(date)}</Date>
+      <Date>{date}</Date>
     </Root>
   )
 }

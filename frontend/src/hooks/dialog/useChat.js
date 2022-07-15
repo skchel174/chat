@@ -26,9 +26,12 @@ function useChat(chat = {}) {
   }
 
   useEffect(() => {
-    const message = chat.messages?.length > 0
-      ? chat.messages[chat.messages.length - 1]
+    const group = chat.messages?.length > 0 && chat.messages[chat.messages.length - 1];
+
+    const message = group.messages?.length > 0
+      ? group.messages[group.messages.length - 1]
       : chat?.lastMessage;
+
     setCurrentMessage(message);
   }, [chat?.messages]);
 

@@ -5,7 +5,7 @@ const DarkTheme = {
     primary: "rgb(33, 33, 33)",
     secondary: "rgba(15, 15, 15)",
     success: "rgb(118, 106, 200)",
-    opacity: "rgb(0, 0, 0, .3)",
+    opacity: "rgb(0, 0, 0, .5)",
     blur: "rgb(33, 33, 33, .7)",
     hover: "rgb(33, 33, 33, .7)",
   },

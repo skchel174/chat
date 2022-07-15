@@ -3,8 +3,11 @@ import api from "api";
 
 const getMessages = createAsyncThunk(
   'chats/getMessages',
-  async ({chatId}) => {
-    const messages = await api.chats.getMessages(chatId);
+  async (_, {getState}) => {
+    const state = getState();
+    const chat = state.chats.data[state.chats.chatIdx];
+    const messages = await api.chats.getMessages(chat.id);
+
     return {messages};
   },
 );

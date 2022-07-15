@@ -1,34 +1,31 @@
-import MessagesDate from "./MessagesDate";
 import Message from "../Message";
-import PropTypes from "prop-types";
 import {Box} from "@mui/material";
+import useChatMessages from "hooks/dialog/useChatMessages";
+import useChat from "hooks/dialog/useChat";
+import PropTypes from "prop-types";
 
-const MessagesItem = ({chatType, messageType, author, message, prevMessage = null}) => {
+const MessagesItem = ({message}) => {
+  const {chat} = useChat();
+
+  const {resolveType, resolveAuthor} = useChatMessages();
+
+  const type = resolveType(message);
+  const author = resolveAuthor(message);
+
   return (
-    <>
-      {
-        (!prevMessage || prevMessage.datetime !== message.datetime)
-        && <MessagesDate date={message.datetime}/>
-      }
-
-      <Box className="messages__item">
-        <Message
-          type={messageType}
-          author={author}
-          message={message}
-          extended={chatType === "group"}
-        />
-      </Box>
-    </>
+    <Box className="messages__item">
+      <Message
+        message={message}
+        type={type}
+        author={author}
+        extended={chat.type === "group"}
+      />
+    </Box>
   )
 };
 
 MessagesItem.propTypes = {
-  chatType: PropTypes.oneOf(["group", "private"]).isRequired,
-  messageType: PropTypes.oneOf(["output", "input"]).isRequired,
-  author: PropTypes.object.isRequired,
   message: PropTypes.object.isRequired,
-  prevMessage: PropTypes.object,
 };
 
 export default MessagesItem;

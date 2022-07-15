@@ -6,7 +6,7 @@ import ChatAvatar from "components/ChatAvatar";
 import {styled, Typography, useTheme} from "@mui/material";
 import {useSelector} from "react-redux";
 
-const MessageContainer = styled("div", {
+const Root = styled("div", {
   shouldForwardProp: (prop) => prop !== "type",
 })(({type}) => ({
   position: "relative",
@@ -17,15 +17,15 @@ const MessageContainer = styled("div", {
   justifyContent: type === "input" ? "flex-start" : "flex-end",
 }));
 
-const Message = ({type, author, message, isGroupChat}) => {
+const Message = ({type, author, message, extended}) => {
   const settings = useSelector(state => state.settings.data);
 
   const theme = useTheme();
 
   return (
-    <MessageContainer type={type}>
+    <Root type={type}>
       {
-        (isGroupChat && type === "input") &&
+        (extended && type === "input") &&
         <ChatAvatar
           sx={{marginRight: ".4rem"}}
           img={author.img}
@@ -35,7 +35,7 @@ const Message = ({type, author, message, isGroupChat}) => {
 
       <MessageBox type={type}>
         {
-          (isGroupChat && type === "input") &&
+          (extended && type === "input") &&
           <Typography
             fontSize={`${settings.fontSize}px`}
             fontWeight="600"
@@ -59,7 +59,7 @@ const Message = ({type, author, message, isGroupChat}) => {
 
         <MessageAppendix type={type}/>
       </MessageBox>
-    </MessageContainer>
+    </Root>
   )
 };
 
@@ -67,7 +67,7 @@ Message.propTypes = {
   type: PropTypes.oneOf(["input", "output"]).isRequired,
   author: PropTypes.object.isRequired,
   message: PropTypes.object.isRequired,
-  isGroupChat: PropTypes.bool,
+  extended: PropTypes.bool,
 };
 
 export default Message;

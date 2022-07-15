@@ -1,6 +1,6 @@
 import {Box} from "@mui/material";
-import MessagesItem from "./MessagesItem";
 import MessagesDate from "./MessagesDate";
+import Message from "../Message";
 import PropTypes from "prop-types";
 
 const MessagesGroup = ({group}) => {
@@ -9,10 +9,11 @@ const MessagesGroup = ({group}) => {
       <MessagesDate date={group.date}/>
 
       {
-        group.messages.map(message => <MessagesItem
-          key={message.id}
-          message={message}
-        />)
+        group.messages.map(message => {
+          return <Box className="messages__item" key={message.id}>
+            <Message message={message}/>
+          </Box>
+        })
       }
     </Box>
   )

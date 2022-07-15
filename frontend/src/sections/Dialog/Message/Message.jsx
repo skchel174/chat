@@ -1,10 +1,12 @@
-import PropTypes from "prop-types";
 import MessageBox from "./MessageBox";
 import MessageMeta from "./MessageMeta";
 import MessageAppendix from "./MessageAppendix";
 import ChatAvatar from "components/ChatAvatar";
-import {styled, Typography, useTheme} from "@mui/material";
+import useChat from "hooks/dialog/useChat";
+import useChatMessages from "hooks/dialog/useChatMessages";
 import {useSelector} from "react-redux";
+import {styled, Typography, useTheme} from "@mui/material";
+import PropTypes from "prop-types";
 
 const Root = styled("div", {
   shouldForwardProp: (prop) => prop !== "type",
@@ -17,15 +19,22 @@ const Root = styled("div", {
   justifyContent: type === "input" ? "flex-start" : "flex-end",
 }));
 
-const Message = ({type, author, message, extended}) => {
+const Message = ({message}) => {
   const settings = useSelector(state => state.settings.data);
+
+  const {chat} = useChat();
+
+  const {resolveType, resolveAuthor} = useChatMessages();
+
+  const type = resolveType(message);
+  const author = resolveAuthor(message);
 
   const theme = useTheme();
 
   return (
     <Root type={type}>
       {
-        (extended && type === "input") &&
+        (chat.type === "group" && type === "input") &&
         <ChatAvatar
           sx={{marginRight: ".4rem"}}
           img={author.img}
@@ -35,7 +44,7 @@ const Message = ({type, author, message, extended}) => {
 
       <MessageBox type={type}>
         {
-          (extended && type === "input") &&
+          (chat.type === "group" && type === "input") &&
           <Typography
             fontSize={`${settings.fontSize}px`}
             fontWeight="600"
@@ -64,10 +73,7 @@ const Message = ({type, author, message, extended}) => {
 };
 
 Message.propTypes = {
-  type: PropTypes.oneOf(["input", "output"]).isRequired,
-  author: PropTypes.object.isRequired,
   message: PropTypes.object.isRequired,
-  extended: PropTypes.bool,
 };
 
 export default Message;

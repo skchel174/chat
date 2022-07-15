@@ -1,7 +1,7 @@
-import SubmitButton from "components/Common/SubmitButton";
-import InputField from "components/Common/InputField";
+import SubmitButton from "components/SubmitButton";
+import InputField from "components/InputField";
 import useAuthForm from "hooks/auth/useAuthForm";
-import {useSelector} from "react-redux";
+import useAuth from "hooks/auth/useAuth";
 
 const RegisterForm = () => {
   const {
@@ -11,13 +11,18 @@ const RegisterForm = () => {
     password,
     passwordConfirmation,
     error,
-    submitRegister,
+    handleSubmit,
   } = useAuthForm();
 
-  const registerStatus = useSelector(state => state.user.requestStatus)
+  const {requestStatus, register} = useAuth();
+
+  const onSubmit = (event) => {
+    event.preventDefault();
+    handleSubmit(() => register(email.value, login.value, name.value, password.value));
+  };
 
   return (
-    <>
+    <form onSubmit={onSubmit}>
       <InputField
         sx={{marginBottom: "1.5rem"}}
         label="Email"
@@ -76,10 +81,9 @@ const RegisterForm = () => {
 
       <SubmitButton
         label="Register"
-        loading={registerStatus === "register.pending"}
-        onClick={submitRegister}
+        loading={requestStatus === "register.pending"}
       />
-    </>
+    </form>
   )
 };
 

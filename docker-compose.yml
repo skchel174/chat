@@ -1,12 +1,19 @@
 version: "3"
 
 services:
+  gateway:
+    build:
+      context: gateway/docker/nginx
+    ports:
+      - "8080:8080"
+      - "8081:8081"
+    depends_on:
+      - frontend
+      - ws
 
-  frontend-nginx:
+  frontend:
     build:
       context: frontend/docker/nginx
-    ports:
-      - "8080:80"
     depends_on:
       - frontend-node
 
@@ -25,3 +32,23 @@ services:
       context: frontend/docker/node
     volumes:
       - ./frontend:/app
+
+  ws:
+    build:
+      context: ws/docker/nginx
+    depends_on:
+      - ws-node
+
+  ws-node:
+    build:
+      context: ws/docker/node
+    volumes:
+      - ./ws:/app
+    command: sh -c "until [ -f .is-ready ] ; do sleep 1 ; done && npm run start"
+    tty: true
+
+  ws-cli:
+    build:
+      context: ws/docker/node
+    volumes:
+      - ./ws:/app

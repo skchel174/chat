@@ -1,4 +1,6 @@
-init: down frontend-stop pull build up frontend-init
+init: down services-done pull build up ws-init frontend-init
+
+services-done: ws-done frontend-done
 
 up:
 	docker-compose up -d
@@ -12,6 +14,7 @@ pull:
 build:
 	docker-compose build
 
+# FRONTEND
 frontend-init: frontend-install frontend-ready
 
 frontend-install:
@@ -26,5 +29,20 @@ frontend-build:
 frontend-ready:
 	docker run --rm -v ${PWD}/frontend:/app -w /app alpine touch .is-ready
 
-frontend-stop:
+frontend-done:
 	docker run --rm -v ${PWD}/frontend:/app -w /app alpine sh -c 'rm -rf .is-ready'
+
+# WS
+ws-init: ws-install ws-ready
+
+ws-install:
+	docker-compose run --rm ws-cli npm install
+
+ws-start:
+	docker-compose run --rm ws-cli npm run start
+
+ws-ready:
+	docker run --rm -v ${PWD}/ws:/app -w /app alpine touch .is-ready
+
+ws-done:
+	docker run --rm -v ${PWD}/ws:/app -w /app alpine sh -c 'rm -rf .is-ready'

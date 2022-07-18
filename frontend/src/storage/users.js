@@ -1,0 +1,35 @@
+export default [
+  {
+    token: "CADE4E832627B4F6098F6BCD4621D373",
+    id: 1,
+    email: "johnyd@gmail.com",
+    login: "johnyd",
+    name: "John Doe",
+    bio: "",
+    img: 'john-doe.jpeg',
+    created_at: "2022-06-05 13:00:00",
+    visited_at: "2022-06-11 17:38:56"
+  },
+  {
+    token: "098F6BCD4621D373CADE4E832627B4F6",
+    id: 2,
+    email: "skchel174@gmail.com",
+    login: "homer",
+    name: "Homer Simpson",
+    bio: "",
+    img: "homer-simpson.jpeg",
+    created_at: "2022-06-05 13:00:00",
+    visited_at: "2022-06-11 17:38:56",
+  },
+  {
+    token: "6BCD2627B4F64621D373CADE4E83098F",
+    id: 3,
+    email: "tim@gmail.com",
+    login: "timothy",
+    name: "Timothy Marshall",
+    bio: "",
+    img: "timothy-marshall.jpeg",
+    created_at: "2022-01-01 13:00:00",
+    visited_at: "2022-07-18 17:38:56",
+  },
+];

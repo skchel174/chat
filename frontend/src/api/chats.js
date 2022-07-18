@@ -1,10 +1,22 @@
 import chats from "storage/chats";
 import messages from "storage/messages";
+import users from "storage/users";
 
 export default {
-  getItems() {
+  getItems(userId) {
     return new Promise(resolve => {
-      setTimeout(() => resolve(chats.map(chat => ({...chat, messages: []}))), 1000);
+      setTimeout(() => {
+        const data = chats
+          .filter(chat => chat.users.includes(userId))
+          .map(chat => {
+          return {
+            ...chat,
+            users: chat.users.map(id => users.find(user => user.id === id)),
+          }
+        });
+
+        resolve(data)
+      });
     });
   },
 

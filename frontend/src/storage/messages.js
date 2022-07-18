@@ -79,7 +79,7 @@ export default [
   {
     id: 12,
     chatId: 2,
-    authorId: 1,
+    authorId: 3,
     text: 'Aspernatur culpa fuga hic nam praesentium!',
     datetime: '2022-07-15T14:39',
   },

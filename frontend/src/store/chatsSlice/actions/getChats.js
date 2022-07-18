@@ -3,8 +3,8 @@ import api from "api";
 
 const getChats = createAsyncThunk(
   'chats/getChats',
-  async () => {
-    const chats = await api.chats.getItems();
+  async ({userId}) => {
+    const chats = await api.chats.getItems(userId);
 
     return {
       chats,

@@ -8,9 +8,9 @@ export default function useChatList() {
   const chats = useSelector(state => state.chats.data);
   const chatsStatus = useSelector(state => state.chats.chatsStatus);
 
-  const fetchChats = () => dispatch(getChats());
-
   const {user} = useAuth();
+
+  const fetchChats = () => dispatch(getChats({userId: user.id}));
 
   const filterChats = (value) => chats.filter(chat => {
     let title = chat.type === "private"

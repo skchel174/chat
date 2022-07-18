@@ -10,7 +10,7 @@ import api from "api";
 export default function useAuth() {
   const requestStatus = useSelector(state => state.user.requestStatus);
   const user = useSelector(state => state.user.data);
-  const token = useSelector(state => state.user.data);
+  const token = useSelector(state => state.user.token);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();

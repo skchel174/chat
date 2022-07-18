@@ -10,6 +10,7 @@ const Popover = styled(MuiPopover)(
       backdropFilter: "blur(8px)",
       backgroundColor: theme.palette.background.blur,
       boxShadow: theme.palette.shadow.primary,
+      zIndex: 9000,
     },
   })
 );

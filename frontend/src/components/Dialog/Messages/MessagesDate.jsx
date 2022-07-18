@@ -5,7 +5,7 @@ const Root = styled("div")(
   () => ({
     position: "sticky",
     top: "0",
-    zIndex: 5000,
+    zIndex: 100,
     width: "100%",
     display: "flex",
     justifyContent: "center",

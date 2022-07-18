@@ -1,12 +1,14 @@
 import moment from "moment";
-import {addMessage} from "store/chatsSlice";
 import {useDispatch, useSelector} from "react-redux";
 import useAuth from "hooks/auth/useAuth";
 import useChat from "hooks/dialog/useChat";
+import useSocket from "hooks/common/useSocket";
 import getMessages from "store/chatsSlice/actions/getMessages";
+import {addMessage} from "store/chatsSlice";
 
 export default function useChatMessages() {
   const dispatch = useDispatch();
+  const {socket} = useSocket()
 
   const {chat} = useChat();
   const {user} = useAuth();
@@ -14,6 +16,8 @@ export default function useChatMessages() {
   const messagesStatus = useSelector(state => state.chats.messagesStatus);
 
   const fetchMessages = () => dispatch(getMessages());
+
+  const fetchMessage = (message) => dispatch(addMessage({message}));
 
   const sendMessage = async (text) => {
     const message = {
@@ -24,7 +28,7 @@ export default function useChatMessages() {
       text,
     };
 
-    return dispatch(addMessage({message}));
+    socket.emit("client:message", {message});
   };
 
   const resolveType = (message) => message.authorId === user.id ? "output" : "input";
@@ -34,6 +38,7 @@ export default function useChatMessages() {
   return {
     messagesStatus,
     fetchMessages,
+    fetchMessage,
     sendMessage,
     resolveType,
     resolveAuthor,

@@ -1,7 +1,8 @@
 import {Stack, styled} from "@mui/material";
-import {useEffect, useState} from "react";
+import {useEffect, useRef, useState} from "react";
 import IntersectObserver from "components/Common/IntersectObserver";
 import useChatMessages from "hooks/dialog/useChatMessages";
+import useChat from "hooks/dialog/useChat";
 import MessagesScroll from "./MessagesScroll";
 import MessagesGroup from "./MessagesGroup";
 import PropTypes from "prop-types";
@@ -31,10 +32,25 @@ const List = styled(Stack)(() => ({
   height: "100%",
 }));
 
-const Messages = ({chat, messagesRef}) => {
+const Messages = ({chat}) => {
+  const messagesRef = useRef();
+
   const [position, setPosition] = useState(null);
 
+  const {chatIdx, currentMessage} = useChat(chat);
   const {fetchMessages} = useChatMessages();
+
+  const scrollToCurrentMessage = (block, smooth = false) => {
+    if (messagesRef.current) {
+      const messages = messagesRef.current.children;
+      const lastChild = messages[messages.length - 1];
+
+      lastChild.scrollIntoView({
+        behavior: smooth ? "smooth" : "auto",
+        block: "end",
+      });
+    }
+  };
 
   const intersectHandler = () => {
     const messageEl = messagesRef.current.querySelector(".messages__item");
@@ -44,6 +60,16 @@ const Messages = ({chat, messagesRef}) => {
       fetchMessages();
     }
   };
+
+  useEffect(() => {
+    if (chat?.messages.length === 0) {
+      fetchMessages(chat.id).then(scrollToCurrentMessage);
+    }
+  }, [chatIdx]);
+
+  useEffect(() => {
+    scrollToCurrentMessage("end", true);
+  }, [currentMessage]);
 
   useEffect(() => {
     if (position) {

@@ -11,9 +11,11 @@ const authMiddleware = require("./src/middlewares/authMiddleware");
 SocketServer.use(authMiddleware);
 
 const connectionHandler = require("./src/handlers/connectionHandler");
+const messageHandler = require("./src/handlers/messageHandler");
 
 const onConnection = (socket) => {
   connectionHandler(SocketServer, socket);
+  messageHandler(SocketServer, socket);
 };
 
 SocketServer.on("connection", onConnection);

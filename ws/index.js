@@ -11,10 +11,12 @@ const authMiddleware = require("./src/middlewares/authMiddleware");
 SocketServer.use(authMiddleware);
 
 const connectionHandler = require("./src/handlers/connectionHandler");
+const disconnectingHandler = require("./src/handlers/disconnectingHandler");
 const messageHandler = require("./src/handlers/messageHandler");
 
 const onConnection = (socket) => {
   connectionHandler(socket);
+  disconnectingHandler(socket);
   messageHandler(socket);
 };
 

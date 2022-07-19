@@ -11,7 +11,6 @@ import StorageOutlinedIcon from '@mui/icons-material/StorageOutlined';
 import HttpsOutlinedIcon from '@mui/icons-material/HttpsOutlined';
 import FolderSharedOutlinedIcon from '@mui/icons-material/FolderSharedOutlined';
 import {useMainPageLayout} from "pages/MainPage/MainPageContext";
-import {formatVisitTime} from "helpers/formatTime";
 
 const SettingsMenu = () => {
   const user = useSelector(state => state.user.data);
@@ -25,11 +24,7 @@ const SettingsMenu = () => {
       <Box sx={{backgroundColor: theme.palette.background.primary}}>
         <SettingsMenuHeader/>
 
-        <ProfileAvatar
-          avatar={user.img}
-          title={user.name}
-          subtitle={"last visit at " + formatVisitTime(user.visited_at)}
-        />
+        <ProfileAvatar avatar={user.img} title={user.name}/>
 
         <Box sx={{padding: "0.5rem 0.75rem"}}>
           <ItemButton

@@ -1,8 +1,8 @@
-const messageHandler = (server, socket) => {
-  socket.on("client:message", async (payload) => {
+const messageHandler = (socket) => {
+  socket.on("message", (payload) => {
     console.log("New client message:", payload);
 
-    server.sockets.emit("server:message", {
+    socket.server.sockets.emit("message", {
       message: payload.message,
     });
   });

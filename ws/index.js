@@ -14,8 +14,8 @@ const connectionHandler = require("./src/handlers/connectionHandler");
 const messageHandler = require("./src/handlers/messageHandler");
 
 const onConnection = (socket) => {
-  connectionHandler(SocketServer, socket);
-  messageHandler(SocketServer, socket);
+  connectionHandler(socket);
+  messageHandler(socket);
 };
 
 SocketServer.on("connection", onConnection);

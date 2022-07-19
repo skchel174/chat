@@ -3,7 +3,7 @@ export default [
     token: "CADE4E832627B4F6098F6BCD4621D373",
     id: 1,
     email: "johnyd@gmail.com",
-    login: "johnyd",
+    login: "johny",
     name: "John Doe",
     bio: "",
     img: 'john-doe.jpeg',

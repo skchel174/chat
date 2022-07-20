@@ -2,6 +2,7 @@ import {styled, Typography} from "@mui/material";
 import Chat from "components/Common/Chat";
 import useChat from "hooks/dialog/useChat";
 import ItemButton from "components/Common/ItemButton";
+import {useSelector} from "react-redux";
 import PropTypes from "prop-types";
 
 const Date = styled(Typography)(
@@ -17,7 +18,9 @@ const Date = styled(Typography)(
 const ChatsListItem = ({chat, selected, onLeftClick, onRightClick}) => {
   const handleLeftClick = () => onLeftClick(chat.id);
 
-  const {title, avatar, activityDate, currentMessage} = useChat(chat);
+  const {title, avatar, activityDate, currentMessage, companion} = useChat(chat);
+
+  const online = useSelector(state => state.chats.online);
 
   return (
     <ItemButton
@@ -29,6 +32,7 @@ const ChatsListItem = ({chat, selected, onLeftClick, onRightClick}) => {
         title={title}
         subtitle={currentMessage?.text}
         avatar={avatar}
+        online={companion && online.includes(companion.id)}
       />
 
       <Date>{activityDate}</Date>

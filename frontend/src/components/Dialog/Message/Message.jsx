@@ -1,7 +1,7 @@
 import MessageBox from "./MessageBox";
 import MessageMeta from "./MessageMeta";
 import MessageAppendix from "./MessageAppendix";
-import ChatAvatar from "components/Common/ChatAvatar";
+import Avatar from "components/Common/Avatar";
 import useChat from "hooks/dialog/useChat";
 import useChatMessages from "hooks/dialog/useChatMessages";
 import {useSelector} from "react-redux";
@@ -35,7 +35,7 @@ const Message = ({message}) => {
     <Root type={type}>
       {
         (chat.type === "group" && type === "input") &&
-        <ChatAvatar
+        <Avatar
           sx={{marginRight: ".4rem"}}
           img={author.img}
           name={author.name}

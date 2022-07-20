@@ -1,12 +1,15 @@
 import ThemeProvider from "theme/ThemeProvider";
-import Router from "router";
+import SocketProvider from "ws/SocketProvider";
 import Auth from "auth";
+import Router from "router";
 
 const App = () => {
   return (
     <ThemeProvider>
       <Auth>
-        <Router/>
+        <SocketProvider>
+          <Router/>
+        </SocketProvider>
       </Auth>
     </ThemeProvider>
   );

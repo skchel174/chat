@@ -30,26 +30,26 @@ const userSlice = createSlice({
         state.requestStatus = "login.pending";
       })
       .addCase(login.fulfilled, (state, action) => {
-        state.requestStatus = "login.fulfilled";
         state.data = action.payload.data.user;
         state.token = action.payload.data.token;
+        state.requestStatus = "login.fulfilled";
       })
 
       .addCase(register.pending, (state) => {
         state.requestStatus = "register.pending";
       })
       .addCase(register.fulfilled, (state, action) => {
-        state.requestStatus = "register.fulfilled";
         state.data = action.payload.data.user;
         state.token = action.payload.data.token;
+        state.requestStatus = "register.fulfilled";
       })
 
       .addCase(authorize.pending, (state) => {
         state.requestStatus = "auth.pending";
       })
       .addCase(authorize.fulfilled, (state, action) => {
-        state.requestStatus = "auth.fulfilled";
         state.data = action.payload.user;
+        state.requestStatus = "auth.fulfilled";
       })
   },
 });

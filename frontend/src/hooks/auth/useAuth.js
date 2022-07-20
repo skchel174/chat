@@ -5,15 +5,18 @@ import registerReducer from "store/userSlice/actions/register";
 import {useNavigate} from "react-router-dom";
 import localStorage from "helpers/localStorage";
 import authorize from "store/userSlice/actions/authorize";
+import useSocket from "hooks/common/useSocket";
 import api from "api";
 
+// todo: refactored useAuth hook
 export default function useAuth() {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const {socket} = useSocket();
+
   const requestStatus = useSelector(state => state.user.requestStatus);
   const user = useSelector(state => state.user.data);
-  const token = useSelector(state => state.user.data);
-
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
+  const token = useSelector(state => state.user.token);
 
   const auth = (token) => {
     if (!token) {
@@ -54,6 +57,7 @@ export default function useAuth() {
   const logout = () => {
     dispatch(resetState());
     localStorage.remove("token");
+    socket.disconnect();
     api.user.logout();
   };
 

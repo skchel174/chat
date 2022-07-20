@@ -8,12 +8,28 @@ const chatsSlice = createSlice({
 
   initialState: {
     data: [],
+    online: [],
     chatIdx: null,
     chatsStatus: null,
     messagesStatus: null,
   },
 
   reducers: {
+    setOnline: (state, actions) => {
+      state.online = actions.payload.users;
+    },
+
+    addOnline: (state, action) => {
+      if (!state.online.includes(action.payload.user)) {
+        state.online.push(action.payload.user);
+      }
+    },
+
+    removeOnline: (state, action) => {
+      const idx = state.online.findIndex(item => item === action.payload.user);
+      state.online.splice(idx, 1);
+    },
+
     setChatIdx: (state, action) => {
       state.chatIdx = state.data.findIndex(chat => chat.id === action.payload.id);
     },
@@ -70,6 +86,9 @@ const chatsSlice = createSlice({
 export const {
   setChatIdx,
   addMessage,
+  setOnline,
+  addOnline,
+  removeOnline,
 } = chatsSlice.actions;
 
 export default chatsSlice.reducer;

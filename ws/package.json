@@ -1,0 +1,19 @@
+{
+  "name": "ws-service",
+  "version": "1.0.0",
+  "description": "Websocket service for Chat web application",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon index.js --watch ."
+  },
+  "author": {
+    "name": "Kuzmin Evgeny",
+    "email": "skchel174@gmail.com"
+  },
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.1",
+    "nodemon": "^2.0.19",
+    "socket.io": "^4.5.1"
+  }
+}

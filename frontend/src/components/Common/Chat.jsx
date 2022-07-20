@@ -1,5 +1,5 @@
 import {Stack, styled, Typography} from "@mui/material";
-import ChatAvatar from "./ChatAvatar";
+import Avatar from "./Avatar";
 import PropTypes from "prop-types";
 
 const Root = styled("div")(
@@ -9,7 +9,7 @@ const Root = styled("div")(
   })
 );
 
-const Avatar = styled(ChatAvatar)(
+const StyledAvatar = styled(Avatar)(
   () => ({
     width: "3rem",
     height: "3rem",
@@ -46,12 +46,13 @@ const Subtitle = styled(Typography)(
   })
 );
 
-const Chat = ({title, subtitle = "", avatar = "", onClick = null}) => {
+const Chat = ({title, subtitle = "", avatar = "", online = false, onClick = null}) => {
   return (
     <Root>
-      <Avatar
+      <StyledAvatar
         img={avatar}
         name={title}
+        online={online}
       />
 
       <Info onClick={onClick}>
@@ -68,6 +69,7 @@ Chat.propTypes = {
   title: PropTypes.string.isRequired,
   subtitle: PropTypes.string,
   avatar: PropTypes.string,
+  online: PropTypes.bool,
   onCLick: PropTypes.func,
 };
 

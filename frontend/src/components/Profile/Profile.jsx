@@ -4,15 +4,24 @@ import useChat from "hooks/dialog/useChat";
 import ProfileHeader from "./ProfileHeader";
 import ProfileInfo from "./ProfileInfo";
 import {formatVisitTime} from "helpers/formatTime";
+import {useSelector} from "react-redux";
 
 const Profile = () => {
   const {chat} = useChat();
 
   const {avatar, title, companion} = useChat(chat);
 
-  const subtitle = (chat.type === "group")
-    ? "members " + chat.users.length
-    : "last visit at " + formatVisitTime(companion.visited_at)
+  const online = useSelector(state => state.chats.online);
+
+  let subtitle;
+
+  if (chat.type === "group") {
+    subtitle = "members " + chat.users.length;
+  } else {
+    subtitle = !online.includes(companion?.id)
+      ? "last visit " + formatVisitTime(companion.visited_at)
+      : "online";
+  }
 
   return (
     <DrawerContainer>

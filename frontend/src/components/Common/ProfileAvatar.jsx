@@ -42,7 +42,7 @@ const Avatar = styled(MuiAvatar)(
   })
 );
 
-const ProfileAvatar = ({title, subtitle, avatar = null}) => {
+const ProfileAvatar = ({title, subtitle = null, avatar = null}) => {
   return (
     <Box sx={{position: "relative"}}>
       <Avatar src={avatar && requireImage(avatar)} variant="square">
@@ -51,7 +51,9 @@ const ProfileAvatar = ({title, subtitle, avatar = null}) => {
 
       <Info>
         <Title>{title}</Title>
-        <Subtitle>{subtitle}</Subtitle>
+        {
+          subtitle && <Subtitle>{subtitle}</Subtitle>
+        }
       </Info>
     </Box>
   )
@@ -59,7 +61,7 @@ const ProfileAvatar = ({title, subtitle, avatar = null}) => {
 
 ProfileAvatar.propTypes = {
   title: PropTypes.string.isRequired,
-  subtitle: PropTypes.string.isRequired,
+  subtitle: PropTypes.string,
   avatar: PropTypes.string,
 };
 
